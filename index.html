@@ -31,7 +31,7 @@
         body { font-family: 'Poppins', sans-serif; }
         .hero-pattern {
             background-color: #008B8B;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         .floating-whatsapp {
             position: fixed;
@@ -203,6 +203,53 @@
         .service-card:hover {
             transform: translateY(-5px);
         }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: white;
+            z-index: 100;
+            transition: right 0.3s ease;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+            display: none;
+        }
+
+        .mobile-menu-overlay.active {
+            display: block;
+        }
+
+        /* Hamburger menu icon */
+        .hamburger {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            cursor: pointer;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -234,8 +281,13 @@
                         <a href="#inicio" class="text-gray-600 hover:text-brand font-medium">Início</a>
                         <a href="#servicos" class="text-gray-600 hover:text-brand font-medium">Serviços</a>
                         <a href="#sobre" class="text-gray-600 hover:text-brand font-medium">Sobre</a>
+                        <a href="#unidades" class="text-gray-600 hover:text-brand font-medium">Nossas Unidades</a>
                         <a href="#contato" class="text-gray-600 hover:text-brand font-medium">Contato</a>
                     </nav>
+                    <!-- Hamburger Menu -->
+                    <div class="hamburger md:hidden" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-2xl text-gray-600"></i>
+                    </div>
                     <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20conserto%20do%20meu%20celular." class="bg-green-500 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-green-600 flex items-center space-x-2 pulse">
                         <i class="fab fa-whatsapp text-lg"></i>
                         <span>Fale Conosco</span>
@@ -244,6 +296,26 @@
             </div>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu">
+        <div class="p-4 border-b">
+            <div class="flex justify-between items-center">
+                <span class="text-xl font-bold text-brand">Menu</span>
+                <button onclick="toggleMobileMenu()" class="text-gray-500">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <nav class="p-4">
+            <a href="#inicio" class="block py-3 text-gray-600 hover:text-brand font-medium border-b" onclick="toggleMobileMenu()">Início</a>
+            <a href="#servicos" class="block py-3 text-gray-600 hover:text-brand font-medium border-b" onclick="toggleMobileMenu()">Serviços</a>
+            <a href="#sobre" class="block py-3 text-gray-600 hover:text-brand font-medium border-b" onclick="toggleMobileMenu()">Sobre</a>
+            <a href="#unidades" class="block py-3 text-gray-600 hover:text-brand font-medium border-b" onclick="toggleMobileMenu()">Nossas Unidades</a>
+            <a href="#contato" class="block py-3 text-gray-600 hover:text-brand font-medium" onclick="toggleMobileMenu()">Contato</a>
+        </nav>
+    </div>
 
     <!-- Hero Section -->
     <section id="inicio" class="hero-pattern text-white py-20">
@@ -520,18 +592,13 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">Matriz</h3>
-                            <p class="text-gray-600 mb-4">Rua João Born, 615, Sala 02, Centro - Palhoça/SC</p>
+                            <h3 class="text-xl font-semibold mb-2"></h3>
+                            <p class="text-gray-600 mb-4">R. Cel. Bernardino Machado, 51 Centro - Palhoça/SC</p>
                             <div class="flex items-center space-x-4 text-sm">
-                                <a href="https://goo.gl/maps/YourMatrizLink" target="_blank" class="text-brand hover:text-brand-dark flex items-center">
+                                <a href="https://maps.app.goo.gl/nmNds9qqT9TdaAJh6" target="_blank" class="text-brand hover:text-brand-dark flex items-center">
                                     <i class="fas fa-directions mr-2"></i>
                                     Como chegar
                                 </a>
-                                <span class="text-gray-400">|</span>
-                                <span class="text-gray-600 flex items-center">
-                                    <i class="far fa-clock mr-2"></i>
-                                    Seg-Sex: 9h às 18h
-                                </span>
                             </div>
                         </div>
                     </div>
@@ -544,18 +611,13 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold mb-2">Filial</h3>
-                            <p class="text-gray-600 mb-4">Rua João Born, 615, Sala 02, Centro - Palhoça/SC</p>
+                            <h3 class="text-xl font-semibold mb-2"></h3>
+                            <p class="text-gray-600 mb-4">Av. Aniceto Zacchi, 896 - Sala 2, Pte. do Imaruim - Palhoça/SC</p>
                             <div class="flex items-center space-x-4 text-sm">
-                                <a href="https://goo.gl/maps/YourFilialLink" target="_blank" class="text-brand hover:text-brand-dark flex items-center">
+                                <a href="https://maps.app.goo.gl/JoFiq6dpT2cRXJYi6" target="_blank" class="text-brand hover:text-brand-dark flex items-center">
                                     <i class="fas fa-directions mr-2"></i>
                                     Como chegar
                                 </a>
-                                <span class="text-gray-400">|</span>
-                                <span class="text-gray-600 flex items-center">
-                                    <i class="far fa-clock mr-2"></i>
-                                    Seg-Sex: 9h às 18h
-                                </span>
                             </div>
                         </div>
                     </div>
@@ -612,6 +674,13 @@
             duration: 1000,
             once: true
         });
+
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+            document.querySelector('.mobile-menu-overlay').classList.toggle('active');
+            document.body.style.overflow = document.querySelector('.mobile-menu').classList.contains('active') ? 'hidden' : '';
+        }
 
         // Remove chat widget functions
         // Keep counter animation code
