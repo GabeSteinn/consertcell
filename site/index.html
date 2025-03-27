@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consert Cell - Assistência Técnica Especializada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand': '#008B8B',
+                        'brand-dark': '#006666',
+                        'brand-light': '#00AFAF',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Image Comparison Slider -->
+    <script defer src="https://unpkg.com/img-comparison-slider@7/dist/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@7/dist/styles.css" />
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .hero-pattern {
+            background-color: #008B8B;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        /* Estilo personalizado para o slider */
+        img-comparison-slider {
+            --divider-width: 2px;
+            --divider-color: #fff;
+            --handle-color: #fff;
+            --handle-size: 40px;
+            max-height: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .slider-container {
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        header {
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        header a {
+            position: relative;
+        }
+        header nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #008B8B;
+            transition: width 0.3s ease;
+        }
+        header nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Efeito de pulsar */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Chat Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 350px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+            display: none;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: #008B8B;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-messages {
+            height: 300px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+
+        .chat-input button {
+            background: #008B8B;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+
+        .received {
+            background: #f1f1f1;
+            margin-right: auto;
+        }
+
+        .sent {
+            background: #008B8B;
+            color: white;
+            margin-left: auto;
+        }
+
+        /* Shine effect */
+        .shine-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.3) 50%,
+                rgba(255,255,255,0) 100%
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        /* Card hover effect */
+        .service-card {
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Barra Superior -->
+    <div class="bg-brand text-white text-sm py-2">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <span><i class="fas fa-phone-alt"></i> (48) 2132-7188</span>
+                <span><i class="far fa-clock"></i> Seg-Sex: 9h às 18h | Sáb: 9h às 12h</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://www.instagram.com/cell.consert" class="hover:text-brand-light"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20conserto%20do%20meu%20celular." class="hover:text-brand-light"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div>
+                    <a href="#" class="text-3xl font-extrabold text-brand">
+                        <span class="text-brand-dark">Consert</span>Cell
+                    </a>
+                </div>
+                <div class="flex items-center space-x-8">
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#inicio" class="text-gray-600 hover:text-brand font-medium">Início</a>
+                        <a href="#servicos" class="text-gray-600 hover:text-brand font-medium">Serviços</a>
+                        <a href="#sobre" class="text-gray-600 hover:text-brand font-medium">Sobre</a>
+                        <a href="#contato" class="text-gray-600 hover:text-brand font-medium">Contato</a>
+                    </nav>
+                    <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20conserto%20do%20meu%20celular." class="bg-green-500 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-green-600 flex items-center space-x-2 pulse">
+                        <i class="fab fa-whatsapp text-lg"></i>
+                        <span>Fale Conosco</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-pattern text-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Seu Celular Novo em Folha Outra Vez!</h1>
+                    <p class="text-xl mb-8">Reparo profissional com as melhores peças do mercado e garantia de satisfação. Seu smartphone merece o melhor cuidado!</p>
+                    
+                    <div class="bg-yellow-400 text-black p-4 rounded-lg inline-block mb-8 shine-button">
+                        <span class="font-bold">🎁 PROMOÇÃO LIMITADA:</span> Na troca da tela, ganhe uma película de proteção!
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <a href="#servicos" class="bg-white text-brand px-8 py-3 rounded-full font-medium hover:bg-gray-100 shine-button">
+                            Nossos Serviços
+                        </a>
+                        <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20conserto%20do%20meu%20celular." class="bg-green-500 text-white px-8 py-3 rounded-full font-medium hover:bg-green-600 shine-button">
+                            <i class="fab fa-whatsapp"></i> Orçamento Grátis
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block" data-aos="fade-left">
+                    <div class="slider-container">
+                        <img-comparison-slider hover>
+                            <img slot="first" src="img/celular-consertado.png" alt="Celular Consertado">
+                            <img slot="second" src="img/celular-quebrado.png" alt="Celular Quebrado">
+                            <div slot="handle">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 7L9 12L14 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10 7L5 12L10 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </img-comparison-slider>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diferenciais -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-brand" data-aos="fade-up">Por que escolher a <span class="text-brand-dark">Consert</span>Cell?</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl text-brand mb-4"><i class="fas fa-tools"></i></div>
+                    <h3 class="font-semibold mb-2">Técnico Especialista</h3>
+                    <p class="text-sm text-gray-600">Experiência e dedicação</p>
+                    <div class="mt-4">
+                        <span>Atendimento Personalizado</span>
+                    </div>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl text-brand mb-4"><i class="fas fa-clock"></i></div>
+                    <h3 class="font-semibold mb-2">Prazo Honesto</h3>
+                    <p class="text-sm text-gray-600">Transparência no serviço</p>
+                    <div class="mt-4">
+                        <span class="counter" data-target="1000">0</span>
+                        <span>+ reparos</span>
+                    </div>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl text-brand mb-4"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="font-semibold mb-2">Garantia de Serviço</h3>
+                    <p class="text-sm text-gray-600">Segurança e confiabilidade</p>
+                    <div class="mt-4">
+                        <span class="counter" data-target="100">0</span>
+                        <span>% satisfação</span>
+                    </div>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-4xl text-brand mb-4"><i class="fas fa-star"></i></div>
+                    <h3 class="font-semibold mb-2">Peças Premium</h3>
+                    <p class="text-sm text-gray-600">Alta qualidade</p>
+                    <div class="mt-4">
+                        <span class="counter" data-target="5000">0</span>
+                        <span>+ clientes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-brand" data-aos="fade-up">Nossos Serviços</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-sm p-6 relative service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -top-3 right-3 bg-yellow-400 text-black text-xs py-1 px-3 rounded-full font-bold shine-button">
+                        + Película Grátis
+                    </div>
+                    <div class="text-4xl text-brand mb-4"><i class="fas fa-mobile-alt"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Troca de Tela</h3>
+                    <ul class="text-gray-600 space-y-2 mb-6">
+                        <li><i class="fas fa-check text-green-500"></i> Melhores telas do mercado</li>
+                        <li><i class="fas fa-check text-green-500"></i> Garantia no serviço</li>
+                        <li><i class="fas fa-check text-green-500"></i> Película grátis</li>
+                    </ul>
+                    <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20troca%20de%20tela." class="bg-brand text-white w-full py-2 rounded-lg font-medium hover:bg-brand-dark flex justify-center items-center space-x-2 shine-button">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Solicitar Orçamento</span>
+                    </a>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl text-brand mb-4"><i class="fas fa-battery-full"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Troca de Bateria</h3>
+                    <ul class="text-gray-600 space-y-2 mb-6">
+                        <li><i class="fas fa-check text-green-500"></i> Baterias de alta performance</li>
+                        <li><i class="fas fa-check text-green-500"></i> Maior durabilidade</li>
+                        <li><i class="fas fa-check text-green-500"></i> Garantia estendida</li>
+                    </ul>
+                    <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20troca%20de%20bateria." class="bg-brand text-white w-full py-2 rounded-lg font-medium hover:bg-brand-dark flex justify-center items-center space-x-2 shine-button">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Solicitar Orçamento</span>
+                    </a>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-sm p-6 service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl text-brand mb-4"><i class="fas fa-tools"></i></div>
+                    <h3 class="text-xl font-bold mb-4">Outros Serviços</h3>
+                    <ul class="text-gray-600 space-y-2 mb-6">
+                        <li><i class="fas fa-check text-green-500"></i> Reparo de placa</li>
+                        <li><i class="fas fa-check text-green-500"></i> Problemas de software</li>
+                        <li><i class="fas fa-check text-green-500"></i> Diversos outros reparos</li>
+                    </ul>
+                    <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20de%20reparo." class="bg-brand text-white w-full py-2 rounded-lg font-medium hover:bg-brand-dark flex justify-center items-center space-x-2 shine-button">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Solicitar Orçamento</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-brand mb-4" data-aos="fade-up">Sobre a ConsertCell</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Referência em assistência técnica de smartphones há mais de 5 anos, 
+                    combinando tecnologia de ponta e profissionais certificados para oferecer o melhor serviço.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="bg-gray-50 p-8 rounded-xl border-b-4 border-brand" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl text-brand mb-6"><i class="fas fa-medal"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">Qualidade Garantida</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Peças de alta qualidade
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            90 dias de garantia
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Técnico especialista
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl border-b-4 border-brand" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl text-brand mb-6"><i class="fas fa-clock"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">Compromisso</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Prazo combinado
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Orçamento detalhado
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Atendimento dedicado
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl border-b-4 border-brand" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl text-brand mb-6"><i class="fas fa-heart"></i></div>
+                    <h3 class="text-2xl font-bold mb-4">Satisfação Total</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Atendimento personalizado
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            +5000 clientes atendidos
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            +10000 reparos realizados
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative max-w-sm mx-auto" data-aos="fade-right">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <img src="img/fachada.jpg" alt="Fachada da ConsertCell" class="rounded-xl shadow-xl w-full h-auto object-contain">
+                    </div>
+                    <div class="absolute -bottom-6 right-6 bg-brand text-white p-4 rounded-lg shadow-lg">
+                        <div class="text-2xl font-bold">5+</div>
+                        <div class="text-xs">Anos de Experiência</div>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-6">Nossa Loja</h3>
+                    <p class="text-gray-600 mb-8">
+                        Localizada em um ponto estratégico, nossa loja oferece um ambiente acolhedor 
+                        e atendimento personalizado. Venha nos conhecer e descubra por que somos referência 
+                        em reparos de smartphones na região.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="font-bold text-brand mb-1">Localização</div>
+                            <div class="text-sm text-gray-600">Centro da cidade</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="font-bold text-brand mb-1">Ambiente</div>
+                            <div class="text-sm text-gray-600">Climatizado</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="font-bold text-brand mb-1">Horário</div>
+                            <div class="text-sm text-gray-600">Seg-Sex: 9h às 18h</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="font-bold text-brand mb-1">Atendimento</div>
+                            <div class="text-sm text-gray-600">Presencial e WhatsApp</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-brand text-white">
+        <div class="container mx-auto px-4 text-center" data-aos="zoom-in">
+            <h2 class="text-3xl font-bold mb-6">Precisando de reparo?</h2>
+            <p class="text-xl mb-8">Entre em contato agora e ganhe 10% de desconto!</p>
+            <div class="bg-yellow-400 text-black p-4 rounded-lg inline-block mb-8 shine-button">
+                <span class="font-bold">🎁 LEMBRE-SE:</span> Na troca da tela, você ganha uma película de proteção!
+            </div>
+            <div>
+                <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20conserto%20do%20meu%20celular." class="bg-white text-brand px-8 py-3 rounded-full font-medium hover:bg-gray-100 inline-block shine-button">
+                    <i class="fab fa-whatsapp"></i> Falar com Especialista
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato" class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Consert Cell</h3>
+                    <p class="text-gray-400">Sua assistência técnica de confiança em reparos de smartphones.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Contato</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><i class="fas fa-phone"></i> (48) 2132-7188</li>
+                        <li><i class="fas fa-map-marker-alt"></i> R. Cel. Bernardino Machado, 51 - Centro, Palhoça</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Horário</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>Segunda a Sexta: 9h às 18h</li>
+                        <li>Sábado: 9h às 13h</li>
+                        <li>Domingo: Fechado</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Redes Sociais</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/cell.consert" class="hover:text-brand-light"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20conserto%20do%20meu%20celular." class="hover:text-brand-light"><i class="fab fa-whatsapp fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2020 Consert Cell. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20conserto%20do%20meu%20celular." class="floating-whatsapp bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 pulse">
+        <i class="fab fa-whatsapp fa-2x"></i>
+    </a>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Remove chat widget functions
+        // Keep counter animation code
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Intersection Observer for counters
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    animateValue(counter, 0, target, 2000);
+                    observer.unobserve(counter);
+                }
+            });
+        });
+
+        // Observe all counter elements
+        document.querySelectorAll('.counter').forEach(counter => {
+            observer.observe(counter);
+        });
+    </script>
+</body>
+</html>
