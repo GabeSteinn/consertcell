@@ -1,1 +1,526 @@
 
+<!DOCTYPE html>
+<html lang="pt-br" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Modelos Compatíveis - Consert Cell</title>
+    <link rel="icon" type="image/x-icon" href="img/icone.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand': '#008B8B',
+                        'brand-dark': '#006666',
+                        'brand-light': '#00AFAF',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .hero-pattern {
+            background-color: #008B8B;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .brand-section {
+            scroll-margin-top: 100px;
+        }
+        .brand-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            background: linear-gradient(45deg, #008B8B, #00AFAF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @media (max-width: 640px) {
+            .brand-filter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animações */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        .dark .skeleton {
+            background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+            background-size: 200% 100%;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Transições */
+        .view-transition {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm fixed w-full top-0 z-50 transition-colors duration-200">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <h1 class="brand-title text-2xl tracking-wider">CONSERT CELL</h1>
+            </a>
+            <div class="flex items-center space-x-4">
+                <!-- Toggle View -->
+                <button id="viewToggle" class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-table"></i>
+                </button>
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeToggle" class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
+                <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-brand dark:hover:text-brand-light transition-colors">
+                    <span class="hidden sm:inline">Voltar ao Site</span>
+                    <i class="fas fa-home sm:hidden"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24 pb-12">
+        <!-- Seção de Login -->
+        <div id="loginSection" class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-8 transition-colors duration-200">
+            <h2 class="text-2xl font-semibold text-brand dark:text-brand-light mb-6">Login</h2>
+            <div class="space-y-4">
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha:</label>
+                    <input type="password" id="password" class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand dark:focus:ring-brand-light focus:border-transparent dark:text-white transition-colors">
+                </div>
+                <button onclick="login()" class="w-full bg-brand hover:bg-brand-dark text-white font-medium py-2 px-4 rounded-md transition-colors">
+                    Entrar
+                </button>
+                <p id="loginError" class="text-red-500 text-sm"></p>
+            </div>
+        </div>
+
+        <!-- Conteúdo principal (exibido após login) -->
+        <div id="content" class="hidden fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 transition-colors duration-200">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <h1 class="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-white">Tabela de Modelos Compatíveis</h1>
+                    <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors text-sm sm:text-base">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Sair
+                    </button>
+                </div>
+
+                <!-- Barra de Pesquisa -->
+                <div class="mb-6">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Digite para pesquisar em todas as marcas..." 
+                               class="w-full px-4 py-3 pl-10 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand dark:focus:ring-brand-light focus:border-transparent dark:text-white transition-colors">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
+                    </div>
+                </div>
+
+                <!-- Filtros de Marca -->
+                <div class="mb-8">
+                    <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Filtrar por Marca:</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2" id="brandFilters">
+                        <button class="brand-filter active px-3 py-2 rounded-md text-sm font-medium bg-brand text-white hover:bg-brand-dark transition-colors" data-brand="all">
+                            Todas
+                        </button>
+                        <!-- Outros filtros serão adicionados dinamicamente -->
+                    </div>
+                </div>
+
+                <!-- Container para todas as marcas -->
+                <div id="allBrandsContainer" class="space-y-6 sm:space-y-8">
+                    <!-- Skeleton Loading -->
+                    <div id="skeletonLoading" class="space-y-6">
+                        <div class="animate-pulse space-y-4">
+                            <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
+                            <div class="space-y-3">
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Seções serão inseridas dinamicamente -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const correctPassword = "123";
+        let allData = {};
+        let isCardView = false;
+
+        // Dark Mode
+        function initDarkMode() {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            document.documentElement.classList.toggle('dark', darkMode);
+            
+            document.getElementById('darkModeToggle').addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            });
+        }
+
+        // View Toggle
+        function initViewToggle() {
+            const viewToggle = document.getElementById('viewToggle');
+            isCardView = localStorage.getItem('isCardView') === 'true';
+            updateViewToggleIcon();
+
+            viewToggle.addEventListener('click', () => {
+                isCardView = !isCardView;
+                localStorage.setItem('isCardView', isCardView);
+                updateViewToggleIcon();
+                refreshView();
+            });
+        }
+
+        function updateViewToggleIcon() {
+            const icon = document.getElementById('viewToggle').querySelector('i');
+            icon.className = isCardView ? 'fas fa-table' : 'fas fa-th-large';
+        }
+
+        function refreshView() {
+            const brands = Object.keys(allData);
+            const container = document.getElementById('allBrandsContainer');
+            container.innerHTML = '';
+            
+            brands.forEach(brand => {
+                createBrandSection(brand.charAt(0).toUpperCase() + brand.slice(1), allData[brand]);
+            });
+        }
+
+        function login() {
+            const passwordInput = document.getElementById("password").value;
+            if (passwordInput === correctPassword) {
+                document.getElementById("loginSection").style.display = "none";
+                document.getElementById("content").style.display = "block";
+                loadAllBrandsData();
+            } else {
+                document.getElementById("loginError").innerText = "Senha incorreta!";
+            }
+        }
+
+        function logout() {
+            document.getElementById("content").style.display = "none";
+            document.getElementById("loginSection").style.display = "block";
+            document.getElementById("password").value = "";
+            document.getElementById("loginError").innerText = "";
+            document.getElementById("allBrandsContainer").innerHTML = "";
+            document.getElementById("searchInput").value = "";
+            allData = {};
+        }
+
+        async function loadAllBrandsData() {
+            const brands = [
+                { file: 'samsung.xlsx', name: 'Samsung' },
+                { file: 'apple.xlsx', name: 'Apple' },
+                { file: 'asus.xlsx', name: 'Asus' },
+                { file: 'infinix.xlsx', name: 'Infinix' },
+                { file: 'lg.xlsx', name: 'LG' },
+                { file: 'motorola.xlsx', name: 'Motorola' },
+                { file: 'oppo.xlsx', name: 'Oppo' },
+                { file: 'xiaomi.xlsx', name: 'Xiaomi' }
+            ];
+
+            // Mostrar skeleton loading
+            document.getElementById('skeletonLoading').style.display = 'block';
+
+            const container = document.getElementById('allBrandsContainer');
+            const filterContainer = document.getElementById('brandFilters');
+            container.innerHTML = '';
+
+            // Adiciona filtros de marca com animação
+            brands.forEach((brand, index) => {
+                const filterBtn = document.createElement('button');
+                filterBtn.className = 'brand-filter px-3 py-2 rounded-md text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-brand hover:text-white transition-colors slide-in';
+                filterBtn.style.animationDelay = `${index * 50}ms`;
+                filterBtn.setAttribute('data-brand', brand.name.toLowerCase());
+                filterBtn.textContent = brand.name;
+                filterBtn.onclick = () => {
+                    document.querySelectorAll('.brand-filter').forEach(btn => 
+                        btn.classList.remove('active', 'bg-brand', 'text-white'));
+                    filterBtn.classList.add('active', 'bg-brand', 'text-white');
+                    updateVisibility(document.getElementById('searchInput').value.toLowerCase(), brand.name.toLowerCase());
+                };
+                filterContainer.appendChild(filterBtn);
+            });
+
+            // Carrega dados com delay para mostrar skeleton
+            setTimeout(async () => {
+                for (const brand of brands) {
+                    try {
+                        const response = await fetch(brand.file);
+                        const data = await response.arrayBuffer();
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const firstSheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[firstSheetName];
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                        allData[brand.name.toLowerCase()] = jsonData;
+                        createBrandSection(brand.name, jsonData);
+                    } catch (error) {
+                        console.error(`Erro ao carregar dados da ${brand.name}:`, error);
+                    }
+                }
+
+                // Esconde skeleton loading
+                document.getElementById('skeletonLoading').style.display = 'none';
+                setupSearch();
+            }, 1000);
+        }
+
+        function createBrandSection(brandName, data) {
+            const container = document.getElementById('allBrandsContainer');
+            const section = document.createElement('section');
+            section.id = brandName.toLowerCase();
+            section.className = 'brand-section bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 sm:p-6 slide-in transition-colors duration-200';
+
+            const header = document.createElement('h2');
+            header.className = 'text-lg sm:text-xl font-semibold text-brand dark:text-brand-light mb-4 flex items-center';
+            header.innerHTML = `<i class="fas fa-mobile-alt mr-2"></i>${brandName}`;
+
+            section.appendChild(header);
+
+            if (isCardView) {
+                // View em Cards
+                const cardGrid = document.createElement('div');
+                cardGrid.className = 'card-grid';
+
+                data.forEach(row => {
+                    if (row.length === 0) return;
+                    const card = document.createElement('div');
+                    card.className = 'card bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-sm hover:shadow-md transition-all';
+
+                    const model = document.createElement('h3');
+                    model.className = 'font-medium text-gray-900 dark:text-white mb-2';
+                    model.textContent = row[0] ? row[0] : "";
+
+                    const compat = document.createElement('p');
+                    compat.className = 'text-sm text-gray-600 dark:text-gray-300';
+                    compat.textContent = row[1] ? row[1] : "";
+
+                    card.appendChild(model);
+                    card.appendChild(compat);
+                    cardGrid.appendChild(card);
+                });
+
+                section.appendChild(cardGrid);
+            } else {
+                // View em Tabela
+                const tableContainer = document.createElement('div');
+                tableContainer.className = 'overflow-x-auto';
+
+                const table = document.createElement('table');
+                table.className = 'min-w-full divide-y divide-gray-200 dark:divide-gray-700';
+
+                const thead = document.createElement('thead');
+                thead.className = 'bg-gray-50 dark:bg-gray-700';
+                thead.innerHTML = `
+                    <tr>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Modelo</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Modelos Compatíveis</th>
+                    </tr>
+                `;
+
+                const tbody = document.createElement('tbody');
+                tbody.className = 'bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700';
+
+                data.forEach(row => {
+                    if (row.length === 0) return;
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors';
+
+                    const tdModel = document.createElement('td');
+                    tdModel.className = 'px-4 sm:px-6 py-3 text-sm text-gray-900 dark:text-white font-medium';
+                    tdModel.textContent = row[0] ? row[0] : "";
+
+                    const tdCompat = document.createElement('td');
+                    tdCompat.className = 'px-4 sm:px-6 py-3 text-sm text-gray-900 dark:text-white';
+                    tdCompat.textContent = row[1] ? row[1] : "";
+
+                    tr.appendChild(tdModel);
+                    tr.appendChild(tdCompat);
+                    tbody.appendChild(tr);
+                });
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+                tableContainer.appendChild(table);
+                section.appendChild(tableContainer);
+            }
+
+            container.appendChild(section);
+        }
+
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+
+            // Limpa o valor da busca ao iniciar
+            searchInput.value = '';
+
+            // Função para realizar a busca
+            const performSearch = () => {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const activeFilter = document.querySelector('.brand-filter.active');
+                const selectedBrand = activeFilter ? activeFilter.getAttribute('data-brand') : 'all';
+                updateVisibility(searchTerm, selectedBrand);
+            };
+
+            // Evento de input para busca em tempo real
+            searchInput.addEventListener('input', () => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(performSearch, 200);
+            });
+
+            // Evento de tecla pressionada (Enter)
+            searchInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    clearTimeout(searchTimeout);
+                    performSearch();
+                }
+            });
+
+            // Força uma busca inicial
+            performSearch();
+        }
+
+        function updateVisibility(searchTerm, selectedBrand) {
+            const sections = document.querySelectorAll('.brand-section');
+            let hasAnyResults = false;
+
+            sections.forEach(section => {
+                const brandId = section.id.toLowerCase();
+                const shouldShowBrand = selectedBrand === 'all' || brandId === selectedBrand.toLowerCase();
+                
+                if (!shouldShowBrand) {
+                    section.style.display = 'none';
+                    return;
+                }
+
+                const elements = isCardView ? 
+                    section.querySelectorAll('.card') : 
+                    section.querySelectorAll('tbody tr');
+                
+                let hasVisibleElements = false;
+
+                elements.forEach(element => {
+                    if (!element) return;
+
+                    const modelElement = isCardView ? 
+                        element.querySelector('h3') : 
+                        element.querySelector('td:first-child');
+                    const compatElement = isCardView ? 
+                        element.querySelector('p') : 
+                        element.querySelector('td:last-child');
+
+                    if (!modelElement || !compatElement) return;
+
+                    const modelText = modelElement.textContent.toLowerCase();
+                    const compatText = compatElement.textContent.toLowerCase();
+
+                    // Melhorada a lógica de busca para ser mais precisa
+                    const isVisible = searchTerm === '' || 
+                        modelText.includes(searchTerm) || 
+                        compatText.includes(searchTerm);
+
+                    // Atualiza a visibilidade com uma classe em vez de style direto
+                    element.classList.toggle('hidden', !isVisible);
+                    if (isVisible) {
+                        hasVisibleElements = true;
+                        hasAnyResults = true;
+                    }
+                });
+
+                section.classList.toggle('hidden', !hasVisibleElements && searchTerm !== '');
+            });
+
+            // Atualiza mensagem de "Nenhum resultado encontrado"
+            const existingMsg = document.getElementById('noResultsMessage');
+            if (existingMsg) {
+                existingMsg.remove();
+            }
+
+            if (!hasAnyResults && searchTerm !== '') {
+                const msg = document.createElement('div');
+                msg.id = 'noResultsMessage';
+                msg.className = 'text-center py-8 text-gray-500 dark:text-gray-400 fade-in';
+                msg.innerHTML = `
+                    <i class="fas fa-search mb-2 text-2xl"></i>
+                    <p>Nenhum resultado encontrado para "${searchTerm}"</p>
+                `;
+                document.getElementById('allBrandsContainer').appendChild(msg);
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            initDarkMode();
+            initViewToggle();
+            
+            // Configura a busca mesmo antes do login
+            setupSearch();
+        });
+
+        // Adiciona funcionalidade de login ao pressionar Enter
+        document.getElementById("password").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>
