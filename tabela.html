@@ -26,7 +26,7 @@
         body { font-family: 'Poppins', sans-serif; }
         .hero-pattern {
             background-color: #008B8B;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         .brand-card {
             transition: all 0.3s ease;
@@ -36,12 +36,6 @@
             transform: translateY(-5px);
             border-color: #008B8B;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .brand-card img {
-            transition: all 0.3s ease;
-        }
-        .brand-card:hover img {
-            transform: scale(1.1);
         }
         .brand-card h3 {
             transition: all 0.3s ease;
@@ -63,6 +57,17 @@
         }
         .model-card:hover h3 {
             color: #008B8B;
+        }
+        .models-section {
+            margin-bottom: 2rem;
+        }
+        .compatibility-container {
+            display: none;
+            margin-top: 0.5rem;
+        }
+        .model-card.active {
+            border-color: #008B8B;
+            background-color: #f0ffff;
         }
     </style>
 </head>
@@ -86,66 +91,104 @@
     <!-- Main Content Section -->
     <div id="mainContent" class="min-h-screen hidden">
         <div class="container mx-auto px-4 py-8">
-            <div class="max-w-4xl mx-auto">
+            <div class="max-w-6xl mx-auto">
                 <h1 class="text-3xl font-bold text-brand mb-8 text-center">Tabela de Compatibilidade</h1>
                 
                 <!-- Marcas -->
-                <div class="grid grid-cols-2 gap-6 mb-8">
-                    <div class="brand-card bg-white rounded-lg shadow-md p-6 text-center cursor-pointer" onclick="selectBrand('samsung')" data-brand="samsung">
-                        <div class="flex justify-center mb-2">
-                            <img src="https://logodownload.org/wp-content/uploads/2014/01/samsung-logo-0.png" alt="Samsung Logo" class="h-8 object-contain">
-                        </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8">
+                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('samsung')" data-brand="samsung">
                         <h3 class="text-lg font-semibold text-gray-800">Samsung</h3>
                     </div>
-                    <div class="brand-card bg-white rounded-lg shadow-md p-6 text-center cursor-pointer" onclick="selectBrand('motorola')" data-brand="motorola">
-                        <div class="flex justify-center mb-2">
-                            <img src="https://logodownload.org/wp-content/uploads/2014/10/Motorola-logo-4.png" alt="Motorola Logo" class="h-8 object-contain">
-                        </div>
+                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('motorola')" data-brand="motorola">
                         <h3 class="text-lg font-semibold text-gray-800">Motorola</h3>
                     </div>
-                </div>
-                
-                <!-- Brands Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8" style="display: none;">
-                    <!-- Rest of the existing code -->
+                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('xiaomi')" data-brand="xiaomi">
+                        <h3 class="text-lg font-semibold text-gray-800">Xiaomi</h3>
+                    </div>
+                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('apple')" data-brand="apple">
+                        <h3 class="text-lg font-semibold text-gray-800">Apple</h3>
+                    </div>
+                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('asus')" data-brand="asus">
+                        <h3 class="text-lg font-semibold text-gray-800">Asus</h3>
+                    </div>
+                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('infinix')" data-brand="infinix">
+                        <h3 class="text-lg font-semibold text-gray-800">Infinix</h3>
+                    </div>
+                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('lg')" data-brand="lg">
+                        <h3 class="text-lg font-semibold text-gray-800">LG</h3>
+                    </div>
+                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('oppo')" data-brand="oppo">
+                        <h3 class="text-lg font-semibold text-gray-800">Oppo</h3>
+                    </div>
+                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('all')" data-brand="all">
+                        <h3 class="text-lg font-semibold text-gray-800">Todos</h3>
+                    </div>
                 </div>
                 
                 <!-- Search Section -->
                 <div class="bg-white rounded-lg shadow-md p-6 mb-8">
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="search">
-                            Digite o modelo do celular
+                            Pesquisar modelo
                         </label>
                         <div class="relative">
-                            <input type="text" id="search" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10" placeholder="Ex: A01, A02, etc...">
+                            <input type="text" id="search" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10" placeholder="Digite o modelo para pesquisar...">
                             <button onclick="clearSearch()" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
                     </div>
-                    <div id="result" class="mt-4 p-4 bg-gray-50 rounded-lg hidden">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-semibold text-brand">Resultados encontrados:</h3>
-                            <div class="flex items-center space-x-4">
-                                <span id="resultCount" class="text-sm text-gray-500"></span>
-                                <div class="flex space-x-2">
-                                    <button onclick="copyResults()" class="text-brand hover:text-brand-dark transition-colors duration-200" title="Copiar resultados">
-                                        <i class="fas fa-copy"></i>
-                                    </button>
-                                    <button onclick="shareResults()" class="text-brand hover:text-brand-dark transition-colors duration-200" title="Compartilhar resultados">
-                                        <i class="fas fa-share-alt"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="compatibilityResult" class="space-y-4"></div>
-                    </div>
                 </div>
                 
-                <!-- Lista de Modelos -->
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h2 class="text-xl font-bold text-brand mb-4">Todos os Modelos Samsung</h2>
-                    <div id="modelList" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                <!-- Modelos por marca -->
+                <div id="allModelsContainer">
+                    <!-- Samsung -->
+                    <div class="models-section" id="samsung-section">
+                        <h2 class="text-xl font-bold text-brand mb-4">Samsung</h2>
+                        <div id="samsungModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                    </div>
+                    
+                    <!-- Motorola -->
+                    <div class="models-section" id="motorola-section">
+                        <h2 class="text-xl font-bold text-brand mb-4">Motorola</h2>
+                        <div id="motorolaModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                    </div>
+                    
+                    <!-- Xiaomi -->
+                    <div class="models-section" id="xiaomi-section">
+                        <h2 class="text-xl font-bold text-brand mb-4">Xiaomi</h2>
+                        <div id="xiaomiModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                    </div>
+                    
+                    <!-- Apple -->
+                    <div class="models-section" id="apple-section">
+                        <h2 class="text-xl font-bold text-brand mb-4">Apple</h2>
+                        <div id="appleModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                    </div>
+                    
+                    <!-- Asus -->
+                    <div class="models-section" id="asus-section">
+                        <h2 class="text-xl font-bold text-brand mb-4">Asus</h2>
+                        <div id="asusModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                    </div>
+                    
+                    <!-- Infinix -->
+                    <div class="models-section" id="infinix-section">
+                        <h2 class="text-xl font-bold text-brand mb-4">Infinix</h2>
+                        <div id="infinixModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                    </div>
+                    
+                    <!-- LG -->
+                    <div class="models-section" id="lg-section">
+                        <h2 class="text-xl font-bold text-brand mb-4">LG</h2>
+                        <div id="lgModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                    </div>
+                    
+                    <!-- Oppo -->
+                    <div class="models-section" id="oppo-section">
+                        <h2 class="text-xl font-bold text-brand mb-4">Oppo</h2>
+                        <div id="oppoModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -776,9 +819,321 @@
             }
         ];
 
-        // Marca atual selecionada
-        let currentBrand = 'samsung';
-        
+        // Dados de compatibilidade Xiaomi
+        const xiaomiModels = [
+            {
+                "modelo": "Xiaomi 12Lite",
+                "compativel": "RedmiNote11"
+            },
+            {
+                "modelo": "Xiaomi 12T",
+                "compativel": "Xiaomi12TPro - XiaomiBlackShark4S - PocoF4"
+            },
+            {
+                "modelo": "Xiaomi 9SE",
+                "compativel": "A01 - MiPlay"
+            },
+            {
+                "modelo": "Xiaomi Mi8",
+                "compativel": "Mi8Pro"
+            },
+            {
+                "modelo": "Xiaomi Mi9",
+                "compativel": "Mi9Lite - Redmi8 - Redmi8A - Redmi8APro"
+            },
+            {
+                "modelo": "Xiaomi Mi10Lite",
+                "compativel": "PocoM2pro - PocoX3"
+            },
+            {
+                "modelo": "Xiaomi Mi11",
+                "compativel": "Mi11Pro - Mi11Ultra"
+            },
+            {
+                "modelo": "Xiaomi MiA1",
+                "compativel": "K10Power - Note5APrime"
+            },
+            {
+                "modelo": "Xiaomi MiA2",
+                "compativel": "RedmiNote5 - Redmi5Plus - A8Plus - J8 - S2"
+            },
+            {
+                "modelo": "Xiaomi MiA2Lite",
+                "compativel": "Redmi6Pro"
+            },
+            {
+                "modelo": "Xiaomi MiGo",
+                "compativel": "J2Core"
+            },
+            {
+                "modelo": "Xiaomi Poco C31",
+                "compativel": "Redmi9A - Redmi9Activ - Redmi9ASport - Redmi9C - Redmi10A - A12"
+            },
+            {
+                "modelo": "Xiaomi Poco C40",
+                "compativel": "PocoC55 - PocoC61 - Redmi10C - Redmi10Power - Redmi12C - RedmiA3"
+            },
+            {
+                "modelo": "Xiaomi Poco C61",
+                "compativel": "PocoC40 - PocoC55 - Redmi10C - Redmi10Power - Redmi12C - RedmiA3"
+            },
+            {
+                "modelo": "Xiaomi Poco C65",
+                "compativel": "Redmi13C - SamsungA05"
+            },
+            {
+                "modelo": "Xiaomi Poco F3",
+                "compativel": "F4 - PocoM3 - Note11Pro - A71 - G22"
+            },
+            {
+                "modelo": "Xiaomi Poco F4",
+                "compativel": "F3 - F4GT - PocoX3NFC - X4Pro - M3 - M4Pro5G - A72"
+            },
+            {
+                "modelo": "Xiaomi Poco F45G",
+                "compativel": "RedmiNote11Pro"
+            },
+            {
+                "modelo": "Xiaomi Poco F5",
+                "compativel": "PocoX6 - PocoX6Pro - PocoM6Pro - Note12Turbo - Note135G - Note13Pro4G - Note13Pro5G - Note13ProPlus"
+            },
+            {
+                "modelo": "Xiaomi Poco M2",
+                "compativel": "PocoM3 - Redmi9T - RedmiNote94G"
+            },
+            {
+                "modelo": "Xiaomi Poco M2 Pro",
+                "compativel": "PocoX3 - Mi10Lite"
+            },
+            {
+                "modelo": "Xiaomi Poco M3",
+                "compativel": "A20S - Note94G"
+            },
+            {
+                "modelo": "Xiaomi Poco M3 Pro",
+                "compativel": "Note8T"
+            },
+            {
+                "modelo": "Xiaomi Poco M4",
+                "compativel": "SamsungA03 - A03S - A03Core - A12"
+            },
+            {
+                "modelo": "Xiaomi Poco M4 Pro",
+                "compativel": "Note104G - Note11"
+            },
+            {
+                "modelo": "Xiaomi Poco M5",
+                "compativel": "Redmi10A - A12"
+            },
+            {
+                "modelo": "Xiaomi Poco M5s",
+                "compativel": "RedmiNote10"
+            },
+            {
+                "modelo": "Xiaomi Poco M6 Pro",
+                "compativel": "PocoX6 - PocoX6Pro - PocoF5 - Note12Turbo - Note135G - Note13Pro4G - Note13Pro5G - Note13ProPlus"
+            },
+            {
+                "modelo": "Xiaomi Poco X3",
+                "compativel": "PocoX4Pro - Note9S - Note9Pro"
+            },
+            {
+                "modelo": "Xiaomi Poco X3 Pro",
+                "compativel": "PocoX3"
+            },
+            {
+                "modelo": "Xiaomi Poco X3GT",
+                "compativel": "Note9S - PocoX4Pro"
+            },
+            {
+                "modelo": "Xiaomi Poco X4 Pro",
+                "compativel": "PocoX3 - Note9S - Note9Pro"
+            },
+            {
+                "modelo": "Xiaomi Poco X5",
+                "compativel": "PocoX3 - PocoX4Pro - Note9S - Note9Pro - Note12"
+            },
+            {
+                "modelo": "Xiaomi Poco X5 Pro",
+                "compativel": "A71"
+            },
+            {
+                "modelo": "Xiaomi Poco X6",
+                "compativel": "PocoX6Pro - PocoM6Pro - PocoF5 - Note12Turbo - Note135G - Note13Pro4G - Note13Pro5G - Note13ProPlus"
+            },
+            {
+                "modelo": "Xiaomi Poco X6 Pro",
+                "compativel": "PocoX6 - PocoM6Pro - PocoF5 - Note12Turbo - Note135G - Note13Pro4G - Note13Pro5G - Note13ProPlus"
+            },
+            {
+                "modelo": "Xiaomi Redmi 8",
+                "compativel": "Redmi8A - Redmi8Pro"
+            },
+            {
+                "modelo": "Xiaomi Redmi 8A",
+                "compativel": "Redmi8 - Redmi8Pro"
+            },
+            {
+                "modelo": "Xiaomi Redmi 9",
+                "compativel": "Redmi9Power"
+            },
+            {
+                "modelo": "Xiaomi Redmi 9T",
+                "compativel": "RedmiNote94G - PocoM2 - PocoM3"
+            },
+            {
+                "modelo": "Xiaomi Redmi 9A",
+                "compativel": "Redmi9C - Redmi9i - Redmi10A - RedmiA1 - RedmiA2 - PocoC3 - PocoC31"
+            },
+            {
+                "modelo": "Xiaomi Redmi 9C",
+                "compativel": "Redmi9A - Redmi9i - Redmi10A - RedmiA1 - RedmiA2 - PocoC3 - PocoC31"
+            },
+            {
+                "modelo": "Xiaomi Redmi 9i",
+                "compativel": "Redmi9A - Redmi9C - Redmi10A - RedmiA1 - RedmiA2 - PocoC3 - PocoC31"
+            },
+            {
+                "modelo": "Xiaomi Redmi 10C",
+                "compativel": "Redmi12C - Redmi10Power - RedmiA3 - PocoC40 - PocoC55 - PocoC61"
+            },
+            {
+                "modelo": "Xiaomi Redmi 10A",
+                "compativel": "RedmiA1 - RedmiA2 - Redmi9A - Redmi9C - Redmi9i - PocoC31 - PocoC3"
+            },
+            {
+                "modelo": "Xiaomi Redmi 10 Power",
+                "compativel": "Redmi10C - Redmi12C - RedmiA3 - PocoC40 - PocoC55 - PocoC61"
+            },
+            {
+                "modelo": "Xiaomi Redmi 105G",
+                "compativel": "Redmi11Prime - RedmiNote11R"
+            },
+            {
+                "modelo": "Xiaomi Redmi 11 Prime",
+                "compativel": "Redmi105G - Redminote11R"
+            },
+            {
+                "modelo": "Xiaomi Redmi 12",
+                "compativel": "Redmi13 - RedmiNote12R - RedmiNote13R - PocoM64G - PocoM6Pro5G"
+            },
+            {
+                "modelo": "Xiaomi Redmi 12C",
+                "compativel": "Redmi10C - Redmi10Power - RedmiA3 - PocoC40 - PocoC55 - PocoC61"
+            },
+            {
+                "modelo": "Xiaomi Redmi 13",
+                "compativel": "Redmi12 - RedmiNote12R - RedmiNote13R - PocoM64G - PocoM6Pro5G"
+            },
+            {
+                "modelo": "Xiaomi Redmi 13C",
+                "compativel": "PocoC65 - SamsungA05"
+            },
+            {
+                "modelo": "Xiaomi Redmi A1",
+                "compativel": "RedmiA2 - Redmi9A - Redmi9C - Redmi9i - Redmi10A - PocoC31 - PocoC3"
+            },
+            {
+                "modelo": "Xiaomi Redmi A2",
+                "compativel": "RedmiA1 - Redmi9A - Redmi9C - Redmi9i - Redmi10A - PocoC31 - PocoC3"
+            },
+            {
+                "modelo": "Xiaomi Redmi A3",
+                "compativel": "Redmi10C - Redmi10Power - Redmi12C - PocoC40 - PocoC55 - PocoC61"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 5",
+                "compativel": "Redmi5Plus - MiA2 - A8Plus - J8 - S2"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 5A",
+                "compativel": "Redmi5A - Redmi4X"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 6 Pro",
+                "compativel": "RedmiNote7"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 7",
+                "compativel": "RedmiNote6Pro"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 8",
+                "compativel": "RedmiNote8T - OPPOa5 - OPPOa9"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 8T",
+                "compativel": "RedmiNote8 - M20 - M30 - PocoM3Pro - OPPOa5 - OPPOa9"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 8 Pro",
+                "compativel": "Note30 - Note30Pro - Note30Lite"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 9",
+                "compativel": "RedmiNote94G - PocoM2 - PocoM3"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 9S",
+                "compativel": "RedmiNote9Pro - PocoX3 - PocoX3GT - PocoX4Pro - PocoX5"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 9 Pro",
+                "compativel": "RedmiNote9S - RedmiNote9ProMax - PocoX3 - PocoX3GT - PocoX4Pro - PocoX5"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 9 Pro Max",
+                "compativel": "RedmiNote9Pro"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 10",
+                "compativel": "Note10Pro - Note10ProMax - Note10S - M5s"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 10S",
+                "compativel": "Note10 - Note10Pro - Note10ProMax"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 10 Pro",
+                "compativel": "Note10 - Note10ProMax - Note10S"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 11",
+                "compativel": "Note11Pro - Note11S - Mi12Lite - PocoM4Pro"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 11S",
+                "compativel": "Note11 - Note11Pro"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 11 Pro",
+                "compativel": "Note11 - Note11S - Mi11TPro - PocoF45G"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 12",
+                "compativel": "Note12Pro - PocoX5"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 12 Pro",
+                "compativel": "Note12"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 13",
+                "compativel": "Note13Pro4G"
+            },
+            {
+                "modelo": "Xiaomi Redmi Note 13 Pro",
+                "compativel": "Note13 - Note13Pro5G - Note13ProPlus - PocoX6 - PocoX6Pro - PocoM6Pro - PocoF5"
+            }
+        ];
+
+        // Inicializar arrays vazios para as novas marcas
+        const appleModels = [];
+        const asusModels = [];
+        const infinixModels = [];
+        const lgModels = [];
+        const oppoModels = [];
+
         // Verificar senha
         function checkPassword() {
             const password = document.getElementById('password').value;
@@ -786,24 +1141,207 @@
                 document.getElementById('loginSection').classList.add('hidden');
                 document.getElementById('mainContent').classList.remove('hidden');
                 
-                // Carregar lista de modelos
-                selectBrand('samsung');
+                // Carregar todos os modelos
+                loadAllModels();
+                
+                // Carregar dados das planilhas
+                loadExcelData();
             } else {
                 alert('Senha incorreta!');
             }
+        }
+
+        // Carregar dados de arquivos Excel
+        function loadExcelData() {
+            // Função para processar cada planilha
+            function processExcel(file, modelArray, brandPrefix) {
+                fetch(file)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Falha ao carregar ${file}: ${response.status}`);
+                        }
+                        return response.arrayBuffer();
+                    })
+                    .then(data => {
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const sheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[sheetName];
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
+                        
+                        // Processar os dados
+                        for (let i = 1; i < jsonData.length; i++) {
+                            if (jsonData[i][0] && jsonData[i][1]) {
+                                let modelo = jsonData[i][0].toString().trim();
+                                let compativel = jsonData[i][1].toString().trim();
+                                
+                                // Adicionar prefixo da marca se não existir
+                                if (brandPrefix && !modelo.toLowerCase().includes(brandPrefix.toLowerCase())) {
+                                    modelo = brandPrefix + " " + modelo;
+                                }
+                                
+                                modelArray.push({
+                                    modelo: modelo,
+                                    compativel: compativel
+                                });
+                            }
+                        }
+                        console.log(`Carregados ${modelArray.length} modelos de ${file}`);
+                        
+                        // Recarregar a seção correspondente após o carregamento
+                        // Mapear corretamente o nome do arquivo para o ID da marca
+                        let brandId = '';
+                        if (file === 'infi.xlsx') {
+                            brandId = 'infinix';
+                        } else {
+                            brandId = file.split('.')[0].toLowerCase();
+                        }
+                        console.log(`Arquivo: ${file}, BrandID: ${brandId}`);
+                        loadBrandModels(brandId, modelArray);
+                    })
+                    .catch(error => {
+                        console.error(`Erro ao carregar ${file}:`, error);
+                    });
+            }
+            
+            // Processar cada arquivo
+            processExcel('apple.xlsx', appleModels, 'iPhone');
+            processExcel('asus.xlsx', asusModels, 'Asus');
+            processExcel('infi.xlsx', infinixModels, 'Infinix');
+            processExcel('LG.xlsx', lgModels, 'LG');
+            processExcel('oppo.xlsx', oppoModels, 'Oppo');
         }
 
         // Limpar busca
         function clearSearch() {
             const searchInput = document.getElementById('search');
             searchInput.value = '';
-            document.getElementById('result').classList.add('hidden');
+            filterModels('');
         }
-
-        // Selecionar marca
-        function selectBrand(brand) {
-            currentBrand = brand;
+        
+        // Carregar todos os modelos ao iniciar
+        function loadAllModels() {
+            loadBrandModels('samsung', samsungModels);
+            loadBrandModels('motorola', motorolaModels);
+            loadBrandModels('xiaomi', xiaomiModels);
+            loadBrandModels('apple', appleModels);
+            loadBrandModels('asus', asusModels);
+            loadBrandModels('infinix', infinixModels);
+            loadBrandModels('lg', lgModels);
+            loadBrandModels('oppo', oppoModels);
             
+            // Adicionar evento de busca no input
+            document.getElementById('search').addEventListener('input', function() {
+                filterModels(this.value.trim().toLowerCase());
+            });
+        }
+        
+        // Carregar modelos de uma marca específica
+        function loadBrandModels(brand, models) {
+            const container = document.getElementById(`${brand}Models`);
+            if (!container) return;
+            
+            // Se não houver modelos, mostrar mensagem
+            if (!models || models.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-4">Carregando modelos...</div>';
+                return;
+            }
+            
+            // Ordenar os modelos alfabeticamente
+            const sortedModels = [...models].sort((a, b) => {
+                return a.modelo.localeCompare(b.modelo);
+            });
+            
+            let html = '';
+            sortedModels.forEach((item, index) => {
+                let modelName = '';
+                let fullName = item.modelo;
+                
+                if (brand === 'samsung') {
+                    modelName = item.modelo.replace('Samsung ', '');
+                } else if (brand === 'motorola') {
+                    modelName = item.modelo.replace('Moto ', '');
+                } else if (brand === 'xiaomi') {
+                    // Para Xiaomi, lidar com diferentes prefixos
+                    modelName = item.modelo
+                        .replace('Xiaomi ', '')
+                        .replace('Redmi ', '')
+                        .replace('POCO ', '')
+                        .replace('Poco ', '');
+                } else if (brand === 'apple') {
+                    modelName = item.modelo.replace('iPhone ', '');
+                } else if (brand === 'asus') {
+                    modelName = item.modelo.replace('Asus ', '');
+                } else if (brand === 'infinix') {
+                    modelName = item.modelo.replace('Infinix ', '');
+                } else if (brand === 'lg') {
+                    modelName = item.modelo.replace('LG ', '');
+                } else if (brand === 'oppo') {
+                    modelName = item.modelo.replace('Oppo ', '');
+                }
+                
+                html += `
+                    <div class="model-container">
+                        <div class="model-card bg-white border rounded-lg shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow duration-200" 
+                            onclick="toggleCompatibility('${brand}', ${index})" 
+                            data-model="${fullName.toLowerCase()}" 
+                            id="${brand}-model-${index}">
+                            <h3 class="text-md font-medium text-gray-700">${modelName}</h3>
+                        </div>
+                        <div class="compatibility-container" id="${brand}-compat-${index}">
+                            <div class="bg-gray-50 p-3 rounded-lg mt-2">
+                                <p class="text-sm text-gray-500 mb-2">Compatível com:</p>
+                                <div class="flex flex-wrap gap-2">
+                                    ${getCompatibilityHTML(item.compativel)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Gerar HTML para os modelos compatíveis
+        function getCompatibilityHTML(compatText) {
+            // Separar os modelos compatíveis
+            const compatibilityArray = compatText.split(/[-,;\s\/]+/).filter(s => s);
+            return compatibilityArray.map(comp => 
+                `<span class="bg-gray-100 px-3 py-1 rounded-full text-sm hover:bg-gray-200 transition-colors duration-200">${comp}</span>`
+            ).join('');
+        }
+        
+        // Mostrar/esconder compatibilidade quando um modelo é clicado
+        function toggleCompatibility(brand, index) {
+            const modelCard = document.getElementById(`${brand}-model-${index}`);
+            const compatContainer = document.getElementById(`${brand}-compat-${index}`);
+            
+            // Remover classe ativa de todos os modelos
+            document.querySelectorAll('.model-card').forEach(card => {
+                if (card.id !== `${brand}-model-${index}`) {
+                    card.classList.remove('active');
+                }
+            });
+            
+            // Esconder todos os containers de compatibilidade
+            document.querySelectorAll('.compatibility-container').forEach(container => {
+                if (container.id !== `${brand}-compat-${index}`) {
+                    container.style.display = 'none';
+                }
+            });
+            
+            // Alternar estado do modelo atual
+            if (compatContainer.style.display === 'block') {
+                compatContainer.style.display = 'none';
+                modelCard.classList.remove('active');
+            } else {
+                compatContainer.style.display = 'block';
+                modelCard.classList.add('active');
+            }
+        }
+        
+        // Filtrar modelos por marca
+        function filterByBrand(brand) {
             // Atualizar visual das marcas
             document.querySelectorAll('.brand-card').forEach(card => {
                 const cardBrand = card.getAttribute('data-brand');
@@ -816,185 +1354,41 @@
                 }
             });
             
-            // Atualizar o placeholder do campo de busca
-            const searchInput = document.getElementById('search');
-            searchInput.placeholder = `Ex: ${brand === 'samsung' ? 'A01, A02, etc...' : 'G10, E7, etc...'}`;
+            // Mostrar/esconder seções
+            document.querySelectorAll('.models-section').forEach(section => {
+                const sectionId = section.id;
+                if (brand === 'all' || sectionId === `${brand}-section`) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
             
-            // Carregar modelos da marca selecionada
-            loadModelList(brand);
-            
-            // Limpar resultado da busca
+            // Limpar busca
             clearSearch();
         }
-
-        // Carregar lista de modelos
-        function loadModelList(brand) {
-            const models = brand === 'samsung' ? samsungModels : motorolaModels;
-            
-            // Remover a lista de modelos anterior, se existir
-            const oldContainer = document.getElementById('modelListContainer');
-            if (oldContainer) {
-                oldContainer.remove();
-            }
-            
-            // Adicionar uma seção para a lista de modelos depois da barra de busca
-            const searchSection = document.querySelector('.bg-white.rounded-lg.shadow-md.p-6.mb-8');
-            const modelListContainer = document.createElement('div');
-            modelListContainer.id = 'modelListContainer';
-            modelListContainer.className = 'bg-white rounded-lg shadow-md p-6 mt-8';
-            modelListContainer.innerHTML = `
-                <h2 class="text-xl font-bold text-brand mb-4">Todos os Modelos ${brand === 'samsung' ? 'Samsung' : 'Motorola'}</h2>
-                <div id="modelList" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-            `;
-            searchSection.parentNode.insertBefore(modelListContainer, searchSection.nextSibling);
-            
-            const modelList = document.getElementById('modelList');
-            let html = '';
-            
-            // Ordenar os modelos alfabeticamente
-            const sortedModels = [...models].sort((a, b) => {
-                return a.modelo.localeCompare(b.modelo);
-            });
-            
-            sortedModels.forEach(item => {
-                const modelName = brand === 'samsung' 
-                    ? item.modelo.replace('Samsung ', '') 
-                    : item.modelo.replace('Moto ', '');
-                html += `
-                    <div class="model-card bg-white border rounded-lg shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow duration-200" onclick="showCompatibility('${item.modelo}')">
-                        <h3 class="text-md font-medium text-gray-700">${modelName}</h3>
-                    </div>
-                `;
-            });
-            
-            modelList.innerHTML = html;
-        }
-
-        // Mostrar compatibilidade quando um modelo é clicado
-        function showCompatibility(modelName) {
-            const searchInput = document.getElementById('search');
-            searchInput.value = modelName.includes('Samsung') 
-                ? modelName.replace('Samsung ', '') 
-                : modelName.replace('Moto ', '');
-            searchModel();
-        }
-
-        // Buscar modelo
-        function searchModel() {
-            const searchTerm = document.getElementById('search').value.trim().toLowerCase();
-            const resultDiv = document.getElementById('result');
-            const resultText = document.getElementById('compatibilityResult');
-            const resultCount = document.getElementById('resultCount');
-            
-            if (searchTerm === '') {
-                resultDiv.classList.add('hidden');
+        
+        // Filtrar modelos por texto
+        function filterModels(searchText) {
+            if (!searchText) {
+                // Mostrar todos os modelos
+                document.querySelectorAll('.model-container').forEach(container => {
+                    container.style.display = 'block';
+                });
                 return;
             }
             
-            // Buscar modelos que contenham o termo de busca
-            const models = currentBrand === 'samsung' ? samsungModels : motorolaModels;
-            const matches = models.filter(item => {
-                const modelName = item.modelo.toLowerCase();
-                return modelName.includes(searchTerm);
-            });
-            
-            if (matches.length > 0) {
-                let html = '';
-                matches.forEach(item => {
-                    // Separar os modelos compatíveis
-                    const compatibilityArray = item.compativel.split(/[-,;\s\/]+/).filter(s => s);
-                    
-                    html += `
-                        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-gray-600 font-medium">${item.modelo}</span>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Compatível com:</p>
-                            <div class="flex flex-wrap gap-2">
-                                ${compatibilityArray.map(comp => 
-                                    `<span class="bg-gray-100 px-3 py-1 rounded-full text-sm hover:bg-gray-200 transition-colors duration-200">${comp}</span>`
-                                ).join('')}
-                            </div>
-                        </div>
-                    `;
-                });
+            // Filtrar modelos pelo texto
+            document.querySelectorAll('.model-container').forEach(container => {
+                const modelCard = container.querySelector('.model-card');
+                const modelName = modelCard.getAttribute('data-model');
                 
-                resultText.innerHTML = html;
-                resultCount.textContent = `${matches.length} ${matches.length === 1 ? 'resultado' : 'resultados'} encontrado${matches.length === 1 ? '' : 's'}`;
-                resultDiv.classList.remove('hidden');
-            } else {
-                resultText.innerHTML = '<div class="text-center text-gray-500">Nenhuma compatibilidade encontrada</div>';
-                resultCount.textContent = '0 resultados encontrados';
-                resultDiv.classList.remove('hidden');
-            }
-        }
-        
-        // Associar evento de busca ao input
-        document.getElementById('search').addEventListener('input', searchModel);
-
-        // Compartilhar resultados
-        function shareResults() {
-            const results = Array.from(document.querySelectorAll('#compatibilityResult > div')).map(card => {
-                const modelo = card.querySelector('.text-gray-600').textContent;
-                const compativeis = Array.from(card.querySelectorAll('.flex.flex-wrap.gap-2 span')).map(span => span.textContent).join(', ');
-                return `${modelo}: ${compativeis}`;
-            }).join('\n\n');
-
-            if (results) {
-                const shareText = `Compatibilidades encontradas ${currentBrand === 'samsung' ? 'Samsung' : 'Motorola'}:\n\n${results}\n\nFonte: Consert Cell`;
-                
-                if (navigator.share) {
-                    navigator.share({
-                        title: 'Compatibilidades Consert Cell',
-                        text: shareText,
-                        url: window.location.href
-                    }).catch(err => {
-                        console.error('Erro ao compartilhar:', err);
-                        fallbackShare(shareText);
-                    });
+                if (modelName.includes(searchText)) {
+                    container.style.display = 'block';
                 } else {
-                    fallbackShare(shareText);
+                    container.style.display = 'none';
                 }
-            }
-        }
-
-        // Fallback para compartilhamento
-        function fallbackShare(text) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
-                alert('Texto copiado para a área de transferência!');
-            } catch (err) {
-                console.error('Erro ao copiar:', err);
-                alert('Erro ao copiar o texto');
-            }
-            document.body.removeChild(textarea);
-        }
-
-        // Copiar resultados
-        function copyResults() {
-            const results = Array.from(document.querySelectorAll('#compatibilityResult > div')).map(card => {
-                const modelo = card.querySelector('.text-gray-600').textContent;
-                const compativeis = Array.from(card.querySelectorAll('.flex.flex-wrap.gap-2 span')).map(span => span.textContent).join(', ');
-                return `${modelo}: ${compativeis}`;
-            }).join('\n\n');
-
-            if (results) {
-                navigator.clipboard.writeText(results).then(() => {
-                    const button = document.querySelector('button[onclick="copyResults()"]');
-                    const originalIcon = button.innerHTML;
-                    button.innerHTML = '<i class="fas fa-check"></i>';
-                    setTimeout(() => {
-                        button.innerHTML = originalIcon;
-                    }, 2000);
-                }).catch(err => {
-                    console.error('Erro ao copiar:', err);
-                    alert('Erro ao copiar os resultados');
-                });
-            }
+            });
         }
     </script>
 </body>
