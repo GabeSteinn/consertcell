@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Compatibilidade - Consert Cell</title>
+    <link rel="icon" type="image/x-icon" href="img/icone.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand': '#008B8B',
+                        'brand-dark': '#006666',
+                        'brand-light': '#00AFAF',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .hero-pattern {
+            background-color: #008B8B;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Login Section -->
+    <div id="loginSection" class="min-h-screen flex items-center justify-center hero-pattern">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+            <h1 class="text-2xl font-bold text-brand mb-6 text-center">Tabela de Compatibilidade</h1>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    Senha de Acesso
+                </label>
+                <input type="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Digite a senha">
+            </div>
+            <button onclick="checkPassword()" class="w-full bg-brand text-white font-bold py-2 px-4 rounded hover:bg-brand-dark focus:outline-none focus:shadow-outline">
+                Acessar
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div id="mainContent" class="min-h-screen hidden">
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-2xl mx-auto">
+                <h1 class="text-3xl font-bold text-brand mb-8 text-center">Tabela de Compatibilidade</h1>
+                
+                <!-- Search Section -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="search">
+                            Digite o modelo do celular
+                        </label>
+                        <input type="text" id="search" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ex: A01, A02, etc...">
+                    </div>
+                    <div id="result" class="mt-4 p-4 bg-gray-50 rounded-lg hidden">
+                        <h3 class="text-lg font-semibold text-brand mb-2">Compatível com:</h3>
+                        <p id="compatibilityResult" class="text-gray-700"></p>
+                    </div>
+                </div>
+
+                <!-- Admin Section -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-bold text-brand mb-4">Gerenciar Compatibilidades</h2>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="model">
+                            Modelo
+                        </label>
+                        <input type="text" id="model" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ex: A01">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="compatibilities">
+                            Compatibilidades (separadas por vírgula)
+                        </label>
+                        <input type="text" id="compatibilities" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ex: M01, M02, M03">
+                    </div>
+                    <button onclick="addCompatibility()" class="w-full bg-brand text-white font-bold py-2 px-4 rounded hover:bg-brand-dark focus:outline-none focus:shadow-outline">
+                        Adicionar/Atualizar
+                    </button>
+                    <button onclick="exportToExcel()" class="w-full mt-4 bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:shadow-outline">
+                        Exportar para Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados de compatibilidade
+        let compatibilityData = {
+            'A01': ['M01'],
+            'A02': ['A02s', 'A03', 'A03s', 'A03 Core', 'A04', 'A04s', 'A04e', 'A12', 'A13', 'M12']
+        };
+
+        // Verificar senha
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === 'consertcell2024') { // Senha definida aqui
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('mainContent').classList.remove('hidden');
+            } else {
+                alert('Senha incorreta!');
+            }
+        }
+
+        // Buscar compatibilidade
+        document.getElementById('search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            const resultDiv = document.getElementById('result');
+            const resultText = document.getElementById('compatibilityResult');
+
+            if (searchTerm === '') {
+                resultDiv.classList.add('hidden');
+                return;
+            }
+
+            const model = Object.keys(compatibilityData).find(key => 
+                key.toLowerCase().includes(searchTerm)
+            );
+
+            if (model) {
+                resultText.textContent = compatibilityData[model].join(', ');
+                resultDiv.classList.remove('hidden');
+            } else {
+                resultText.textContent = 'Nenhuma compatibilidade encontrada';
+                resultDiv.classList.remove('hidden');
+            }
+        });
+
+        // Adicionar/Atualizar compatibilidade
+        function addCompatibility() {
+            const model = document.getElementById('model').value.trim();
+            const compatibilities = document.getElementById('compatibilities').value
+                .split(',')
+                .map(item => item.trim())
+                .filter(item => item !== '');
+
+            if (model && compatibilities.length > 0) {
+                compatibilityData[model] = compatibilities;
+                alert('Compatibilidade adicionada/atualizada com sucesso!');
+                document.getElementById('model').value = '';
+                document.getElementById('compatibilities').value = '';
+            } else {
+                alert('Por favor, preencha todos os campos corretamente!');
+            }
+        }
+
+        // Exportar para Excel
+        function exportToExcel() {
+            let csv = 'Modelo,Compatibilidades\n';
+            for (const [model, compatibilities] of Object.entries(compatibilityData)) {
+                csv += `${model},${compatibilities.join(';')}\n`;
+            }
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'compatibilidades.csv';
+            link.click();
+        }
+    </script>
+</body>
+</html> 
