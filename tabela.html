@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabela de Compatibilidade - Consert Cell</title>
+    <title>Tabela de Modelos Compatíveis - Consert Cell</title>
     <link rel="icon" type="image/x-icon" href="img/icone.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -23,1373 +24,502 @@
         }
     </script>
     <style>
-        body { font-family: 'Poppins', sans-serif; }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
         .hero-pattern {
             background-color: #008B8B;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
-        .brand-card {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+        .brand-section {
+            scroll-margin-top: 100px;
         }
-        .brand-card:hover {
-            transform: translateY(-5px);
-            border-color: #008B8B;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        .brand-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            background: linear-gradient(45deg, #008B8B, #00AFAF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .brand-card h3 {
-            transition: all 0.3s ease;
+        @media (max-width: 640px) {
+            .brand-filter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
-        .brand-card:hover h3 {
-            color: #008B8B;
+
+        /* Animações */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
         }
-        .model-card {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
         }
-        .model-card:hover {
-            transform: translateY(-5px);
-            border-color: #008B8B;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .model-card h3 {
-            transition: all 0.3s ease;
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
-        .model-card:hover h3 {
-            color: #008B8B;
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
         }
-        .models-section {
-            margin-bottom: 2rem;
+
+        .dark .skeleton {
+            background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+            background-size: 200% 100%;
         }
-        .compatibility-container {
-            display: none;
-            margin-top: 0.5rem;
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
-        .model-card.active {
-            border-color: #008B8B;
-            background-color: #f0ffff;
+
+        /* Transições */
+        .view-transition {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Login Section -->
-    <div id="loginSection" class="min-h-screen flex items-center justify-center hero-pattern">
-        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-            <h1 class="text-2xl font-bold text-brand mb-6 text-center">Tabela de Compatibilidade</h1>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                    Senha de Acesso
-                </label>
-                <input type="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Digite a senha">
-            </div>
-            <button onclick="checkPassword()" class="w-full bg-brand text-white font-bold py-2 px-4 rounded hover:bg-brand-dark focus:outline-none focus:shadow-outline">
-                Acessar
-            </button>
-        </div>
-    </div>
-
-    <!-- Main Content Section -->
-    <div id="mainContent" class="min-h-screen hidden">
-        <div class="container mx-auto px-4 py-8">
-            <div class="max-w-6xl mx-auto">
-                <h1 class="text-3xl font-bold text-brand mb-8 text-center">Tabela de Compatibilidade</h1>
-                
-                <!-- Marcas -->
-                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8">
-                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('samsung')" data-brand="samsung">
-                        <h3 class="text-lg font-semibold text-gray-800">Samsung</h3>
-                    </div>
-                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('motorola')" data-brand="motorola">
-                        <h3 class="text-lg font-semibold text-gray-800">Motorola</h3>
-                    </div>
-                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('xiaomi')" data-brand="xiaomi">
-                        <h3 class="text-lg font-semibold text-gray-800">Xiaomi</h3>
-                    </div>
-                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('apple')" data-brand="apple">
-                        <h3 class="text-lg font-semibold text-gray-800">Apple</h3>
-                    </div>
-                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('asus')" data-brand="asus">
-                        <h3 class="text-lg font-semibold text-gray-800">Asus</h3>
-                    </div>
-                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('infinix')" data-brand="infinix">
-                        <h3 class="text-lg font-semibold text-gray-800">Infinix</h3>
-                    </div>
-                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('lg')" data-brand="lg">
-                        <h3 class="text-lg font-semibold text-gray-800">LG</h3>
-                    </div>
-                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('oppo')" data-brand="oppo">
-                        <h3 class="text-lg font-semibold text-gray-800">Oppo</h3>
-                    </div>
-                    <div class="brand-card bg-white rounded-lg shadow-md p-4 text-center cursor-pointer" onclick="filterByBrand('all')" data-brand="all">
-                        <h3 class="text-lg font-semibold text-gray-800">Todos</h3>
-                    </div>
-                </div>
-                
-                <!-- Search Section -->
-                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="search">
-                            Pesquisar modelo
-                        </label>
-                        <div class="relative">
-                            <input type="text" id="search" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10" placeholder="Digite o modelo para pesquisar...">
-                            <button onclick="clearSearch()" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Modelos por marca -->
-                <div id="allModelsContainer">
-                    <!-- Samsung -->
-                    <div class="models-section" id="samsung-section">
-                        <h2 class="text-xl font-bold text-brand mb-4">Samsung</h2>
-                        <div id="samsungModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-                    </div>
-                    
-                    <!-- Motorola -->
-                    <div class="models-section" id="motorola-section">
-                        <h2 class="text-xl font-bold text-brand mb-4">Motorola</h2>
-                        <div id="motorolaModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-                    </div>
-                    
-                    <!-- Xiaomi -->
-                    <div class="models-section" id="xiaomi-section">
-                        <h2 class="text-xl font-bold text-brand mb-4">Xiaomi</h2>
-                        <div id="xiaomiModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-                    </div>
-                    
-                    <!-- Apple -->
-                    <div class="models-section" id="apple-section">
-                        <h2 class="text-xl font-bold text-brand mb-4">Apple</h2>
-                        <div id="appleModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-                    </div>
-                    
-                    <!-- Asus -->
-                    <div class="models-section" id="asus-section">
-                        <h2 class="text-xl font-bold text-brand mb-4">Asus</h2>
-                        <div id="asusModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-                    </div>
-                    
-                    <!-- Infinix -->
-                    <div class="models-section" id="infinix-section">
-                        <h2 class="text-xl font-bold text-brand mb-4">Infinix</h2>
-                        <div id="infinixModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-                    </div>
-                    
-                    <!-- LG -->
-                    <div class="models-section" id="lg-section">
-                        <h2 class="text-xl font-bold text-brand mb-4">LG</h2>
-                        <div id="lgModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-                    </div>
-                    
-                    <!-- Oppo -->
-                    <div class="models-section" id="oppo-section">
-                        <h2 class="text-xl font-bold text-brand mb-4">Oppo</h2>
-                        <div id="oppoModels" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-                    </div>
-                </div>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm fixed w-full top-0 z-50 transition-colors duration-200">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <h1 class="brand-title text-2xl tracking-wider">CONSERT CELL</h1>
+            </a>
+            <div class="flex items-center space-x-4">
+                <!-- Toggle View -->
+                <button id="viewToggle" class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-table"></i>
+                </button>
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeToggle" class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
+                <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-brand dark:hover:text-brand-light transition-colors">
+                    <span class="hidden sm:inline">Voltar ao Site</span>
+                    <i class="fas fa-home sm:hidden"></i>
+                </a>
             </div>
         </div>
-    </div>
+    </header>
 
-    <script>
-        // Dados de compatibilidade Samsung
-        const samsungModels = [
-            {
-                "modelo": "Samsung A01",
-                "compativel": "M01"
-            },
-            {
-                "modelo": "Samsung A01Core",
-                "compativel": "M01Core"
-            },
-            {
-                "modelo": "Samsung A02",
-                "compativel": "A02S - A03 - A03S - A03Core - A04 - A04S - A04E - A12 - A13 - M12"
-            },
-            {
-                "modelo": "Samsung A02S",
-                "compativel": "A02 - A03 - A03S - A03Core - A04 - A04S - A04E - A12 - A13 - M12"
-            },
-            {
-                "modelo": "Samsung A03",
-                "compativel": "A03S - A03Core - A02 - A02S - A04 - A04S - A04E - A12 - A13 - M12"
-            },
-            {
-                "modelo": "Samsung A03Core",
-                "compativel": "A03 - A03S - A02 - A02S - A04 - A04S - A04E - A12 - A13 - M12"
-            },
-            {
-                "modelo": "Samsung A03S",
-                "compativel": "A03 - A03Core - A02 - A02S - A04 - A04S - A04E - A12 - A13 - M12"
-            },
-            {
-                "modelo": "Samsung A04S",
-                "compativel": "A04 - A04E - A02 - A02S - A03 - A03S - A03Core - A12 - A13 - M12"
-            },
-            {
-                "modelo": "Samsung A04",
-                "compativel": "A04S - A04E - A02 - A02S - A03 - A03S - A03Core - A12 - A13 - M12"
-            },
-            {
-                "modelo": "Samsung A05",
-                "compativel": "A05S - Redmi13C - PocoC65"
-            },
-            {
-                "modelo": "Samsung A06",
-                "compativel": "A05 - Redmi13C - RealmeNote50 - RealmeC53 - RealmeC51 - RealmeC61 - PocoC65"
-            },
-            {
-                "modelo": "Samsung A8Plus",
-                "compativel": "J8"
-            },
-            {
-                "modelo": "Samsung A10",
-                "compativel": "A10s - M10"
-            },
-            {
-                "modelo": "Samsung A10S",
-                "compativel": "A10 - M10"
-            },
-            {
-                "modelo": "Samsung A11",
-                "compativel": "M11 - MotoG8"
-            },
-            {
-                "modelo": "Samsung A12",
-                "compativel": "A135G - A325G - A02 - A02s - A03 - A03s - A03Core - A04 - A04s - A04e - M325G - M12 - M04 - M02 - F04 - F02s - RedmiA1 - MotoE20 - OneFusion - Realme50A - C33 - C332023 - C31C30 - C30s - C25 - C21Y - PocoC3"
-            },
-            {
-                "modelo": "Samsung A13",
-                "compativel": "A02 - A02S - A03 - A03S - A03Core - A04 - A04S - A04E - A12 - A325G - M12"
-            },
-            {
-                "modelo": "Samsung A14",
-                "compativel": "M14 - A225G"
-            },
-            {
-                "modelo": "Samsung A15",
-                "compativel": "A24 - A25 - M15 - M34 - F34"
-            },
-            {
-                "modelo": "Samsung A20",
-                "compativel": "A30 - A30S - A50 - A50S"
-            },
-            {
-                "modelo": "Samsung A20S",
-                "compativel": "A12"
-            },
-            {
-                "modelo": "Samsung A21S",
-                "compativel": "OppoA36 - OppoA76"
-            },
-            {
-                "modelo": "Samsung A224G",
-                "compativel": "A31 - A32 - A33 - M31 - M32"
-            },
-            {
-                "modelo": "Samsung A225G",
-                "compativel": "A23 - A235G - A325G"
-            },
-            {
-                "modelo": "Samsung A23",
-                "compativel": "A04 - A12 - A225G - A235G - A325G - A70"
-            },
-            {
-                "modelo": "Samsung A24",
-                "compativel": "A34"
-            },
-            {
-                "modelo": "Samsung A30",
-                "compativel": "A20 - A30S - A50 - A50S"
-            },
-            {
-                "modelo": "Samsung A30s",
-                "compativel": "A20 - A30 - A50 - A50S"
-            },
-            {
-                "modelo": "Samsung A31",
-                "compativel": "A20 - A30 - A50 - M31 - G8Plus - Note8"
-            },
-            {
-                "modelo": "Samsung A32",
-                "compativel": "A22 - A33"
-            },
-            {
-                "modelo": "Samsung A325G",
-                "compativel": "A12 - A20s - Note9 - K50s"
-            },
-            {
-                "modelo": "Samsung A33",
-                "compativel": "A32"
-            },
-            {
-                "modelo": "Samsung A50",
-                "compativel": "A30 - A20 - A22 - A50S - M31"
-            },
-            {
-                "modelo": "Samsung A50S",
-                "compativel": "A20 - A30 - A31 - A50 - M31 - K40s"
-            },
-            {
-                "modelo": "Samsung A51",
-                "compativel": "A52 - A52s - A525G - S20FE - Note10 - Note11"
-            },
-            {
-                "modelo": "Samsung A52",
-                "compativel": "A51 - A52S - A525G - S20FE - Note10 - Note11"
-            },
-            {
-                "modelo": "Samsung A53",
-                "compativel": "A52 - A52S"
-            },
-            {
-                "modelo": "Samsung A54",
-                "compativel": "S22Plus - S23FE"
-            },
-            {
-                "modelo": "Samsung A70",
-                "compativel": "A02 - A02s - A03 - A905G"
-            },
-            {
-                "modelo": "Samsung A71",
-                "compativel": "A72 - M51 - M62 - F62 - Note9S - Note10Lite - Note11Pro"
-            },
-            {
-                "modelo": "Samsung A72",
-                "compativel": "M52 - M53"
-            },
-            {
-                "modelo": "Samsung A73",
-                "compativel": "Note10Pro - Note11Pro"
-            },
-            {
-                "modelo": "Samsung J2Core",
-                "compativel": "LenovoC2 - MotoC - MotoCPlus"
-            },
-            {
-                "modelo": "Samsung J2Prime",
-                "compativel": "J32016 - J5 - A52015"
-            },
-            {
-                "modelo": "Samsung J32016",
-                "compativel": "J2Prime - J5 - A52015"
-            },
-            {
-                "modelo": "Samsung J4",
-                "compativel": "J42018"
-            },
-            {
-                "modelo": "Samsung J4Plus",
-                "compativel": "J4Core - J6Plus - J8 - A6Plus - A8"
-            },
-            {
-                "modelo": "Samsung J5",
-                "compativel": "J2Prime - J3"
-            },
-            {
-                "modelo": "Samsung J5Pro",
-                "compativel": "A52017"
-            },
-            {
-                "modelo": "Samsung J62018",
-                "compativel": "A8 - A82018 - ZenfoneLiveL1"
-            },
-            {
-                "modelo": "Samsung J6Plus",
-                "compativel": "J4Plus - J4Core - J8 - A6Plus"
-            },
-            {
-                "modelo": "Samsung J72017",
-                "compativel": "C7 - C9 - ZenfoneMaxProM1"
-            },
-            {
-                "modelo": "Samsung J8",
-                "compativel": "A6Plus - J4Plus - J4Core - J6Plus"
-            },
-            {
-                "modelo": "Samsung M01Core",
-                "compativel": "A01Core"
-            },
-            {
-                "modelo": "Samsung M20",
-                "compativel": "M30 - A30S - A50 - RedmiNote8 - RedmiNote8T"
-            },
-            {
-                "modelo": "Samsung M21",
-                "compativel": "M31 - M30 - F41"
-            },
-            {
-                "modelo": "Samsung M31",
-                "compativel": "M21 - M30 - M30S - A30S - A50 - F41"
-            },
-            {
-                "modelo": "Samsung M32",
-                "compativel": "A32 - M31 - M315G - M21 - A30 - A50 - M30 - F41"
-            },
-            {
-                "modelo": "Samsung M51",
-                "compativel": "M31S"
-            },
-            {
-                "modelo": "Samsung M52",
-                "compativel": "M53 - A73"
-            },
-            {
-                "modelo": "Samsung M53",
-                "compativel": "M52 - A73"
-            },
-            {
-                "modelo": "Samsung M54",
-                "compativel": "A54"
-            },
-            {
-                "modelo": "Samsung S20",
-                "compativel": "S21"
-            },
-            {
-                "modelo": "Samsung S20FE",
-                "compativel": "Galaxy S20"
-            },
-            {
-                "modelo": "Samsung S20Plus",
-                "compativel": "Note20 - S21Plus"
-            },
-            {
-                "modelo": "Samsung S20Ultra",
-                "compativel": "S21Ultra - Note20Ultra"
-            },
-            {
-                "modelo": "Samsung S21FE",
-                "compativel": "S21"
-            },
-            {
-                "modelo": "Samsung S21Plus",
-                "compativel": "S20Plus - Note20"
-            },
-            {
-                "modelo": "Samsung S21Ultra",
-                "compativel": "S20Ultra - Note20Ultra"
-            },
-            {
-                "modelo": "Samsung S22",
-                "compativel": "S23"
-            },
-            {
-                "modelo": "Samsung S22Plus",
-                "compativel": "S22Ultra - S23Plus"
-            },
-            {
-                "modelo": "Samsung S22Ultra",
-                "compativel": "Note20Ultra - S21Ultra"
-            },
-            {
-                "modelo": "Samsung S23",
-                "compativel": "S22"
-            },
-            {
-                "modelo": "Samsung S23Plus",
-                "compativel": "S22Plus"
-            },
-            {
-                "modelo": "Samsung S23Ultra",
-                "compativel": "S22Ultra"
-            },
-            {
-                "modelo": "Samsung S24",
-                "compativel": "S23"
-            },
-            {
-                "modelo": "Samsung S24Plus",
-                "compativel": "S23Plus"
-            },
-            {
-                "modelo": "Samsung S24Ultra",
-                "compativel": "S23Ultra"
-            },
-            {
-                "modelo": "Samsung Note9",
-                "compativel": "Note8"
-            },
-            {
-                "modelo": "Samsung Note10",
-                "compativel": "Note10Plus"
-            },
-            {
-                "modelo": "Samsung Note10Lite",
-                "compativel": "A71 - Note10"
-            },
-            {
-                "modelo": "Samsung Note10Plus",
-                "compativel": "Note10 - Note9 - Note8"
-            },
-            {
-                "modelo": "Samsung Note20",
-                "compativel": "S20Plus - S21Plus"
-            },
-            {
-                "modelo": "Samsung Note20Ultra",
-                "compativel": "S20Ultra - S21Ultra - Note10Plus"
-            }
-        ];
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24 pb-12">
+        <!-- Seção de Login -->
+        <div id="loginSection" class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-8 transition-colors duration-200">
+            <h2 class="text-2xl font-semibold text-brand dark:text-brand-light mb-6">Login</h2>
+            <div class="space-y-4">
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha:</label>
+                    <input type="password" id="password" class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand dark:focus:ring-brand-light focus:border-transparent dark:text-white transition-colors">
+                </div>
+                <button onclick="login()" class="w-full bg-brand hover:bg-brand-dark text-white font-medium py-2 px-4 rounded-md transition-colors">
+                    Entrar
+                </button>
+                <p id="loginError" class="text-red-500 text-sm"></p>
+            </div>
+        </div>
 
-        // Dados de compatibilidade Motorola
-        const motorolaModels = [
-            {
-                "modelo": "Moto E4",
-                "compativel": "MotoG5"
-            },
-            {
-                "modelo": "Moto E4Play",
-                "compativel": "Redmi5"
-            },
-            {
-                "modelo": "Moto E4Plus",
-                "compativel": "MotoG5sPlus"
-            },
-            {
-                "modelo": "Moto E5",
-                "compativel": "MotoG6Play"
-            },
-            {
-                "modelo": "Moto E6Plus",
-                "compativel": "E6i - E6s"
-            },
-            {
-                "modelo": "Moto E6S",
-                "compativel": "E6i - E6Plus"
-            },
-            {
-                "modelo": "Moto E7",
-                "compativel": "E7Plus - OneFusion - E20 - G10 - G20 - G30 - A03 - A03S - A03Core"
-            },
-            {
-                "modelo": "Moto E7Plus",
-                "compativel": "E7Power - E20 - G8PowerLite - G10 - G20 - G30"
-            },
-            {
-                "modelo": "Moto E7Power",
-                "compativel": "E7plus - E20 - G8PowerLite - G10 - G20 - G30"
-            },
-            {
-                "modelo": "Moto E13",
-                "compativel": "A02 - A02s"
-            },
-            {
-                "modelo": "Moto E20",
-                "compativel": "E7Plus - E7Power - G8PowerLite - G10 - G20 - G30"
-            },
-            {
-                "modelo": "Moto E22",
-                "compativel": "A03 - A03s - A13"
-            },
-            {
-                "modelo": "Moto E22S",
-                "compativel": "G22"
-            },
-            {
-                "modelo": "Moto E30",
-                "compativel": "MotoE40"
-            },
-            {
-                "modelo": "Moto E32",
-                "compativel": "G04 - G04s - G22 - G24 - G24Power - G34"
-            },
-            {
-                "modelo": "Moto E32S",
-                "compativel": "MotoGPower - G13"
-            },
-            {
-                "modelo": "Moto E40",
-                "compativel": "A72 - RedmiNote10Lite"
-            },
-            {
-                "modelo": "Moto Edge20",
-                "compativel": "Edge20Pro"
-            },
-            {
-                "modelo": "Moto Edge20Lite",
-                "compativel": "Note12 - PocoX5"
-            },
-            {
-                "modelo": "Moto Edge30",
-                "compativel": "G84"
-            },
-            {
-                "modelo": "Moto Edge30Ultra",
-                "compativel": "EdgePlus - Edge40Pro"
-            },
-            {
-                "modelo": "Moto Edge40pro",
-                "compativel": "EdgePlus"
-            },
-            {
-                "modelo": "Moto G1",
-                "compativel": "MotoE2"
-            },
-            {
-                "modelo": "Moto G2",
-                "compativel": "MotoG3"
-            },
-            {
-                "modelo": "Moto G3",
-                "compativel": "MotoG2"
-            },
-            {
-                "modelo": "Moto G04",
-                "compativel": "G04s - G22 - G24 - G24Power - G34 - E32"
-            },
-            {
-                "modelo": "Moto G5Plus",
-                "compativel": "MotoG5S"
-            },
-            {
-                "modelo": "Moto G5S",
-                "compativel": "MotoG5Plus"
-            },
-            {
-                "modelo": "Moto G5SPlus",
-                "compativel": "E4Plus"
-            },
-            {
-                "modelo": "Moto G5GPlus",
-                "compativel": "MotoG100 - MotoEdgeS"
-            },
-            {
-                "modelo": "Moto G6Play",
-                "compativel": "E5"
-            },
-            {
-                "modelo": "Moto G7",
-                "compativel": "G7Plus - G8Play - MotoE6S - E6Plus - MotoOneMacro"
-            },
-            {
-                "modelo": "Moto G7Plus",
-                "compativel": "MotoG7 - G8Plus - G8Play"
-            },
-            {
-                "modelo": "Moto G8",
-                "compativel": "OneHyper - OneFusionPlus - A11 - M11 - Note9T - Note95G"
-            },
-            {
-                "modelo": "Moto G8Play",
-                "compativel": "MotoG7 - MotoG8plus - E6Plus - MotoOneMacro"
-            },
-            {
-                "modelo": "Moto G8plus",
-                "compativel": "G7 - E6Plus"
-            },
-            {
-                "modelo": "Moto G8Power",
-                "compativel": "OneHyper - A11 - M11"
-            },
-            {
-                "modelo": "Moto G8PowerLite",
-                "compativel": "G9Play - E7Power - E7Plus - A70 - Redmi9/9A/9C"
-            },
-            {
-                "modelo": "Moto G9Play",
-                "compativel": "G10 - G20 - G30 - E7Plus - OneFusion - A03 - A12 - A13 - A42 - Redmi9/9A/9C"
-            },
-            {
-                "modelo": "Moto G9Plus",
-                "compativel": "MotoGStylus2021"
-            },
-            {
-                "modelo": "Moto G10",
-                "compativel": "G20 - G30 - G9Play - G10Power - E7Plus - E7Power - E20 - A02 - A02S - A03 - A03S - A03Core - A12 - A13 - M12 - K41S - OneFusion"
-            },
-            {
-                "modelo": "Moto G13",
-                "compativel": "G23 - G73 - E32"
-            },
-            {
-                "modelo": "Moto G14",
-                "compativel": "G32 - G54 - G62 - G73"
-            },
-            {
-                "modelo": "Moto G15",
-                "compativel": "MotoG15Power - MotoG75"
-            },
-            {
-                "modelo": "Moto G22",
-                "compativel": "G04 - G04s - G24 - G24Power - G34 - E32"
-            },
-            {
-                "modelo": "Moto G23",
-                "compativel": "G13 - G73"
-            },
-            {
-                "modelo": "Moto G24",
-                "compativel": "G04 - G04s - G22 - G24Power - G34 - E32"
-            },
-            {
-                "modelo": "Moto G24Power",
-                "compativel": "G04 - G04s - G22 - G24 - G34 - E32"
-            },
-            {
-                "modelo": "Moto G31",
-                "compativel": "G41 - G71 - Xiaomi9T - RedmiNote10 - RedmiNote11"
-            },
-            {
-                "modelo": "Moto G32",
-                "compativel": "G14 - G54 - G62 - G73"
-            },
-            {
-                "modelo": "Moto G34",
-                "compativel": "G04 - G04s - G22 - G24 - G24Power - E32"
-            },
-            {
-                "modelo": "Moto G41",
-                "compativel": "G31 - G71"
-            },
-            {
-                "modelo": "Moto G42",
-                "compativel": "G52 - EDGELITE20"
-            },
-            {
-                "modelo": "Moto G52",
-                "compativel": "G42 - G82"
-            },
-            {
-                "modelo": "Moto G53",
-                "compativel": "G73"
-            },
-            {
-                "modelo": "Moto G54",
-                "compativel": "G14 - G32 - G62 - G73"
-            },
-            {
-                "modelo": "Moto G60S",
-                "compativel": "G31 - G41 - G71"
-            },
-            {
-                "modelo": "Moto G62",
-                "compativel": "G14 - G32 - G54 - G73"
-            },
-            {
-                "modelo": "Moto G71",
-                "compativel": "G31 - G41"
-            },
-            {
-                "modelo": "Moto G73",
-                "compativel": "G13 - G14 - G23 - G32 - G54 - G62"
-            },
-            {
-                "modelo": "Moto G82",
-                "compativel": "G52"
-            },
-            {
-                "modelo": "Moto G84",
-                "compativel": "Edge30"
-            },
-            {
-                "modelo": "Moto G100",
-                "compativel": "MotoEdgeS - MotoG5GPlus"
-            },
-            {
-                "modelo": "Moto G200",
-                "compativel": "Motorola Edge X30"
-            },
-            {
-                "modelo": "Moto OneFusion",
-                "compativel": "E7 - E7Plus - G9Play - G10 - G20 - G30"
-            },
-            {
-                "modelo": "Moto OneFusionPlus",
-                "compativel": "OneHyper"
-            },
-            {
-                "modelo": "Moto OneMacro",
-                "compativel": "MotoE6S - MotoE6Plus - G7 - G8Play"
-            },
-            {
-                "modelo": "Moto OneVision",
-                "compativel": "OneAction"
-            },
-            {
-                "modelo": "Moto OneVisionPlus",
-                "compativel": "MotoG60"
-            },
-            {
-                "modelo": "Moto OneZoom",
-                "compativel": "MotoG8Plus"
-            }
-        ];
+        <!-- Conteúdo principal (exibido após login) -->
+        <div id="content" class="hidden fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 transition-colors duration-200">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <h1 class="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-white">Tabela de Modelos Compatíveis</h1>
+                    <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors text-sm sm:text-base">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Sair
+                    </button>
+                </div>
 
-        // Dados de compatibilidade Xiaomi
-        const xiaomiModels = [
-            {
-                "modelo": "Xiaomi 12Lite",
-                "compativel": "RedmiNote11"
-            },
-            {
-                "modelo": "Xiaomi 12T",
-                "compativel": "Xiaomi12TPro - XiaomiBlackShark4S - PocoF4"
-            },
-            {
-                "modelo": "Xiaomi 9SE",
-                "compativel": "A01 - MiPlay"
-            },
-            {
-                "modelo": "Xiaomi Mi8",
-                "compativel": "Mi8Pro"
-            },
-            {
-                "modelo": "Xiaomi Mi9",
-                "compativel": "Mi9Lite - Redmi8 - Redmi8A - Redmi8APro"
-            },
-            {
-                "modelo": "Xiaomi Mi10Lite",
-                "compativel": "PocoM2pro - PocoX3"
-            },
-            {
-                "modelo": "Xiaomi Mi11",
-                "compativel": "Mi11Pro - Mi11Ultra"
-            },
-            {
-                "modelo": "Xiaomi MiA1",
-                "compativel": "K10Power - Note5APrime"
-            },
-            {
-                "modelo": "Xiaomi MiA2",
-                "compativel": "RedmiNote5 - Redmi5Plus - A8Plus - J8 - S2"
-            },
-            {
-                "modelo": "Xiaomi MiA2Lite",
-                "compativel": "Redmi6Pro"
-            },
-            {
-                "modelo": "Xiaomi MiGo",
-                "compativel": "J2Core"
-            },
-            {
-                "modelo": "Xiaomi Poco C31",
-                "compativel": "Redmi9A - Redmi9Activ - Redmi9ASport - Redmi9C - Redmi10A - A12"
-            },
-            {
-                "modelo": "Xiaomi Poco C40",
-                "compativel": "PocoC55 - PocoC61 - Redmi10C - Redmi10Power - Redmi12C - RedmiA3"
-            },
-            {
-                "modelo": "Xiaomi Poco C61",
-                "compativel": "PocoC40 - PocoC55 - Redmi10C - Redmi10Power - Redmi12C - RedmiA3"
-            },
-            {
-                "modelo": "Xiaomi Poco C65",
-                "compativel": "Redmi13C - SamsungA05"
-            },
-            {
-                "modelo": "Xiaomi Poco F3",
-                "compativel": "F4 - PocoM3 - Note11Pro - A71 - G22"
-            },
-            {
-                "modelo": "Xiaomi Poco F4",
-                "compativel": "F3 - F4GT - PocoX3NFC - X4Pro - M3 - M4Pro5G - A72"
-            },
-            {
-                "modelo": "Xiaomi Poco F45G",
-                "compativel": "RedmiNote11Pro"
-            },
-            {
-                "modelo": "Xiaomi Poco F5",
-                "compativel": "PocoX6 - PocoX6Pro - PocoM6Pro - Note12Turbo - Note135G - Note13Pro4G - Note13Pro5G - Note13ProPlus"
-            },
-            {
-                "modelo": "Xiaomi Poco M2",
-                "compativel": "PocoM3 - Redmi9T - RedmiNote94G"
-            },
-            {
-                "modelo": "Xiaomi Poco M2 Pro",
-                "compativel": "PocoX3 - Mi10Lite"
-            },
-            {
-                "modelo": "Xiaomi Poco M3",
-                "compativel": "A20S - Note94G"
-            },
-            {
-                "modelo": "Xiaomi Poco M3 Pro",
-                "compativel": "Note8T"
-            },
-            {
-                "modelo": "Xiaomi Poco M4",
-                "compativel": "SamsungA03 - A03S - A03Core - A12"
-            },
-            {
-                "modelo": "Xiaomi Poco M4 Pro",
-                "compativel": "Note104G - Note11"
-            },
-            {
-                "modelo": "Xiaomi Poco M5",
-                "compativel": "Redmi10A - A12"
-            },
-            {
-                "modelo": "Xiaomi Poco M5s",
-                "compativel": "RedmiNote10"
-            },
-            {
-                "modelo": "Xiaomi Poco M6 Pro",
-                "compativel": "PocoX6 - PocoX6Pro - PocoF5 - Note12Turbo - Note135G - Note13Pro4G - Note13Pro5G - Note13ProPlus"
-            },
-            {
-                "modelo": "Xiaomi Poco X3",
-                "compativel": "PocoX4Pro - Note9S - Note9Pro"
-            },
-            {
-                "modelo": "Xiaomi Poco X3 Pro",
-                "compativel": "PocoX3"
-            },
-            {
-                "modelo": "Xiaomi Poco X3GT",
-                "compativel": "Note9S - PocoX4Pro"
-            },
-            {
-                "modelo": "Xiaomi Poco X4 Pro",
-                "compativel": "PocoX3 - Note9S - Note9Pro"
-            },
-            {
-                "modelo": "Xiaomi Poco X5",
-                "compativel": "PocoX3 - PocoX4Pro - Note9S - Note9Pro - Note12"
-            },
-            {
-                "modelo": "Xiaomi Poco X5 Pro",
-                "compativel": "A71"
-            },
-            {
-                "modelo": "Xiaomi Poco X6",
-                "compativel": "PocoX6Pro - PocoM6Pro - PocoF5 - Note12Turbo - Note135G - Note13Pro4G - Note13Pro5G - Note13ProPlus"
-            },
-            {
-                "modelo": "Xiaomi Poco X6 Pro",
-                "compativel": "PocoX6 - PocoM6Pro - PocoF5 - Note12Turbo - Note135G - Note13Pro4G - Note13Pro5G - Note13ProPlus"
-            },
-            {
-                "modelo": "Xiaomi Redmi 8",
-                "compativel": "Redmi8A - Redmi8Pro"
-            },
-            {
-                "modelo": "Xiaomi Redmi 8A",
-                "compativel": "Redmi8 - Redmi8Pro"
-            },
-            {
-                "modelo": "Xiaomi Redmi 9",
-                "compativel": "Redmi9Power"
-            },
-            {
-                "modelo": "Xiaomi Redmi 9T",
-                "compativel": "RedmiNote94G - PocoM2 - PocoM3"
-            },
-            {
-                "modelo": "Xiaomi Redmi 9A",
-                "compativel": "Redmi9C - Redmi9i - Redmi10A - RedmiA1 - RedmiA2 - PocoC3 - PocoC31"
-            },
-            {
-                "modelo": "Xiaomi Redmi 9C",
-                "compativel": "Redmi9A - Redmi9i - Redmi10A - RedmiA1 - RedmiA2 - PocoC3 - PocoC31"
-            },
-            {
-                "modelo": "Xiaomi Redmi 9i",
-                "compativel": "Redmi9A - Redmi9C - Redmi10A - RedmiA1 - RedmiA2 - PocoC3 - PocoC31"
-            },
-            {
-                "modelo": "Xiaomi Redmi 10C",
-                "compativel": "Redmi12C - Redmi10Power - RedmiA3 - PocoC40 - PocoC55 - PocoC61"
-            },
-            {
-                "modelo": "Xiaomi Redmi 10A",
-                "compativel": "RedmiA1 - RedmiA2 - Redmi9A - Redmi9C - Redmi9i - PocoC31 - PocoC3"
-            },
-            {
-                "modelo": "Xiaomi Redmi 10 Power",
-                "compativel": "Redmi10C - Redmi12C - RedmiA3 - PocoC40 - PocoC55 - PocoC61"
-            },
-            {
-                "modelo": "Xiaomi Redmi 105G",
-                "compativel": "Redmi11Prime - RedmiNote11R"
-            },
-            {
-                "modelo": "Xiaomi Redmi 11 Prime",
-                "compativel": "Redmi105G - Redminote11R"
-            },
-            {
-                "modelo": "Xiaomi Redmi 12",
-                "compativel": "Redmi13 - RedmiNote12R - RedmiNote13R - PocoM64G - PocoM6Pro5G"
-            },
-            {
-                "modelo": "Xiaomi Redmi 12C",
-                "compativel": "Redmi10C - Redmi10Power - RedmiA3 - PocoC40 - PocoC55 - PocoC61"
-            },
-            {
-                "modelo": "Xiaomi Redmi 13",
-                "compativel": "Redmi12 - RedmiNote12R - RedmiNote13R - PocoM64G - PocoM6Pro5G"
-            },
-            {
-                "modelo": "Xiaomi Redmi 13C",
-                "compativel": "PocoC65 - SamsungA05"
-            },
-            {
-                "modelo": "Xiaomi Redmi A1",
-                "compativel": "RedmiA2 - Redmi9A - Redmi9C - Redmi9i - Redmi10A - PocoC31 - PocoC3"
-            },
-            {
-                "modelo": "Xiaomi Redmi A2",
-                "compativel": "RedmiA1 - Redmi9A - Redmi9C - Redmi9i - Redmi10A - PocoC31 - PocoC3"
-            },
-            {
-                "modelo": "Xiaomi Redmi A3",
-                "compativel": "Redmi10C - Redmi10Power - Redmi12C - PocoC40 - PocoC55 - PocoC61"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 5",
-                "compativel": "Redmi5Plus - MiA2 - A8Plus - J8 - S2"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 5A",
-                "compativel": "Redmi5A - Redmi4X"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 6 Pro",
-                "compativel": "RedmiNote7"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 7",
-                "compativel": "RedmiNote6Pro"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 8",
-                "compativel": "RedmiNote8T - OPPOa5 - OPPOa9"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 8T",
-                "compativel": "RedmiNote8 - M20 - M30 - PocoM3Pro - OPPOa5 - OPPOa9"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 8 Pro",
-                "compativel": "Note30 - Note30Pro - Note30Lite"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 9",
-                "compativel": "RedmiNote94G - PocoM2 - PocoM3"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 9S",
-                "compativel": "RedmiNote9Pro - PocoX3 - PocoX3GT - PocoX4Pro - PocoX5"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 9 Pro",
-                "compativel": "RedmiNote9S - RedmiNote9ProMax - PocoX3 - PocoX3GT - PocoX4Pro - PocoX5"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 9 Pro Max",
-                "compativel": "RedmiNote9Pro"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 10",
-                "compativel": "Note10Pro - Note10ProMax - Note10S - M5s"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 10S",
-                "compativel": "Note10 - Note10Pro - Note10ProMax"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 10 Pro",
-                "compativel": "Note10 - Note10ProMax - Note10S"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 11",
-                "compativel": "Note11Pro - Note11S - Mi12Lite - PocoM4Pro"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 11S",
-                "compativel": "Note11 - Note11Pro"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 11 Pro",
-                "compativel": "Note11 - Note11S - Mi11TPro - PocoF45G"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 12",
-                "compativel": "Note12Pro - PocoX5"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 12 Pro",
-                "compativel": "Note12"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 13",
-                "compativel": "Note13Pro4G"
-            },
-            {
-                "modelo": "Xiaomi Redmi Note 13 Pro",
-                "compativel": "Note13 - Note13Pro5G - Note13ProPlus - PocoX6 - PocoX6Pro - PocoM6Pro - PocoF5"
-            }
-        ];
+                <!-- Barra de Pesquisa -->
+                <div class="mb-6">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Digite para pesquisar em todas as marcas..." 
+                               class="w-full px-4 py-3 pl-10 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand dark:focus:ring-brand-light focus:border-transparent dark:text-white transition-colors">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
+                    </div>
+                </div>
 
-        // Inicializar arrays vazios para as novas marcas
-        const appleModels = [];
-        const asusModels = [];
-        const infinixModels = [];
-        const lgModels = [];
-        const oppoModels = [];
+                <!-- Filtros de Marca -->
+                <div class="mb-8">
+                    <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Filtrar por Marca:</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2" id="brandFilters">
+                        <button class="brand-filter active px-3 py-2 rounded-md text-sm font-medium bg-brand text-white hover:bg-brand-dark transition-colors" data-brand="all">
+                            Todas
+                        </button>
+                        <!-- Outros filtros serão adicionados dinamicamente -->
+                    </div>
+                </div>
 
-        // Verificar senha
-        function checkPassword() {
-            const password = document.getElementById('password').value;
-            if (password === 'consertcell2024') {
-                document.getElementById('loginSection').classList.add('hidden');
-                document.getElementById('mainContent').classList.remove('hidden');
-                
-                // Carregar todos os modelos
-                loadAllModels();
-                
-                // Carregar dados das planilhas
-                loadExcelData();
-            } else {
-                alert('Senha incorreta!');
-            }
-        }
-
-        // Carregar dados de arquivos Excel
-        function loadExcelData() {
-            // Função para processar cada planilha
-            function processExcel(file, modelArray, brandPrefix) {
-                fetch(file)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Falha ao carregar ${file}: ${response.status}`);
-                        }
-                        return response.arrayBuffer();
-                    })
-                    .then(data => {
-                        const workbook = XLSX.read(data, { type: 'array' });
-                        const sheetName = workbook.SheetNames[0];
-                        const worksheet = workbook.Sheets[sheetName];
-                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
-                        
-                        // Processar os dados
-                        for (let i = 1; i < jsonData.length; i++) {
-                            if (jsonData[i][0] && jsonData[i][1]) {
-                                let modelo = jsonData[i][0].toString().trim();
-                                let compativel = jsonData[i][1].toString().trim();
-                                
-                                // Adicionar prefixo da marca se não existir
-                                if (brandPrefix && !modelo.toLowerCase().includes(brandPrefix.toLowerCase())) {
-                                    modelo = brandPrefix + " " + modelo;
-                                }
-                                
-                                modelArray.push({
-                                    modelo: modelo,
-                                    compativel: compativel
-                                });
-                            }
-                        }
-                        console.log(`Carregados ${modelArray.length} modelos de ${file}`);
-                        
-                        // Recarregar a seção correspondente após o carregamento
-                        // Mapear corretamente o nome do arquivo para o ID da marca
-                        let brandId = '';
-                        if (file === 'infi.xlsx') {
-                            brandId = 'infinix';
-                        } else {
-                            brandId = file.split('.')[0].toLowerCase();
-                        }
-                        console.log(`Arquivo: ${file}, BrandID: ${brandId}`);
-                        loadBrandModels(brandId, modelArray);
-                    })
-                    .catch(error => {
-                        console.error(`Erro ao carregar ${file}:`, error);
-                    });
-            }
-            
-            // Processar cada arquivo
-            processExcel('apple.xlsx', appleModels, 'iPhone');
-            processExcel('asus.xlsx', asusModels, 'Asus');
-            processExcel('infi.xlsx', infinixModels, 'Infinix');
-            processExcel('LG.xlsx', lgModels, 'LG');
-            processExcel('oppo.xlsx', oppoModels, 'Oppo');
-        }
-
-        // Limpar busca
-        function clearSearch() {
-            const searchInput = document.getElementById('search');
-            searchInput.value = '';
-            filterModels('');
-        }
-        
-        // Carregar todos os modelos ao iniciar
-        function loadAllModels() {
-            loadBrandModels('samsung', samsungModels);
-            loadBrandModels('motorola', motorolaModels);
-            loadBrandModels('xiaomi', xiaomiModels);
-            loadBrandModels('apple', appleModels);
-            loadBrandModels('asus', asusModels);
-            loadBrandModels('infinix', infinixModels);
-            loadBrandModels('lg', lgModels);
-            loadBrandModels('oppo', oppoModels);
-            
-            // Adicionar evento de busca no input
-            document.getElementById('search').addEventListener('input', function() {
-                filterModels(this.value.trim().toLowerCase());
-            });
-        }
-        
-        // Carregar modelos de uma marca específica
-        function loadBrandModels(brand, models) {
-            const container = document.getElementById(`${brand}Models`);
-            if (!container) return;
-            
-            // Se não houver modelos, mostrar mensagem
-            if (!models || models.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-4">Carregando modelos...</div>';
-                return;
-            }
-            
-            // Ordenar os modelos alfabeticamente
-            const sortedModels = [...models].sort((a, b) => {
-                return a.modelo.localeCompare(b.modelo);
-            });
-            
-            let html = '';
-            sortedModels.forEach((item, index) => {
-                let modelName = '';
-                let fullName = item.modelo;
-                
-                if (brand === 'samsung') {
-                    modelName = item.modelo.replace('Samsung ', '');
-                } else if (brand === 'motorola') {
-                    modelName = item.modelo.replace('Moto ', '');
-                } else if (brand === 'xiaomi') {
-                    // Para Xiaomi, lidar com diferentes prefixos
-                    modelName = item.modelo
-                        .replace('Xiaomi ', '')
-                        .replace('Redmi ', '')
-                        .replace('POCO ', '')
-                        .replace('Poco ', '');
-                } else if (brand === 'apple') {
-                    modelName = item.modelo.replace('iPhone ', '');
-                } else if (brand === 'asus') {
-                    modelName = item.modelo.replace('Asus ', '');
-                } else if (brand === 'infinix') {
-                    modelName = item.modelo.replace('Infinix ', '');
-                } else if (brand === 'lg') {
-                    modelName = item.modelo.replace('LG ', '');
-                } else if (brand === 'oppo') {
-                    modelName = item.modelo.replace('Oppo ', '');
-                }
-                
-                html += `
-                    <div class="model-container">
-                        <div class="model-card bg-white border rounded-lg shadow-sm p-4 cursor-pointer hover:shadow-md transition-shadow duration-200" 
-                            onclick="toggleCompatibility('${brand}', ${index})" 
-                            data-model="${fullName.toLowerCase()}" 
-                            id="${brand}-model-${index}">
-                            <h3 class="text-md font-medium text-gray-700">${modelName}</h3>
-                        </div>
-                        <div class="compatibility-container" id="${brand}-compat-${index}">
-                            <div class="bg-gray-50 p-3 rounded-lg mt-2">
-                                <p class="text-sm text-gray-500 mb-2">Compatível com:</p>
-                                <div class="flex flex-wrap gap-2">
-                                    ${getCompatibilityHTML(item.compativel)}
-                                </div>
+                <!-- Container para todas as marcas -->
+                <div id="allBrandsContainer" class="space-y-6 sm:space-y-8">
+                    <!-- Skeleton Loading -->
+                    <div id="skeletonLoading" class="space-y-6">
+                        <div class="animate-pulse space-y-4">
+                            <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
+                            <div class="space-y-3">
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
                             </div>
                         </div>
                     </div>
-                `;
-            });
+                    <!-- Seções serão inseridas dinamicamente -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const correctPassword = "123";
+        let allData = {};
+        let isCardView = false;
+
+        // Dark Mode
+        function initDarkMode() {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            document.documentElement.classList.toggle('dark', darkMode);
             
-            container.innerHTML = html;
+            document.getElementById('darkModeToggle').addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            });
         }
-        
-        // Gerar HTML para os modelos compatíveis
-        function getCompatibilityHTML(compatText) {
-            // Separar os modelos compatíveis
-            const compatibilityArray = compatText.split(/[-,;\s\/]+/).filter(s => s);
-            return compatibilityArray.map(comp => 
-                `<span class="bg-gray-100 px-3 py-1 rounded-full text-sm hover:bg-gray-200 transition-colors duration-200">${comp}</span>`
-            ).join('');
+
+        // View Toggle
+        function initViewToggle() {
+            const viewToggle = document.getElementById('viewToggle');
+            isCardView = localStorage.getItem('isCardView') === 'true';
+            updateViewToggleIcon();
+
+            viewToggle.addEventListener('click', () => {
+                isCardView = !isCardView;
+                localStorage.setItem('isCardView', isCardView);
+                updateViewToggleIcon();
+                refreshView();
+            });
         }
-        
-        // Mostrar/esconder compatibilidade quando um modelo é clicado
-        function toggleCompatibility(brand, index) {
-            const modelCard = document.getElementById(`${brand}-model-${index}`);
-            const compatContainer = document.getElementById(`${brand}-compat-${index}`);
+
+        function updateViewToggleIcon() {
+            const icon = document.getElementById('viewToggle').querySelector('i');
+            icon.className = isCardView ? 'fas fa-table' : 'fas fa-th-large';
+        }
+
+        function refreshView() {
+            const brands = Object.keys(allData);
+            const container = document.getElementById('allBrandsContainer');
+            container.innerHTML = '';
             
-            // Remover classe ativa de todos os modelos
-            document.querySelectorAll('.model-card').forEach(card => {
-                if (card.id !== `${brand}-model-${index}`) {
-                    card.classList.remove('active');
-                }
+            brands.forEach(brand => {
+                createBrandSection(brand.charAt(0).toUpperCase() + brand.slice(1), allData[brand]);
             });
-            
-            // Esconder todos os containers de compatibilidade
-            document.querySelectorAll('.compatibility-container').forEach(container => {
-                if (container.id !== `${brand}-compat-${index}`) {
-                    container.style.display = 'none';
-                }
-            });
-            
-            // Alternar estado do modelo atual
-            if (compatContainer.style.display === 'block') {
-                compatContainer.style.display = 'none';
-                modelCard.classList.remove('active');
+        }
+
+        function login() {
+            const passwordInput = document.getElementById("password").value;
+            if (passwordInput === correctPassword) {
+                document.getElementById("loginSection").style.display = "none";
+                document.getElementById("content").style.display = "block";
+                loadAllBrandsData();
             } else {
-                compatContainer.style.display = 'block';
-                modelCard.classList.add('active');
+                document.getElementById("loginError").innerText = "Senha incorreta!";
             }
         }
-        
-        // Filtrar modelos por marca
-        function filterByBrand(brand) {
-            // Atualizar visual das marcas
-            document.querySelectorAll('.brand-card').forEach(card => {
-                const cardBrand = card.getAttribute('data-brand');
-                if (cardBrand === brand) {
-                    card.classList.add('border-brand', 'bg-brand-light');
-                    card.querySelector('h3').classList.add('text-white');
-                } else {
-                    card.classList.remove('border-brand', 'bg-brand-light');
-                    card.querySelector('h3').classList.remove('text-white');
-                }
-            });
-            
-            // Mostrar/esconder seções
-            document.querySelectorAll('.models-section').forEach(section => {
-                const sectionId = section.id;
-                if (brand === 'all' || sectionId === `${brand}-section`) {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-            
-            // Limpar busca
-            clearSearch();
+
+        function logout() {
+            document.getElementById("content").style.display = "none";
+            document.getElementById("loginSection").style.display = "block";
+            document.getElementById("password").value = "";
+            document.getElementById("loginError").innerText = "";
+            document.getElementById("allBrandsContainer").innerHTML = "";
+            document.getElementById("searchInput").value = "";
+            allData = {};
         }
-        
-        // Filtrar modelos por texto
-        function filterModels(searchText) {
-            if (!searchText) {
-                // Mostrar todos os modelos
-                document.querySelectorAll('.model-container').forEach(container => {
-                    container.style.display = 'block';
+
+        async function loadAllBrandsData() {
+            const brands = [
+                { file: 'samsung.xlsx', name: 'Samsung' },
+                { file: 'apple.xlsx', name: 'Apple' },
+                { file: 'asus.xlsx', name: 'Asus' },
+                { file: 'infinix.xlsx', name: 'Infinix' },
+                { file: 'lg.xlsx', name: 'LG' },
+                { file: 'motorola.xlsx', name: 'Motorola' },
+                { file: 'oppo.xlsx', name: 'Oppo' },
+                { file: 'xiaomi.xlsx', name: 'Xiaomi' }
+            ];
+
+            // Mostrar skeleton loading
+            document.getElementById('skeletonLoading').style.display = 'block';
+
+            const container = document.getElementById('allBrandsContainer');
+            const filterContainer = document.getElementById('brandFilters');
+            container.innerHTML = '';
+
+            // Adiciona filtros de marca com animação
+            brands.forEach((brand, index) => {
+                const filterBtn = document.createElement('button');
+                filterBtn.className = 'brand-filter px-3 py-2 rounded-md text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-brand hover:text-white transition-colors slide-in';
+                filterBtn.style.animationDelay = `${index * 50}ms`;
+                filterBtn.setAttribute('data-brand', brand.name.toLowerCase());
+                filterBtn.textContent = brand.name;
+                filterBtn.onclick = () => {
+                    document.querySelectorAll('.brand-filter').forEach(btn => 
+                        btn.classList.remove('active', 'bg-brand', 'text-white'));
+                    filterBtn.classList.add('active', 'bg-brand', 'text-white');
+                    updateVisibility(document.getElementById('searchInput').value.toLowerCase(), brand.name.toLowerCase());
+                };
+                filterContainer.appendChild(filterBtn);
+            });
+
+            // Carrega dados com delay para mostrar skeleton
+            setTimeout(async () => {
+                for (const brand of brands) {
+                    try {
+                        const response = await fetch(brand.file);
+                        const data = await response.arrayBuffer();
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const firstSheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[firstSheetName];
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                        allData[brand.name.toLowerCase()] = jsonData;
+                        createBrandSection(brand.name, jsonData);
+                    } catch (error) {
+                        console.error(`Erro ao carregar dados da ${brand.name}:`, error);
+                    }
+                }
+
+                // Esconde skeleton loading
+                document.getElementById('skeletonLoading').style.display = 'none';
+                setupSearch();
+            }, 1000);
+        }
+
+        function createBrandSection(brandName, data) {
+            const container = document.getElementById('allBrandsContainer');
+            const section = document.createElement('section');
+            section.id = brandName.toLowerCase();
+            section.className = 'brand-section bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 sm:p-6 slide-in transition-colors duration-200';
+
+            const header = document.createElement('h2');
+            header.className = 'text-lg sm:text-xl font-semibold text-brand dark:text-brand-light mb-4 flex items-center';
+            header.innerHTML = `<i class="fas fa-mobile-alt mr-2"></i>${brandName}`;
+
+            section.appendChild(header);
+
+            if (isCardView) {
+                // View em Cards
+                const cardGrid = document.createElement('div');
+                cardGrid.className = 'card-grid';
+
+                data.forEach(row => {
+                    if (row.length === 0) return;
+                    const card = document.createElement('div');
+                    card.className = 'card bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-sm hover:shadow-md transition-all';
+
+                    const model = document.createElement('h3');
+                    model.className = 'font-medium text-gray-900 dark:text-white mb-2';
+                    model.textContent = row[0] ? row[0] : "";
+
+                    const compat = document.createElement('p');
+                    compat.className = 'text-sm text-gray-600 dark:text-gray-300';
+                    compat.textContent = row[1] ? row[1] : "";
+
+                    card.appendChild(model);
+                    card.appendChild(compat);
+                    cardGrid.appendChild(card);
                 });
-                return;
+
+                section.appendChild(cardGrid);
+            } else {
+                // View em Tabela
+                const tableContainer = document.createElement('div');
+                tableContainer.className = 'overflow-x-auto';
+
+                const table = document.createElement('table');
+                table.className = 'min-w-full divide-y divide-gray-200 dark:divide-gray-700';
+
+                const thead = document.createElement('thead');
+                thead.className = 'bg-gray-50 dark:bg-gray-700';
+                thead.innerHTML = `
+                    <tr>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Modelo</th>
+                        <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Modelos Compatíveis</th>
+                    </tr>
+                `;
+
+                const tbody = document.createElement('tbody');
+                tbody.className = 'bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700';
+
+                data.forEach(row => {
+                    if (row.length === 0) return;
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors';
+
+                    const tdModel = document.createElement('td');
+                    tdModel.className = 'px-4 sm:px-6 py-3 text-sm text-gray-900 dark:text-white font-medium';
+                    tdModel.textContent = row[0] ? row[0] : "";
+
+                    const tdCompat = document.createElement('td');
+                    tdCompat.className = 'px-4 sm:px-6 py-3 text-sm text-gray-900 dark:text-white';
+                    tdCompat.textContent = row[1] ? row[1] : "";
+
+                    tr.appendChild(tdModel);
+                    tr.appendChild(tdCompat);
+                    tbody.appendChild(tr);
+                });
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+                tableContainer.appendChild(table);
+                section.appendChild(tableContainer);
             }
-            
-            // Filtrar modelos pelo texto
-            document.querySelectorAll('.model-container').forEach(container => {
-                const modelCard = container.querySelector('.model-card');
-                const modelName = modelCard.getAttribute('data-model');
-                
-                if (modelName.includes(searchText)) {
-                    container.style.display = 'block';
-                } else {
-                    container.style.display = 'none';
+
+            container.appendChild(section);
+        }
+
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+
+            // Limpa o valor da busca ao iniciar
+            searchInput.value = '';
+
+            // Função para realizar a busca
+            const performSearch = () => {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const activeFilter = document.querySelector('.brand-filter.active');
+                const selectedBrand = activeFilter ? activeFilter.getAttribute('data-brand') : 'all';
+                updateVisibility(searchTerm, selectedBrand);
+            };
+
+            // Evento de input para busca em tempo real
+            searchInput.addEventListener('input', () => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(performSearch, 200);
+            });
+
+            // Evento de tecla pressionada (Enter)
+            searchInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    clearTimeout(searchTimeout);
+                    performSearch();
                 }
             });
+
+            // Força uma busca inicial
+            performSearch();
         }
+
+        function updateVisibility(searchTerm, selectedBrand) {
+            const sections = document.querySelectorAll('.brand-section');
+            let hasAnyResults = false;
+
+            sections.forEach(section => {
+                const brandId = section.id.toLowerCase();
+                const shouldShowBrand = selectedBrand === 'all' || brandId === selectedBrand.toLowerCase();
+                
+                if (!shouldShowBrand) {
+                    section.style.display = 'none';
+                    return;
+                }
+
+                const elements = isCardView ? 
+                    section.querySelectorAll('.card') : 
+                    section.querySelectorAll('tbody tr');
+                
+                let hasVisibleElements = false;
+
+                elements.forEach(element => {
+                    if (!element) return;
+
+                    const modelElement = isCardView ? 
+                        element.querySelector('h3') : 
+                        element.querySelector('td:first-child');
+                    const compatElement = isCardView ? 
+                        element.querySelector('p') : 
+                        element.querySelector('td:last-child');
+
+                    if (!modelElement || !compatElement) return;
+
+                    const modelText = modelElement.textContent.toLowerCase();
+                    const compatText = compatElement.textContent.toLowerCase();
+
+                    // Melhorada a lógica de busca para ser mais precisa
+                    const isVisible = searchTerm === '' || 
+                        modelText.includes(searchTerm) || 
+                        compatText.includes(searchTerm);
+
+                    // Atualiza a visibilidade com uma classe em vez de style direto
+                    element.classList.toggle('hidden', !isVisible);
+                    if (isVisible) {
+                        hasVisibleElements = true;
+                        hasAnyResults = true;
+                    }
+                });
+
+                section.classList.toggle('hidden', !hasVisibleElements && searchTerm !== '');
+            });
+
+            // Atualiza mensagem de "Nenhum resultado encontrado"
+            const existingMsg = document.getElementById('noResultsMessage');
+            if (existingMsg) {
+                existingMsg.remove();
+            }
+
+            if (!hasAnyResults && searchTerm !== '') {
+                const msg = document.createElement('div');
+                msg.id = 'noResultsMessage';
+                msg.className = 'text-center py-8 text-gray-500 dark:text-gray-400 fade-in';
+                msg.innerHTML = `
+                    <i class="fas fa-search mb-2 text-2xl"></i>
+                    <p>Nenhum resultado encontrado para "${searchTerm}"</p>
+                `;
+                document.getElementById('allBrandsContainer').appendChild(msg);
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            initDarkMode();
+            initViewToggle();
+            
+            // Configura a busca mesmo antes do login
+            setupSearch();
+        });
+
+        // Adiciona funcionalidade de login ao pressionar Enter
+        document.getElementById("password").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                login();
+            }
+        });
     </script>
 </body>
-</html> 
+</html>
