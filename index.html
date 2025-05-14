@@ -32,7 +32,7 @@
         body { font-family: 'Poppins', sans-serif; }
         .hero-pattern {
             background-color: #008B8B;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         .floating-whatsapp {
             position: fixed;
@@ -251,6 +251,10 @@
                 display: block;
             }
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -282,7 +286,7 @@
                         <a href="#inicio" class="text-gray-600 hover:text-brand font-medium">Início</a>
                         <a href="#servicos" class="text-gray-600 hover:text-brand font-medium">Serviços</a>
                         <a href="#sobre" class="text-gray-600 hover:text-brand font-medium">Sobre</a>
-                        <a href="#unidades" class="text-gray-600 hover:text-brand font-medium">Nossas Unidades</a>
+                        <a href="#contato" class="text-gray-600 hover:text-brand font-medium">Nossas Unidades</a>
                         <a href="#contato" class="text-gray-600 hover:text-brand font-medium">Contato</a>
                     </nav>
                     <!-- Hamburger Menu -->
@@ -313,7 +317,7 @@
             <a href="#inicio" class="block py-3 text-gray-600 hover:text-brand font-medium border-b" onclick="toggleMobileMenu()">Início</a>
             <a href="#servicos" class="block py-3 text-gray-600 hover:text-brand font-medium border-b" onclick="toggleMobileMenu()">Serviços</a>
             <a href="#sobre" class="block py-3 text-gray-600 hover:text-brand font-medium border-b" onclick="toggleMobileMenu()">Sobre</a>
-            <a href="#unidades" class="block py-3 text-gray-600 hover:text-brand font-medium border-b" onclick="toggleMobileMenu()">Nossas Unidades</a>
+            <a href="#contato" class="block py-3 text-gray-600 hover:text-brand font-medium" onclick="toggleMobileMenu()">Nossas Unidades</a>
             <a href="#contato" class="block py-3 text-gray-600 hover:text-brand font-medium" onclick="toggleMobileMenu()">Contato</a>
         </nav>
     </div>
@@ -458,107 +462,48 @@
     <!-- Sobre -->
     <section id="sobre" class="py-16 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-brand mb-4" data-aos="fade-up">Sobre a Cert.Cell</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-                    Referência em assistência técnica de smartphones há mais de 5 anos, 
-                    combinando tecnologia de ponta e profissionais certificados para oferecer o melhor serviço.
+            <div class="max-w-3xl mx-auto text-center">
+                <h3 class="text-2xl sm:text-3xl font-bold mb-6">Nossa Loja</h3>
+                <p class="text-gray-600 mb-8 text-base sm:text-lg">
+                    Localizadas em pontos estratégicos de Palhoça, nossas unidades oferecem ambiente acolhedor e atendimento personalizado. Contamos com técnicos especializados e oferecemos garantia em todos os nossos serviços.
                 </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="bg-gray-50 p-8 rounded-xl border-b-4 border-brand" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl text-brand mb-6"><i class="fas fa-medal"></i></div>
-                    <h3 class="text-2xl font-bold mb-4">Qualidade Garantida</h3>
-                    <ul class="space-y-3 text-gray-600">
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-lg shadow-sm mb-8 inline-block w-full">
+                    <h4 class="font-bold text-brand mb-3 text-left text-base sm:text-lg">Por que escolher a Cert.Cell?</h4>
+                    <ul class="space-y-2 text-left text-sm sm:text-base">
                         <li class="flex items-center">
                             <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Peças de alta qualidade
+                            <span>Técnicos certificados</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            90 dias de garantia
+                            <span>Garantia em todos os serviços</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Técnico especialista
+                            <span>Atendimento rápido e eficiente</span>
                         </li>
                     </ul>
                 </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl border-b-4 border-brand" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl text-brand mb-6"><i class="fas fa-clock"></i></div>
-                    <h3 class="text-2xl font-bold mb-4">Compromisso</h3>
-                    <ul class="space-y-3 text-gray-600">
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Prazo combinado
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Orçamento detalhado
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Atendimento dedicado
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl border-b-4 border-brand" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl text-brand mb-6"><i class="fas fa-heart"></i></div>
-                    <h3 class="text-2xl font-bold mb-4">Satisfação Total</h3>
-                    <ul class="space-y-3 text-gray-600">
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Atendimento personalizado
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            +5000 clientes atendidos
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            +10000 reparos realizados
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="relative max-w-sm mx-auto" data-aos="fade-right">
-                    <div class="aspect-w-16 aspect-h-9">
-                        <img src="img/faxada.jpg" alt="Fachada da Cert.Cell" class="rounded-xl shadow-xl w-full h-auto object-contain">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center">
+                    <div class="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow text-left">
+                        <div class="font-bold text-brand mb-1">Localização</div>
+                        <div class="text-sm text-gray-600">Centro e Ponte do Imaruim</div>
+                        <div class="text-xs text-gray-500 mt-2">Fácil acesso</div>
                     </div>
-                    <div class="absolute -bottom-6 right-6 bg-brand text-white p-4 rounded-lg shadow-lg">
-                        <div class="text-2xl font-bold">5+</div>
-                        <div class="text-xs">Anos de Experiência</div>
+                    <div class="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow text-left">
+                        <div class="font-bold text-brand mb-1">Ambiente</div>
+                        <div class="text-sm text-gray-600">Climatizado e confortável</div>
+                        <div class="text-xs text-gray-500 mt-2">Espere com conforto</div>
                     </div>
-                </div>
-                <div data-aos="fade-left">
-                    <h3 class="text-2xl font-bold mb-6">Nossa Loja</h3>
-                    <p class="text-gray-600 mb-8">
-                        Localizada em um ponto estratégico, nossa loja oferece um ambiente acolhedor 
-                        e atendimento personalizado. Venha nos conhecer e descubra por que somos referência 
-                        em reparos de smartphones na região.
-                    </p>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="font-bold text-brand mb-1">Localização</div>
-                            <div class="text-sm text-gray-600">Centro da cidade</div>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="font-bold text-brand mb-1">Ambiente</div>
-                            <div class="text-sm text-gray-600">Climatizado</div>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="font-bold text-brand mb-1">Horário</div>
-                            <div class="text-sm text-gray-600">Seg-Sex: 9h às 18h</div>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="font-bold text-brand mb-1">Atendimento</div>
-                            <div class="text-sm text-gray-600">Presencial e WhatsApp</div>
-                        </div>
+                    <div class="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow text-left">
+                        <div class="font-bold text-brand mb-1">Horário</div>
+                        <div class="text-sm text-gray-600">Seg-Sex: 9h às 18h</div>
+                        <div class="text-xs text-gray-500 mt-2">Sáb: 9h às 12h</div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow text-left">
+                        <div class="font-bold text-brand mb-1">Atendimento</div>
+                        <div class="text-sm text-gray-600">Presencial e WhatsApp</div>
+                        <div class="text-xs text-gray-500 mt-2">Rápido e eficiente</div>
                     </div>
                 </div>
             </div>
@@ -646,14 +591,14 @@
                     <h4 class="font-bold mb-4">Horário</h4>
                     <ul class="text-gray-400 space-y-2">
                         <li>Segunda a Sexta: 9h às 18h</li>
-                        <li>Sábado: 9h às 13h</li>
+                        <li>Sábado: 9h ao meio dia</li>
                         <li>Domingo: Fechado</li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold mb-4">Redes Sociais</h4>
                     <div class="flex space-x-4">
-                        <a href="https://www.instagram.com/cell.consert" class="hover:text-brand-light"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="https://www.instagram.com/cert.cell" class="hover:text-brand-light"><i class="fab fa-instagram fa-2x"></i></a>
                         <a href="https://wa.me/554821327188?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20conserto%20do%20meu%20celular." class="hover:text-brand-light"><i class="fab fa-whatsapp fa-2x"></i></a>
                     </div>
                 </div>
