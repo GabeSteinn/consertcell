@@ -71,11 +71,14 @@
           var vendas = APP.groupScootersByDataVenda(scooters);
           var html = '<div class="space-y-8">';
           html += '<div class="card p-6"><h3 class="font-semibold text-gray-800 mb-4">Dados pessoais</h3>';
-          html += '<dl class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm"><dt class="text-gray-500">Nome</dt><dd>' + escapeHtml(c.nome || '-') + '</dd>';
-          html += '<dt class="text-gray-500">CPF</dt><dd>' + escapeHtml(c.cpf || '-') + '</dd>';
-          html += '<dt class="text-gray-500">RG</dt><dd>' + escapeHtml(c.rg || '-') + '</dd>';
-          html += '<dt class="text-gray-500">Telefone</dt><dd>' + escapeHtml(c.telefone || '-') + '</dd>';
-          html += '<dt class="text-gray-500 sm:col-span-2">Endereço</dt><dd class="sm:col-span-2">' + escapeHtml(c.endereco || '-') + '</dd></dl></div>';
+          html += '<dl class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2.5 text-sm items-baseline">';
+          html += '<dt class="text-gray-500 font-medium">Nome</dt><dd class="text-gray-800">' + escapeHtml(c.nome || '-') + '</dd>';
+          html += '<dt class="text-gray-500 font-medium">CPF</dt><dd class="text-gray-800">' + escapeHtml(c.cpf || '-') + '</dd>';
+          html += '<dt class="text-gray-500 font-medium">RG</dt><dd class="text-gray-800">' + escapeHtml(c.rg || '-') + '</dd>';
+          html += '<dt class="text-gray-500 font-medium">Telefone</dt><dd class="text-gray-800">' + escapeHtml(c.telefone || '-') + '</dd>';
+          html += '<dt class="text-gray-500 font-medium col-span-2">Endereço</dt>';
+          html += '<dd class="text-gray-800 col-start-2">' + escapeHtml(c.endereco || '-') + '</dd>';
+          html += '</dl></div>';
           vendas.forEach(function(venda, vendaIdx) {
             html += '<div class="card p-6 border-l-4 border-brand" data-venda-index="' + vendaIdx + '">';
             html += '<h3 class="font-semibold text-gray-800 mb-4">Venda em ' + escapeHtml(venda.dataVendaLabel) + '</h3>';
