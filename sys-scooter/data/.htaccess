@@ -1,0 +1,4 @@
+# Impedir acesso direto aos arquivos JSON (segurança)
+<Files "*">
+  Require all denied
+</Files>

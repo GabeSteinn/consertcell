@@ -1,0 +1,6 @@
+# Permitir que o PHP receba o header Authorization (algumas hospedagens removem por padrão)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>

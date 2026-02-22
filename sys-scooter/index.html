@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="icoscotter.ico" type="image/x-icon">
+  <title>Login - Cert Mobility</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { brand: '#008B8B', 'brand-dark': '#006666' } } } };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="login-page">
+  <script src="js/config.js"></script>
+  <script>window.SYS_SCOOTER_LOCAL_CREDENTIALS = window.SYS_SCOOTER_LOCAL_CREDENTIALS || { user: '', password: '' };</script>
+  <div class="login-box">
+    <div class="login-brand">
+      <img src="logoscotter.png" alt="" class="login-logo">
+      <h1 class="login-title">Cert Mobility</h1>
+    </div>
+    <p class="text-sm text-gray-500 text-center mb-6">Área administrativa</p>
+    <form id="formLogin" class="space-y-4">
+      <div class="form-group">
+        <label for="login">Login</label>
+        <input type="text" id="login" name="login" class="form-control" placeholder="Seu login" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <div class="form-group flex items-center gap-2">
+        <input type="checkbox" id="manterConectado" name="manterConectado" class="rounded border-gray-300" checked>
+        <label for="manterConectado" class="text-sm text-gray-600 mb-0 cursor-pointer">Ficar conectado</label>
+      </div>
+      <p id="erroLogin" class="text-sm text-red-500 hidden">Login ou senha incorretos.</p>
+      <button type="submit" class="btn btn-primary w-full rounded-full py-2.5">Entrar</button>
+    </form>
+  </div>
+  <script src="js/app.js"></script>
+  <script>
+    function dashboardUrl() {
+      return (APP.isFileProtocol && APP.isFileProtocol()) || (APP.isLocalMode && APP.isLocalMode()) ? 'dashboard.html' : 'dashboard.php';
+    }
+    if (APP.isLoggedIn()) {
+      window.location.href = dashboardUrl();
+    }
+    document.getElementById('formLogin').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var erroEl = document.getElementById('erroLogin');
+      erroEl.classList.add('hidden');
+      var login = document.getElementById('login').value.trim();
+      var senha = document.getElementById('senha').value;
+      var manterConectado = document.getElementById('manterConectado').checked;
+      var result = await APP.login(login, senha, manterConectado);
+      if (result.ok) {
+        window.location.href = dashboardUrl();
+      } else {
+        erroEl.textContent = result.error || 'Login ou senha incorretos.';
+        erroEl.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

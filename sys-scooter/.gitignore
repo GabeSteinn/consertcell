@@ -1,0 +1,19 @@
+# Dados do sistema (ficam no servidor, não versionar)
+data/*.json
+!data/.gitkeep
+
+# Credenciais e configuração sensível (nunca enviar ao GitHub)
+api/config.php
+js/config.js
+
+# OS e IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*

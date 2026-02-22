@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="icoscotter.ico" type="image/x-icon">
+  <title>Novo Cliente - Cert Mobility</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { brand: '#008B8B', 'brand-dark': '#006666' } } } };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><img src="logoscotter.png" alt="" class="sidebar-logo"> Cert Mobility</div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="clients.html" data-page="clients"><i class="fas fa-users"></i> Clientes</a>
+        <a href="new-client.html" data-page="new-client" class="active"><i class="fas fa-user-plus"></i> Novo Cliente</a>
+        <a href="config.html" data-page="config"><i class="fas fa-cog"></i> Configuração</a>
+      </nav>
+    </aside>
+    <div class="main-wrap">
+      <header class="header">
+        <h2 class="text-lg font-semibold text-gray-800" id="tituloPagina">Novo Cliente</h2>
+        <div class="flex gap-2">
+          <a href="clients.html" class="btn btn-secondary btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="APP.logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+        </div>
+      </header>
+      <main class="content">
+        <form id="formCliente" class="max-w-3xl">
+          <div class="card p-6 mb-6">
+            <h3 class="font-semibold text-gray-800 mb-4">Dados pessoais</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-group md:col-span-2">
+                <label for="nome">Nome *</label>
+                <input type="text" id="nome" name="nome" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00">
+              </div>
+              <div class="form-group">
+                <label for="rg">RG</label>
+                <input type="text" id="rg" name="rg" class="form-control">
+              </div>
+              <div class="form-group md:col-span-2">
+                <label for="telefone">Telefone</label>
+                <input type="text" id="telefone" name="telefone" class="form-control" placeholder="(00) 00000-0000">
+              </div>
+              <div class="form-group md:col-span-2">
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco" name="endereco" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="card p-6 mb-6">
+            <h3 class="font-semibold text-gray-800 mb-4">Dados da scooter</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-group">
+                <label for="modelo">Modelo *</label>
+                <input type="text" id="modelo" name="modelo" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="cor">Cor</label>
+                <input type="text" id="cor" name="cor" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="dataVenda">Data da venda *</label>
+                <input type="date" id="dataVenda" name="dataVenda" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="garantiaAte">Garantia até</label>
+                <input type="date" id="garantiaAte" name="garantiaAte" class="form-control" readonly>
+              </div>
+              <div class="form-group">
+                <label for="valor">Valor (R$)</label>
+                <input type="text" id="valor" name="valor" class="form-control" placeholder="0,00">
+              </div>
+              <div class="form-group">
+                <label for="formaPagamento">Forma de pagamento</label>
+                <select id="formaPagamento" name="formaPagamento" class="form-control">
+                  <option value="">Selecione</option>
+                  <optgroup label="À vista">
+                    <option value="pix">PIX</option>
+                    <option value="debito">Cartão de débito</option>
+                    <option value="credito">Cartão de crédito à vista</option>
+                  </optgroup>
+                  <optgroup label="Parcelado">
+                    <option value="parcelado_cartao">Parcelado no cartão</option>
+                    <option value="parcelado_boleto">Parcelado no boleto</option>
+                  </optgroup>
+                  <optgroup label="Com entrada">
+                    <option value="entrada_pix">Entrada + PIX</option>
+                    <option value="entrada_debito">Entrada + Débito</option>
+                    <option value="entrada_credito">Entrada + Crédito</option>
+                    <option value="entrada_parcelado_cartao">Entrada + Parcelado no cartão</option>
+                    <option value="entrada_parcelado_boleto">Entrada + Parcelado no boleto</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+            <div id="blocoParcelas" class="hidden mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <h4 class="font-medium text-gray-800 mb-3">Parcelado</h4>
+              <div class="form-group">
+                <label for="parcelas">Em quantas vezes?</label>
+                <input type="number" id="parcelas" name="parcelas" class="form-control" min="2" max="24" placeholder="Ex: 3, 6, 12">
+              </div>
+            </div>
+            <div id="blocoEntrada" class="hidden mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <h4 class="font-medium text-gray-800 mb-3">Valores (Entrada + restante)</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="form-group">
+                  <label for="valorEntrada">Valor da entrada (R$)</label>
+                  <input type="text" id="valorEntrada" name="valorEntrada" class="form-control" placeholder="0,00">
+                </div>
+                <div class="form-group">
+                  <label for="valorRestante">Valor restante (R$)</label>
+                  <input type="text" id="valorRestante" class="form-control" readonly placeholder="Calculado automaticamente">
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <h4 class="font-medium text-gray-800 mb-2">Acessório (opcional)</h4>
+              <p class="text-sm text-gray-600 mb-2">Acessórios vendidos junto não entram na garantia de 3 meses.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="form-group">
+                  <label for="acessorioDescricao">Descrição do acessório</label>
+                  <input type="text" id="acessorioDescricao" name="acessorioDescricao" class="form-control" placeholder="Ex: Capa, capacete">
+                </div>
+                <div class="form-group">
+                  <label for="valorAcessorio">Valor do acessório (R$)</label>
+                  <input type="text" id="valorAcessorio" name="valorAcessorio" class="form-control" placeholder="0,00">
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-4">
+              <label for="cidade">Cidade (para o contrato)</label>
+              <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Ex: Palhoça, SC">
+            </div>
+            <div class="form-group mt-4">
+              <label for="observacoes">Observações</label>
+              <textarea id="observacoes" name="observacoes" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group mt-4">
+              <label>Foto da scooter</label>
+              <input type="file" id="fotoScooter" name="fotoScooter" class="form-control" accept="image/*">
+              <div id="previewFoto" class="mt-2 hidden">
+                <img id="imgPreview" src="" alt="Preview" class="max-h-40 rounded border border-gray-200">
+              </div>
+            </div>
+            <div class="form-group mt-4">
+              <label>Foto ou PDF do contrato assinado</label>
+              <input type="file" id="contratoAssinado" name="contratoAssinado" class="form-control" accept="image/jpeg,image/png,image/jpg,image/gif,application/pdf">
+              <div id="previewContrato" class="mt-2 hidden">
+                <div id="previewContratoImagem" class="hidden">
+                  <img id="imgContratoPreview" src="" alt="Contrato" class="max-h-40 rounded border border-gray-200">
+                </div>
+                <div id="previewContratoPdf" class="hidden text-sm text-gray-600">
+                  <i class="fas fa-file-pdf text-red-500"></i> PDF anexado
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="wrapAdicionarScooter" class="mb-6 hidden">
+            <button type="button" id="btnAdicionarScooter" class="btn btn-secondary"><i class="fas fa-plus"></i> Adicionar outra scooter</button>
+            <div id="scooterBlocksExtra" class="mt-4 space-y-6"></div>
+          </div>
+          <div class="flex gap-2">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
+            <a id="linkCancelar" href="clients.html" class="btn btn-secondary">Cancelar</a>
+          </div>
+        </form>
+      </main>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+  <script src="js/contract-generator.js"></script>
+  <script>
+    (async function() {
+      if (!APP.requireAuth()) return;
+      setActiveNav('new-client.html');
+      await APP.loadClients();
+      const urlParams = new URLSearchParams(window.location.search);
+      const editId = urlParams.get('id');
+      const clientId = urlParams.get('clientId');
+      var modoAdicionarScooter = !!clientId;
+      if (clientId) {
+        document.getElementById('tituloPagina').textContent = 'Adicionar scooter';
+        document.querySelector('a[href="clients.html"]').href = 'client-details.html?id=' + encodeURIComponent(clientId);
+        document.getElementById('linkCancelar').href = 'client-details.html?id=' + encodeURIComponent(clientId);
+        document.getElementById('wrapAdicionarScooter').classList.add('hidden');
+        var cli = APP.getClientById(clientId);
+        if (cli) {
+          document.getElementById('nome').value = cli.nome || '';
+          document.getElementById('cpf').value = cli.cpf || '';
+          document.getElementById('rg').value = cli.rg || '';
+          document.getElementById('telefone').value = cli.telefone || '';
+          document.getElementById('endereco').value = cli.endereco || '';
+          document.getElementById('cidade').value = cli.cidade || '';
+          document.getElementById('nome').readOnly = document.getElementById('cpf').readOnly = document.getElementById('rg').readOnly = true;
+          document.getElementById('telefone').readOnly = document.getElementById('endereco').readOnly = document.getElementById('cidade').readOnly = true;
+        }
+      } else if (editId) {
+        document.getElementById('tituloPagina').textContent = 'Editar Cliente';
+        document.getElementById('wrapAdicionarScooter').classList.remove('hidden');
+        const c = APP.getClientById(editId);
+        if (c) {
+          document.getElementById('nome').value = c.nome || '';
+          document.getElementById('cpf').value = c.cpf || '';
+          document.getElementById('rg').value = c.rg || '';
+          document.getElementById('telefone').value = c.telefone || '';
+          document.getElementById('endereco').value = c.endereco || '';
+          document.getElementById('cidade').value = c.cidade || '';
+          var scooters = c.scooters && c.scooters.length ? c.scooters : [];
+          var s0 = scooters[0] || {};
+          document.getElementById('modelo').value = s0.modelo || '';
+          document.getElementById('cor').value = s0.cor || '';
+          document.getElementById('dataVenda').value = s0.dataVenda ? s0.dataVenda.split('T')[0] : '';
+          document.getElementById('garantiaAte').value = s0.garantiaAte ? s0.garantiaAte.split('T')[0] : '';
+          document.getElementById('valor').value = s0.valor != null ? String(s0.valor).replace('.', ',') : '';
+          var fp = s0.formaPagamento || '';
+          if (fp === 'cartao_credito') fp = 'credito';
+          if (fp === 'cartao_debito') fp = 'debito';
+          if (fp === 'parcelado') fp = 'parcelado_cartao';
+          if (fp === 'entrada_cartao_credito') fp = 'entrada_credito';
+          if (fp === 'entrada_cartao_debito') fp = 'entrada_debito';
+          if (fp === 'entrada_parcelado') fp = 'entrada_parcelado_cartao';
+          document.getElementById('formaPagamento').value = fp;
+          document.getElementById('parcelas').value = s0.parcelas != null && s0.parcelas > 0 ? s0.parcelas : '';
+          document.getElementById('acessorioDescricao').value = s0.acessorioDescricao || '';
+          document.getElementById('valorAcessorio').value = s0.valorAcessorio != null && s0.valorAcessorio !== '' ? String(s0.valorAcessorio).replace('.', ',') : '';
+          document.getElementById('observacoes').value = s0.observacoes || '';
+          if (/parcelado/.test(s0.formaPagamento || '')) {
+            document.getElementById('blocoParcelas').classList.remove('hidden');
+          }
+          if (/^entrada_/.test(s0.formaPagamento || '')) {
+            document.getElementById('blocoEntrada').classList.remove('hidden');
+            document.getElementById('valorEntrada').value = s0.valorEntrada != null ? String(s0.valorEntrada).replace('.', ',') : '';
+            atualizarValorRestante();
+          }
+          var foto = APP.getFotoScooter(c, s0);
+          if (foto) {
+            document.getElementById('imgPreview').src = foto;
+            document.getElementById('previewFoto').classList.remove('hidden');
+            document.getElementById('formCliente').dataset.fotoScooter = foto;
+          }
+          if (s0.contrato_assinado && s0.contrato_assinado.base64) {
+            document.getElementById('formCliente').dataset.contratoAssinado = JSON.stringify(s0.contrato_assinado);
+            document.getElementById('previewContrato').classList.remove('hidden');
+            if (s0.contrato_assinado.tipo === 'imagem') {
+              document.getElementById('imgContratoPreview').src = s0.contrato_assinado.base64;
+              document.getElementById('previewContratoImagem').classList.remove('hidden');
+              document.getElementById('previewContratoPdf').classList.add('hidden');
+            } else {
+              document.getElementById('previewContratoImagem').classList.add('hidden');
+              document.getElementById('previewContratoPdf').classList.remove('hidden');
+            }
+          }
+          for (var i = 1; i < scooters.length; i++) adicionarBlocoScooter(scooters[i]);
+        }
+      } else {
+        document.getElementById('wrapAdicionarScooter').classList.remove('hidden');
+      }
+      function adicionarBlocoScooter(dados) {
+        var container = document.getElementById('scooterBlocksExtra');
+        var idx = container.querySelectorAll('.scooter-block-extra').length + 1;
+        var html = '<div class="card p-6 scooter-block-extra" data-scooter-index="' + idx + '">';
+        html += '<div class="flex justify-between items-center mb-4"><h3 class="font-semibold text-gray-800">Scooter ' + (idx + 1) + '</h3><button type="button" class="btn btn-danger btn-sm btn-remover-bloco"><i class="fas fa-times"></i></button></div>';
+        html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+        html += '<div class="form-group"><label>Modelo *</label><input type="text" name="modelo_' + idx + '" class="form-control s-modelo" required></div>';
+        html += '<div class="form-group"><label>Cor</label><input type="text" name="cor_' + idx + '" class="form-control s-cor"></div>';
+        html += '<div class="form-group"><label>Data da venda *</label><input type="date" name="dataVenda_' + idx + '" class="form-control s-dataVenda"></div>';
+        html += '<div class="form-group"><label>Garantia até</label><input type="date" name="garantiaAte_' + idx + '" class="form-control s-garantiaAte" readonly></div>';
+        html += '<div class="form-group"><label>Valor (R$)</label><input type="text" name="valor_' + idx + '" class="form-control s-valor" placeholder="0,00"></div>';
+        html += '<div class="form-group"><label>Forma de pagamento</label><select name="formaPagamento_' + idx + '" class="form-control s-formaPagamento"><option value="">Selecione</option><option value="pix">PIX</option><option value="debito">Débito</option><option value="credito">Crédito</option><option value="parcelado_cartao">Parcelado cartão</option><option value="parcelado_boleto">Parcelado boleto</option><option value="entrada_pix">Entrada + PIX</option><option value="entrada_debito">Entrada + Débito</option><option value="entrada_credito">Entrada + Crédito</option><option value="entrada_parcelado_cartao">Entrada + Parcelado cartão</option><option value="entrada_parcelado_boleto">Entrada + Parcelado boleto</option></select></div>';
+        html += '<div class="form-group s-bloco-parcelas hidden"><label>Em quantas vezes?</label><input type="number" name="parcelas_' + idx + '" class="form-control s-parcelas" min="2" max="24" placeholder="Ex: 3, 6"></div>';
+        html += '</div><div class="form-group mt-4"><label>Observações</label><textarea name="observacoes_' + idx + '" class="form-control s-observacoes" rows="2"></textarea></div></div>';
+        container.insertAdjacentHTML('beforeend', html);
+        var bloco = container.lastElementChild;
+        if (dados) {
+          bloco.querySelector('.s-modelo').value = dados.modelo || '';
+          bloco.querySelector('.s-cor').value = dados.cor || '';
+          bloco.querySelector('.s-dataVenda').value = dados.dataVenda ? dados.dataVenda.split('T')[0] : '';
+          bloco.querySelector('.s-garantiaAte').value = dados.garantiaAte ? dados.garantiaAte.split('T')[0] : '';
+          bloco.querySelector('.s-valor').value = dados.valor != null ? String(dados.valor).replace('.', ',') : '';
+          bloco.querySelector('.s-formaPagamento').value = dados.formaPagamento || '';
+          bloco.querySelector('.s-parcelas').value = dados.parcelas != null && dados.parcelas > 0 ? dados.parcelas : '';
+          bloco.querySelector('.s-observacoes').value = dados.observacoes || '';
+          if (/parcelado/.test(dados.formaPagamento || '')) bloco.querySelector('.s-bloco-parcelas').classList.remove('hidden');
+        }
+        bloco.querySelector('.s-formaPagamento').addEventListener('change', function() {
+          var bl = bloco.querySelector('.s-bloco-parcelas');
+          if (/parcelado/.test(this.value)) bl.classList.remove('hidden'); else bl.classList.add('hidden');
+        });
+        bloco.querySelector('.s-dataVenda').addEventListener('change', function() {
+          var d = this.value;
+          bloco.querySelector('.s-garantiaAte').value = d ? calcularGarantia(d) : '';
+        });
+        bloco.querySelector('.btn-remover-bloco').onclick = function() { bloco.remove(); };
+      }
+      document.getElementById('btnAdicionarScooter').onclick = function() { adicionarBlocoScooter(null); };
+    function atualizarGarantia() {
+      const dataVenda = document.getElementById('dataVenda').value;
+      document.getElementById('garantiaAte').value = dataVenda ? calcularGarantia(dataVenda) : '';
+    }
+    document.getElementById('dataVenda').addEventListener('change', atualizarGarantia);
+    document.getElementById('dataVenda').addEventListener('input', atualizarGarantia);
+    if (document.getElementById('dataVenda').value) atualizarGarantia();
+    function ehEntradaMais() { return /^entrada_/.test(document.getElementById('formaPagamento').value); }
+    function ehParcelado() { return /parcelado/.test(document.getElementById('formaPagamento').value); }
+    function atualizarValorRestante() {
+      var valorRaw = document.getElementById('valor').value.replace(/\./g, '').replace(',', '.');
+      var entradaRaw = document.getElementById('valorEntrada').value.replace(/\./g, '').replace(',', '.');
+      var total = valorRaw ? parseFloat(valorRaw) : 0;
+      var entrada = entradaRaw ? parseFloat(entradaRaw) : 0;
+      var restante = total - entrada;
+      document.getElementById('valorRestante').value = restante > 0 ? restante.toFixed(2).replace('.', ',') : '';
+    }
+    function atualizarBlocosPagamento() {
+      var blocoEntrada = document.getElementById('blocoEntrada');
+      var blocoParcelas = document.getElementById('blocoParcelas');
+      if (ehEntradaMais()) {
+        blocoEntrada.classList.remove('hidden');
+        atualizarValorRestante();
+      } else {
+        blocoEntrada.classList.add('hidden');
+        document.getElementById('valorEntrada').value = '';
+        document.getElementById('valorRestante').value = '';
+      }
+      if (ehParcelado()) blocoParcelas.classList.remove('hidden'); else blocoParcelas.classList.add('hidden');
+    }
+    document.getElementById('formaPagamento').addEventListener('change', atualizarBlocosPagamento);
+    document.getElementById('valor').addEventListener('input', function() { if (ehEntradaMais()) atualizarValorRestante(); });
+    document.getElementById('valorEntrada').addEventListener('input', function() { if (ehEntradaMais()) atualizarValorRestante(); });
+    function maskCPF(el) {
+      var v = el.value.replace(/\D/g, '').slice(0, 11);
+      el.value = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4').replace(/(\d{3})(\d{3})(\d)/, '$1.$2.$3').replace(/(\d{3})(\d)/, '$1.$2') || v;
+    }
+    function maskTelefone(el) {
+      var v = el.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length <= 10) el.value = v.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3').replace(/(\d{2})(\d{4})/, '($1) $2').replace(/(\d{2})/, '($1') || v;
+      else el.value = v.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    }
+    document.getElementById('cpf').addEventListener('input', function() { maskCPF(this); });
+    document.getElementById('telefone').addEventListener('input', function() { maskTelefone(this); });
+    document.getElementById('fotoScooter').addEventListener('change', function() {
+      const file = this.files[0];
+      if (!file) return;
+      const r = new FileReader();
+      r.onload = function() {
+        document.getElementById('imgPreview').src = r.result;
+        document.getElementById('previewFoto').classList.remove('hidden');
+        document.getElementById('formCliente').dataset.fotoScooter = r.result;
+      };
+      r.readAsDataURL(file);
+    });
+    document.getElementById('contratoAssinado').addEventListener('change', function() {
+      const file = this.files[0];
+      if (!file) return;
+      const tipo = file.type.indexOf('pdf') >= 0 ? 'pdf' : 'imagem';
+      const r = new FileReader();
+      r.onload = function() {
+        document.getElementById('formCliente').dataset.contratoAssinado = JSON.stringify({ tipo: tipo, base64: r.result });
+        document.getElementById('previewContrato').classList.remove('hidden');
+        if (tipo === 'imagem') {
+          document.getElementById('imgContratoPreview').src = r.result;
+          document.getElementById('previewContratoImagem').classList.remove('hidden');
+          document.getElementById('previewContratoPdf').classList.add('hidden');
+        } else {
+          document.getElementById('previewContratoImagem').classList.add('hidden');
+          document.getElementById('previewContratoPdf').classList.remove('hidden');
+        }
+      };
+      r.readAsDataURL(file);
+    });
+    document.getElementById('formCliente').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      function lerScooterDoForm(prefix) {
+        var el = function(id) { return document.getElementById(id); };
+        if (prefix) {
+          var bloco = document.querySelector('.scooter-block-extra[data-scooter-index="' + prefix + '"]');
+          if (!bloco) return null;
+          var v = bloco.querySelector('.s-valor').value.replace(/\./g, '').replace(',', '.');
+          var parcelasVal = bloco.querySelector('.s-parcelas').value;
+          return {
+            modelo: bloco.querySelector('.s-modelo').value.trim(),
+            cor: bloco.querySelector('.s-cor').value.trim(),
+            dataVenda: bloco.querySelector('.s-dataVenda').value,
+            garantiaAte: bloco.querySelector('.s-garantiaAte').value || (bloco.querySelector('.s-dataVenda').value ? calcularGarantia(bloco.querySelector('.s-dataVenda').value) : null),
+            valor: v ? parseFloat(v) : null,
+            formaPagamento: bloco.querySelector('.s-formaPagamento').value,
+            parcelas: parcelasVal ? parseInt(parcelasVal, 10) : null,
+            valorEntrada: null,
+            acessorioDescricao: '',
+            valorAcessorio: null,
+            observacoes: bloco.querySelector('.s-observacoes').value.trim(),
+            foto_scooter: null,
+            contrato_assinado: null
+          };
+        }
+        var valorRaw = el('valor').value.replace(/\./g, '').replace(',', '.');
+        var entradaRaw = el('valorEntrada').value.replace(/\./g, '').replace(',', '.');
+        var formaPagamento = el('formaPagamento').value;
+        var rawContrato = document.getElementById('formCliente').dataset.contratoAssinado;
+        var contrato = null;
+        if (rawContrato) try { contrato = JSON.parse(rawContrato); } catch (err) {}
+        return {
+          nome: el('nome').value.trim(),
+          cpf: el('cpf').value.trim(),
+          rg: el('rg').value.trim(),
+          telefone: el('telefone').value.trim(),
+          endereco: el('endereco').value.trim(),
+          cidade: el('cidade').value.trim(),
+          modelo: el('modelo').value.trim(),
+          cor: el('cor').value.trim(),
+          dataVenda: el('dataVenda').value,
+          garantiaAte: el('garantiaAte').value,
+          valor: valorRaw ? parseFloat(valorRaw) : null,
+          formaPagamento: formaPagamento,
+          parcelas: (function() { var p = el('parcelas').value; return p ? parseInt(p, 10) : null; })(),
+          valorEntrada: /^entrada_/.test(formaPagamento) && entradaRaw ? parseFloat(entradaRaw) : null,
+          acessorioDescricao: el('acessorioDescricao').value.trim(),
+          valorAcessorio: (function() {
+            var v = el('valorAcessorio').value.replace(/\./g, '').replace(',', '.');
+            return v ? parseFloat(v) : null;
+          })(),
+          observacoes: el('observacoes').value.trim(),
+          foto_scooter: document.getElementById('formCliente').dataset.fotoScooter || null,
+          contrato_assinado: contrato
+        };
+      }
+      if (clientId) {
+        var data = lerScooterDoForm(null);
+        var scooterData = { nome: data.nome, cpf: data.cpf, rg: data.rg, telefone: data.telefone, endereco: data.endereco, cidade: data.cidade, modelo: data.modelo, cor: data.cor, dataVenda: data.dataVenda, garantiaAte: data.garantiaAte, valor: data.valor, formaPagamento: data.formaPagamento, parcelas: data.parcelas, valorEntrada: data.valorEntrada, acessorioDescricao: data.acessorioDescricao, valorAcessorio: data.valorAcessorio, observacoes: data.observacoes, foto_scooter: data.foto_scooter, contrato_assinado: data.contrato_assinado };
+        await APP.addScooterToClient(clientId, scooterData);
+        toast('Scooter adicionada.');
+        setTimeout(function() { window.location.href = 'client-details.html?id=' + encodeURIComponent(clientId); }, 800);
+        return;
+      }
+      var extraBlocks = document.querySelectorAll('.scooter-block-extra');
+      var scooters = [];
+      var data0 = lerScooterDoForm(null);
+      scooters.push({ modelo: data0.modelo, cor: data0.cor, dataVenda: data0.dataVenda, garantiaAte: data0.garantiaAte, valor: data0.valor, formaPagamento: data0.formaPagamento, parcelas: data0.parcelas, valorEntrada: data0.valorEntrada, acessorioDescricao: data0.acessorioDescricao, valorAcessorio: data0.valorAcessorio, observacoes: data0.observacoes, foto_scooter: data0.foto_scooter, contrato_assinado: data0.contrato_assinado });
+      for (var i = 0; i < extraBlocks.length; i++) {
+        var idx = extraBlocks[i].getAttribute('data-scooter-index');
+        var sx = lerScooterDoForm(idx);
+        if (sx) scooters.push(sx);
+      }
+      if (editId) {
+        var current = APP.getClientById(editId);
+        var existing = current.scooters || [];
+        for (var j = 0; j < scooters.length; j++) {
+          scooters[j].id = existing[j] ? existing[j].id : (current.id + '_s' + (j + 1));
+          if (existing[j] && !scooters[j].foto_scooter) scooters[j].foto_scooter = existing[j].foto_scooter;
+          if (existing[j] && !scooters[j].contrato_assinado) scooters[j].contrato_assinado = existing[j].contrato_assinado;
+        }
+        await APP.updateClient(editId, { nome: data0.nome, cpf: data0.cpf, rg: data0.rg, telefone: data0.telefone, endereco: data0.endereco, cidade: data0.cidade, scooters: scooters });
+        toast('Cliente atualizado.');
+        setTimeout(function() { window.location.href = 'client-details.html?id=' + encodeURIComponent(editId); }, 800);
+      } else {
+        if (scooters.length === 1) {
+          var data = { nome: data0.nome, cpf: data0.cpf, rg: data0.rg, telefone: data0.telefone, endereco: data0.endereco, cidade: data0.cidade, modelo: data0.modelo, cor: data0.cor, dataVenda: data0.dataVenda, garantiaAte: data0.garantiaAte, valor: data0.valor, formaPagamento: data0.formaPagamento, parcelas: data0.parcelas, valorEntrada: data0.valorEntrada, acessorioDescricao: data0.acessorioDescricao, valorAcessorio: data0.valorAcessorio, observacoes: data0.observacoes, foto_scooter: data0.foto_scooter, contrato_assinado: data0.contrato_assinado };
+          var clienteSalvo = await APP.addClient(data);
+          toast('Cliente cadastrado. Abrindo contrato...');
+          var flat = clienteSalvo.scooters && clienteSalvo.scooters[0] ? { ...clienteSalvo, ...clienteSalvo.scooters[0] } : clienteSalvo;
+          ContractGenerator.abrirEImprimir(flat);
+        } else {
+          await APP.addClient({ nome: data0.nome, cpf: data0.cpf, rg: data0.rg, telefone: data0.telefone, endereco: data0.endereco, cidade: data0.cidade, scooters: scooters });
+          toast('Cliente cadastrado com ' + scooters.length + ' scooters.');
+        }
+        setTimeout(function() { window.location.href = 'clients.html'; }, 800);
+      }
+    });
+    })();
+  </script>
+</body>
+</html>

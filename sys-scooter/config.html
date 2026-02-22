@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="icoscotter.ico" type="image/x-icon">
+  <title>Configuração - Cert Mobility</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { brand: '#008B8B', 'brand-dark': '#006666' } } } };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><img src="logoscotter.png" alt="" class="sidebar-logo"> Cert Mobility</div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="clients.html" data-page="clients"><i class="fas fa-users"></i> Clientes</a>
+        <a href="new-client.html" data-page="new-client"><i class="fas fa-user-plus"></i> Novo Cliente</a>
+        <a href="config.html" data-page="config" class="active"><i class="fas fa-cog"></i> Configuração</a>
+      </nav>
+    </aside>
+    <div class="main-wrap">
+      <header class="header">
+        <h2 class="text-lg font-semibold text-gray-800">Configuração</h2>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="APP.logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+      </header>
+      <main class="content">
+        <div class="card p-6 max-w-2xl">
+          <h3 class="font-semibold text-gray-800 mb-2">Mensagem padrão do WhatsApp</h3>
+          <p class="text-sm text-gray-500 mb-4">Use {{nome_cliente}} e {{modelo_scooter}} para personalizar. Esta mensagem é usada no botão CONTATO dos alertas de garantia.</p>
+          <textarea id="whatsappMsg" class="form-control w-full" rows="5" placeholder="Olá {{nome_cliente}}, ..."></textarea>
+          <div class="mt-4 flex gap-2">
+            <button type="button" id="btnSalvar" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
+            <button type="button" id="btnRestaurar" class="btn btn-secondary">Restaurar padrão</button>
+          </div>
+        </div>
+        <div class="card p-6 max-w-2xl mt-6">
+          <h3 class="font-semibold text-gray-800 mb-2">Backup e outros dispositivos</h3>
+          <p class="text-sm text-gray-500 mb-4">Exporte todos os dados (clientes e fotos) para um arquivo. Use o mesmo arquivo em outro PC ou celular: importe e todos os dados e fotos estarão lá.</p>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" id="btnExportar" class="btn btn-primary"><i class="fas fa-download"></i> Exportar dados</button>
+            <label class="btn btn-secondary cursor-pointer mb-0">
+              <i class="fas fa-upload"></i> Importar dados
+              <input type="file" id="inputImportar" accept=".json" class="hidden">
+            </label>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+  <script src="js/clients.js"></script>
+  <script>
+    (async function() {
+      if (!APP.requireAuth()) return;
+      setActiveNav('config.html');
+      await APP.loadConfig();
+      var defaultMsg = 'Olá {{nome_cliente}}, passando para lembrar que a garantia da sua scooter modelo {{modelo_scooter}} está próxima do vencimento. Qualquer dúvida estamos à disposição.';
+      var ta = document.getElementById('whatsappMsg');
+      ta.value = APP.getWhatsappMsg() || defaultMsg;
+      document.getElementById('btnSalvar').onclick = async function() {
+        var val = ta.value.trim() || defaultMsg;
+        await APP.setWhatsappMsg(val);
+        toast('Configuração salva.');
+      };
+      document.getElementById('btnRestaurar').onclick = function() {
+        ta.value = defaultMsg;
+      };
+      document.getElementById('btnExportar').onclick = async function() {
+        await APP.loadClients();
+        var data = APP.exportData();
+        var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'sys-scooter-backup-' + new Date().toISOString().slice(0,10) + '.json';
+        a.click();
+        URL.revokeObjectURL(a.href);
+        toast('Backup exportado.');
+      };
+      document.getElementById('inputImportar').addEventListener('change', async function() {
+        var file = this.files[0];
+        if (!file) return;
+        var r = new FileReader();
+        r.onload = async function() {
+          try {
+            var data = JSON.parse(r.result);
+            if (await APP.importData(data)) {
+              toast('Dados importados. Recarregando...');
+              ta.value = APP.getWhatsappMsg() || defaultMsg;
+              setTimeout(function() { window.location.reload(); }, 1200);
+            } else {
+              toast('Arquivo inválido.');
+            }
+          } catch (e) {
+            toast('Erro ao ler arquivo.');
+          }
+        };
+        r.readAsText(file);
+        this.value = '';
+      });
+    })();
+  </script>
+</body>
+</html>

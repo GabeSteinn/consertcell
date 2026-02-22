@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="icoscotter.ico" type="image/x-icon">
+  <title>Detalhes do Cliente - Cert Mobility</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { brand: '#008B8B', 'brand-dark': '#006666' } } } };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><img src="logoscotter.png" alt="" class="sidebar-logo"> Cert Mobility</div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="clients.html" data-page="clients" class="active"><i class="fas fa-users"></i> Clientes</a>
+        <a href="new-client.html" data-page="new-client"><i class="fas fa-user-plus"></i> Novo Cliente</a>
+        <a href="config.html" data-page="config"><i class="fas fa-cog"></i> Configuração</a>
+      </nav>
+    </aside>
+    <div class="main-wrap">
+      <header class="header">
+        <h2 class="text-lg font-semibold text-gray-800">Detalhes do Cliente</h2>
+        <div class="flex gap-2 no-print">
+          <a href="clients.html" class="btn btn-secondary btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a>
+          <a href="new-client.html" id="linkEditar" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</a>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="APP.logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+        </div>
+      </header>
+      <main class="content">
+        <div class="flex flex-wrap gap-2 mt-6 no-print">
+          <button type="button" id="btnContrato" class="btn btn-primary"><i class="fas fa-file-contract"></i> Gerar contrato</button>
+          <button type="button" id="btnRecibo" class="btn btn-primary"><i class="fas fa-receipt"></i> Gerar recibo</button>
+          <button type="button" id="btnTermo" class="btn btn-primary"><i class="fas fa-file-alt"></i> Gerar termo de cuidados</button>
+          <button type="button" id="btnImprimir" class="btn btn-secondary"><i class="fas fa-print"></i> Imprimir pacote completo</button>
+        </div>
+        <div id="conteudoCliente">
+          <p class="text-gray-500">Carregando...</p>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+  <script src="js/contract-generator.js"></script>
+  <script src="js/documentos.js"></script>
+  <script>
+    (async function() {
+      if (!APP.requireAuth()) return;
+      setActiveNav('clients.html');
+      await APP.loadClients();
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+      if (!id) {
+        document.getElementById('conteudoCliente').innerHTML = '<p class="text-red-500">Cliente não informado.</p>';
+        document.getElementById('linkEditar').style.display = 'none';
+      } else {
+        const c = APP.getClientById(id);
+        if (!c) {
+          document.getElementById('conteudoCliente').innerHTML = '<p class="text-red-500">Cliente não encontrado.</p>';
+        } else {
+          document.getElementById('linkEditar').href = 'new-client.html?id=' + encodeURIComponent(id);
+          var scooters = (c.scooters && c.scooters.length) ? c.scooters : [{ id: c.id + '_s1', modelo: c.modelo, cor: c.cor, dataVenda: c.dataVenda, garantiaAte: c.garantiaAte, valor: c.valor, formaPagamento: c.formaPagamento, parcelas: c.parcelas, valorEntrada: c.valorEntrada, acessorioDescricao: c.acessorioDescricao, valorAcessorio: c.valorAcessorio, foto_scooter: c.foto_scooter, contrato_assinado: c.contrato_assinado, observacoes: c.observacoes }];
+          var vendas = APP.groupScootersByDataVenda(scooters);
+          var html = '<div class="space-y-8">';
+          html += '<div class="card p-6"><h3 class="font-semibold text-gray-800 mb-4">Dados pessoais</h3>';
+          html += '<dl class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm"><dt class="text-gray-500">Nome</dt><dd>' + escapeHtml(c.nome || '-') + '</dd>';
+          html += '<dt class="text-gray-500">CPF</dt><dd>' + escapeHtml(c.cpf || '-') + '</dd>';
+          html += '<dt class="text-gray-500">RG</dt><dd>' + escapeHtml(c.rg || '-') + '</dd>';
+          html += '<dt class="text-gray-500">Telefone</dt><dd>' + escapeHtml(c.telefone || '-') + '</dd>';
+          html += '<dt class="text-gray-500 sm:col-span-2">Endereço</dt><dd class="sm:col-span-2">' + escapeHtml(c.endereco || '-') + '</dd></dl></div>';
+          vendas.forEach(function(venda, vendaIdx) {
+            html += '<div class="card p-6 border-l-4 border-brand" data-venda-index="' + vendaIdx + '">';
+            html += '<h3 class="font-semibold text-gray-800 mb-4">Venda em ' + escapeHtml(venda.dataVendaLabel) + '</h3>';
+            venda.scooters.forEach(function(s, idx) {
+              var status = APP.statusGarantia(s.garantiaAte);
+              var badgeClass = status === 'ativa' ? 'badge-ativa' : status === 'vencendo' ? 'badge-vencendo' : 'badge-vencida';
+              var badgeText = status === 'ativa' ? 'Ativa' : status === 'vencendo' ? 'Vencendo' : 'Vencida';
+              var globalIdx = scooters.indexOf(s);
+              var scooterAnchorId = 'scooter-' + String(s.id || '').replace(/[^a-zA-Z0-9_-]/g, '_');
+              html += '<div class="mb-6' + (idx > 0 ? ' pt-6 border-t border-gray-200' : '') + '" id="' + escapeHtml(scooterAnchorId) + '" data-scooter-id="' + escapeHtml(s.id) + '">';
+              html += '<div class="flex justify-between items-center mb-3"><h4 class="font-medium text-gray-800">' + escapeHtml(s.modelo || 'Scooter') + (s.cor ? ' · ' + escapeHtml(s.cor) : '') + '</h4>';
+              if (scooters.length > 1) html += '<button type="button" class="btn btn-danger btn-sm btn-remover-scooter" data-scooter-id="' + escapeHtml(s.id) + '"><i class="fas fa-trash"></i> Remover</button>';
+              html += '</div>';
+              html += '<dl class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm"><dt class="text-gray-500">Data da venda</dt><dd>' + formatarData(s.dataVenda) + '</dd>';
+              html += '<dt class="text-gray-500">Garantia até</dt><dd>' + formatarData(s.garantiaAte) + ' <span class="badge ' + badgeClass + '">' + badgeText + '</span></dd>';
+              html += '<dt class="text-gray-500">Valor</dt><dd>' + formatarMoeda(s.valor) + '</dd>';
+              html += '<dt class="text-gray-500">Forma de pagamento</dt><dd>' + escapeHtml(typeof labelFormaPagamento === 'function' ? labelFormaPagamento(s.formaPagamento) : s.formaPagamento) + (s.parcelas != null && s.parcelas > 0 ? ' em ' + s.parcelas + ' vez(es)' : '') + '</dd></dl>';
+              html += '<div class="mt-3 flex flex-wrap gap-4"><div><span class="text-gray-500 text-sm">Foto:</span> ';
+              var fotoScooter = APP.getFotoScooter(c, s);
+              if (fotoScooter) html += '<img src="' + fotoScooter.replace(/"/g, '&quot;') + '" alt="Scooter" class="mt-1 max-h-32 rounded border border-gray-200 object-contain">';
+              else html += '<span class="text-gray-400 text-sm">Sem foto</span>';
+              html += '</div><div><span class="text-gray-500 text-sm">Contrato assinado:</span> ';
+              if (s.contrato_assinado && s.contrato_assinado.base64) {
+                html += '<button type="button" class="btn btn-primary btn-sm btn-ver-pdf mt-1" data-global-idx="' + globalIdx + '">Visualizar</button> <button type="button" class="btn btn-secondary btn-sm btn-download-contrato mt-1" data-global-idx="' + globalIdx + '">Download</button>';
+              } else html += '<span class="text-gray-400 text-sm">Nenhum</span>';
+              html += '</div></div></div>';
+            });
+            html += '<div class="flex flex-wrap gap-2 pt-4 border-t border-gray-200 no-print">';
+            html += '<button type="button" class="btn btn-primary btn-sm btn-contrato-venda" data-venda-index="' + vendaIdx + '"><i class="fas fa-file-contract"></i> Gerar contrato</button>';
+            html += '<button type="button" class="btn btn-primary btn-sm btn-recibo-venda" data-venda-index="' + vendaIdx + '"><i class="fas fa-receipt"></i> Recibo</button>';
+            html += '<button type="button" class="btn btn-primary btn-sm btn-termo-venda" data-venda-index="' + vendaIdx + '"><i class="fas fa-file-alt"></i> Termo de cuidados</button>';
+            html += '<button type="button" class="btn btn-secondary btn-sm btn-pacote-venda" data-venda-index="' + vendaIdx + '"><i class="fas fa-print"></i> Pacote desta venda</button>';
+            html += '</div></div>';
+          });
+          html += '<div class="no-print"><a href="new-client.html?clientId=' + encodeURIComponent(id) + '" class="btn btn-primary"><i class="fas fa-plus"></i> Adicionar scooter</a></div>';
+          html += '</div>';
+          document.getElementById('conteudoCliente').innerHTML = html;
+          if (window.location.hash) {
+            var hash = window.location.hash.slice(1);
+            var el = document.getElementById(hash);
+            if (el) requestAnimationFrame(function() { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+          }
+          vendas.forEach(function(venda, vendaIdx) {
+            document.querySelector('.btn-contrato-venda[data-venda-index="' + vendaIdx + '"]').onclick = function() {
+              if (typeof ContractGenerator !== 'undefined' && ContractGenerator.abrirEImprimirVenda) ContractGenerator.abrirEImprimirVenda(c, venda.scooters);
+              else ContractGenerator.abrirEImprimir({ ...c, ...venda.scooters[0] });
+            };
+            document.querySelector('.btn-recibo-venda[data-venda-index="' + vendaIdx + '"]').onclick = function() {
+              if (Documentos.reciboVenda) Documentos.reciboVenda(c, venda.scooters);
+              else Documentos.recibo({ ...c, ...venda.scooters[0] });
+            };
+            document.querySelector('.btn-termo-venda[data-venda-index="' + vendaIdx + '"]').onclick = function() {
+              if (Documentos.termoCuidadosVenda) Documentos.termoCuidadosVenda(c, venda.scooters);
+              else Documentos.termoCuidados({ ...c, ...venda.scooters[0] });
+            };
+            document.querySelector('.btn-pacote-venda[data-venda-index="' + vendaIdx + '"]').onclick = function() {
+              if (Documentos.pacoteVenda) Documentos.pacoteVenda(c, venda.scooters);
+              else Documentos.pacoteCompleto({ ...c, ...venda.scooters[0] });
+            };
+          });
+          scooters.forEach(function(s, idx) {
+            var btnPdf = document.querySelector('.btn-ver-pdf[data-global-idx="' + idx + '"]');
+            if (btnPdf && s.contrato_assinado && s.contrato_assinado.base64) {
+              btnPdf.onclick = function() {
+                var dataUrl = s.contrato_assinado.base64;
+                try { var blob = base64DataUrlToBlob(dataUrl); var url = URL.createObjectURL(blob); window.open(url, '_blank'); setTimeout(function() { URL.revokeObjectURL(url); }, 60000); } catch (e) { window.open(dataUrl, '_blank'); }
+              };
+            }
+            var btnDl = document.querySelector('.btn-download-contrato[data-global-idx="' + idx + '"]');
+            if (btnDl && s.contrato_assinado && s.contrato_assinado.base64) {
+              btnDl.onclick = function() {
+                var dataUrl = s.contrato_assinado.base64;
+                var ext = s.contrato_assinado.tipo === 'pdf' ? 'pdf' : 'png';
+                var nomeArquivo = 'contrato-' + (c.nome || 'cliente').replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '') + '-' + (s.modelo || 'scooter').replace(/\s+/g, '-') + '.' + ext;
+                try { var blob = base64DataUrlToBlob(dataUrl); var url = URL.createObjectURL(blob); var a = document.createElement('a'); a.href = url; a.download = nomeArquivo; a.click(); URL.revokeObjectURL(url); } catch (e) { var a = document.createElement('a'); a.href = dataUrl; a.download = nomeArquivo; a.click(); }
+              };
+            }
+          });
+          document.querySelectorAll('.btn-remover-scooter').forEach(function(btn) {
+            btn.onclick = async function() {
+              var sid = this.getAttribute('data-scooter-id');
+              if (!confirm('Remover esta scooter do cliente? O registro da scooter será excluído.')) return;
+              await APP.removeScooterFromClient(id, sid);
+              window.location.reload();
+            };
+          });
+        }
+      }
+
+    function base64DataUrlToBlob(dataUrl) {
+      var parts = dataUrl.split(',');
+      var mime = (parts[0].match(/:(.*?);/) || [])[1] || 'application/pdf';
+      var bstr = atob(parts[1]);
+      var n = bstr.length;
+      var u8 = new Uint8Array(n);
+      for (var i = 0; i < n; i++) u8[i] = bstr.charCodeAt(i);
+      return new Blob([u8], { type: mime });
+    }
+    function escapeHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+    })();
+  </script>
+</body>
+</html>
