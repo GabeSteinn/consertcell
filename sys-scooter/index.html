@@ -43,7 +43,8 @@
   <script src="js/app.js"></script>
   <script>
     function dashboardUrl() {
-      return (APP.isFileProtocol && APP.isFileProtocol()) || (APP.isLocalMode && APP.isLocalMode()) ? 'dashboard.html' : 'dashboard.php';
+      var useHtml = (APP.isFileProtocol && APP.isFileProtocol()) || (APP.isLocalMode && APP.isLocalMode()) || (APP.API_BASE !== 'api');
+      return useHtml ? 'dashboard.html' : 'dashboard.php';
     }
     if (APP.isLoggedIn()) {
       window.location.href = dashboardUrl();
