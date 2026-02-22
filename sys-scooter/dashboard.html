@@ -89,15 +89,26 @@
       await APP.loadConfig();
       const clients = APP.getClients();
       const todos = APP.getTodosScooters();
+      function garantiaVencidaNosUltimos7Dias(garantiaAte) {
+        var status = APP.statusGarantia(garantiaAte);
+        if (status !== 'vencida') return false;
+        var dias = APP.diasGarantia(garantiaAte);
+        return dias != null && dias < 0 && Math.abs(dias) <= 7;
+      }
       const ativa = todos.filter(function(x) { return APP.statusGarantia(x.scooter.garantiaAte) === 'ativa'; }).length;
       const vencendo = todos.filter(function(x) { return APP.statusGarantia(x.scooter.garantiaAte) === 'vencendo'; }).length;
-      const vencida = todos.filter(function(x) { return APP.statusGarantia(x.scooter.garantiaAte) === 'vencida'; }).length;
+      const vencida = todos.filter(function(x) { return garantiaVencidaNosUltimos7Dias(x.scooter.garantiaAte); }).length;
       document.getElementById('totalClientes').textContent = clients.length;
       document.getElementById('garantiasAtivas').textContent = ativa;
       document.getElementById('garantiasVencendo').textContent = vencendo;
       document.getElementById('garantiasVencidas').textContent = vencida;
       const alertas = todos
-        .filter(function(x) { return ['vencendo', 'vencida'].includes(APP.statusGarantia(x.scooter.garantiaAte)); })
+        .filter(function(x) {
+          var status = APP.statusGarantia(x.scooter.garantiaAte);
+          if (status === 'vencendo') return true;
+          if (status === 'vencida') return garantiaVencidaNosUltimos7Dias(x.scooter.garantiaAte);
+          return false;
+        })
         .sort(function(a, b) { return new Date(a.scooter.garantiaAte) - new Date(b.scooter.garantiaAte); });
 
     function diasTexto(item) {

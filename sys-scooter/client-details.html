@@ -103,6 +103,14 @@
               } else html += '<span class="text-gray-400 text-sm">Nenhum</span>';
               html += '</div></div></div>';
             });
+            html += '<div class="mt-3 pt-3 border-t border-gray-200"><span class="text-gray-500 text-sm block mb-1">Contrato assinado desta venda:</span>';
+            html += '<input type="file" class="upload-contrato-venda" data-venda-index="' + vendaIdx + '" accept="image/jpeg,image/png,image/jpg,image/gif,application/pdf" style="max-width:100%">';
+            var temContratoVenda = venda.scooters.some(function(s) { return s.contrato_assinado && s.contrato_assinado.base64; });
+            if (temContratoVenda) {
+              html += ' <button type="button" class="btn btn-primary btn-sm btn-ver-contrato-venda mt-1" data-venda-index="' + vendaIdx + '">Visualizar</button>';
+              html += ' <button type="button" class="btn btn-secondary btn-sm btn-download-contrato-venda mt-1" data-venda-index="' + vendaIdx + '">Download</button>';
+            }
+            html += '</div>';
             html += '<div class="flex flex-wrap gap-2 pt-4 border-t border-gray-200 no-print">';
             html += '<button type="button" class="btn btn-primary btn-sm btn-contrato-venda" data-venda-index="' + vendaIdx + '"><i class="fas fa-file-contract"></i> Gerar contrato</button>';
             html += '<button type="button" class="btn btn-primary btn-sm btn-recibo-venda" data-venda-index="' + vendaIdx + '"><i class="fas fa-receipt"></i> Recibo</button>';
@@ -137,6 +145,54 @@
               if (Documentos.pacoteVenda) Documentos.pacoteVenda(c, venda.scooters);
               else Documentos.pacoteCompleto({ ...c, ...venda.scooters[0] });
             };
+            var uploadInput = document.querySelector('.upload-contrato-venda[data-venda-index="' + vendaIdx + '"]');
+            if (uploadInput) {
+              uploadInput.addEventListener('change', function() {
+                var file = this.files[0];
+                if (!file) return;
+                var tipo = file.type.indexOf('pdf') >= 0 ? 'pdf' : 'imagem';
+                var reader = new FileReader();
+                reader.onload = async function() {
+                  var newContrato = { tipo: tipo, base64: reader.result };
+                  var updatedScooters = scooters.map(function(s) {
+                    if (venda.scooters.indexOf(s) !== -1) {
+                      var copia = {};
+                      for (var k in s) if (Object.prototype.hasOwnProperty.call(s, k)) copia[k] = s[k];
+                      copia.contrato_assinado = newContrato;
+                      return copia;
+                    }
+                    return s;
+                  });
+                  await APP.updateClient(id, { scooters: updatedScooters });
+                  if (typeof toast === 'function') toast('Contrato assinado salvo.');
+                  window.location.reload();
+                };
+                reader.readAsDataURL(file);
+              });
+            }
+            var btnVerVenda = document.querySelector('.btn-ver-contrato-venda[data-venda-index="' + vendaIdx + '"]');
+            if (btnVerVenda) {
+              var primeiroComContrato = venda.scooters.filter(function(s) { return s.contrato_assinado && s.contrato_assinado.base64; })[0];
+              if (primeiroComContrato) {
+                btnVerVenda.onclick = function() {
+                  var dataUrl = primeiroComContrato.contrato_assinado.base64;
+                  try { var blob = base64DataUrlToBlob(dataUrl); var url = URL.createObjectURL(blob); window.open(url, '_blank'); setTimeout(function() { URL.revokeObjectURL(url); }, 60000); } catch (e) { window.open(dataUrl, '_blank'); }
+                };
+              }
+            }
+            var btnDlVenda = document.querySelector('.btn-download-contrato-venda[data-venda-index="' + vendaIdx + '"]');
+            if (btnDlVenda) {
+              var primeiroComContratoDl = venda.scooters.filter(function(s) { return s.contrato_assinado && s.contrato_assinado.base64; })[0];
+              if (primeiroComContratoDl) {
+                btnDlVenda.onclick = function() {
+                  var s = primeiroComContratoDl;
+                  var dataUrl = s.contrato_assinado.base64;
+                  var ext = s.contrato_assinado.tipo === 'pdf' ? 'pdf' : 'png';
+                  var nomeArquivo = 'contrato-' + (c.nome || 'cliente').replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '') + '-' + (s.modelo || 'scooter').replace(/\s+/g, '-') + '.' + ext;
+                  try { var blob = base64DataUrlToBlob(dataUrl); var url = URL.createObjectURL(blob); var a = document.createElement('a'); a.href = url; a.download = nomeArquivo; a.click(); URL.revokeObjectURL(url); } catch (e) { var a = document.createElement('a'); a.href = dataUrl; a.download = nomeArquivo; a.click(); }
+                };
+              }
+            }
           });
           scooters.forEach(function(s, idx) {
             var btnPdf = document.querySelector('.btn-ver-pdf[data-global-idx="' + idx + '"]');

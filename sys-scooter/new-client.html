@@ -44,20 +44,20 @@
                 <input type="text" id="nome" name="nome" class="form-control" required>
               </div>
               <div class="form-group">
-                <label for="cpf">CPF</label>
-                <input type="text" id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00">
+                <label for="cpf">CPF *</label>
+                <input type="text" id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" required>
               </div>
               <div class="form-group">
                 <label for="rg">RG</label>
                 <input type="text" id="rg" name="rg" class="form-control">
               </div>
               <div class="form-group md:col-span-2">
-                <label for="telefone">Telefone</label>
-                <input type="text" id="telefone" name="telefone" class="form-control" placeholder="(00) 00000-0000">
+                <label for="telefone">Telefone *</label>
+                <input type="text" id="telefone" name="telefone" class="form-control" placeholder="(00) 00000-0000" required>
               </div>
               <div class="form-group md:col-span-2">
-                <label for="endereco">Endereço</label>
-                <input type="text" id="endereco" name="endereco" class="form-control">
+                <label for="endereco">Endereço *</label>
+                <input type="text" id="endereco" name="endereco" class="form-control" required>
               </div>
             </div>
           </div>
@@ -69,8 +69,8 @@
                 <input type="text" id="modelo" name="modelo" class="form-control" required>
               </div>
               <div class="form-group">
-                <label for="cor">Cor</label>
-                <input type="text" id="cor" name="cor" class="form-control">
+                <label for="cor">Cor *</label>
+                <input type="text" id="cor" name="cor" class="form-control" required>
               </div>
               <div class="form-group">
                 <label for="dataVenda">Data da venda *</label>
@@ -81,12 +81,12 @@
                 <input type="date" id="garantiaAte" name="garantiaAte" class="form-control" readonly>
               </div>
               <div class="form-group">
-                <label for="valor">Valor (R$)</label>
-                <input type="text" id="valor" name="valor" class="form-control" placeholder="0,00">
+                <label for="valor">Valor (R$) *</label>
+                <input type="text" id="valor" name="valor" class="form-control" placeholder="0,00" required>
               </div>
               <div class="form-group">
-                <label for="formaPagamento">Forma de pagamento</label>
-                <select id="formaPagamento" name="formaPagamento" class="form-control">
+                <label for="formaPagamento">Forma de pagamento *</label>
+                <select id="formaPagamento" name="formaPagamento" class="form-control" required>
                   <option value="">Selecione</option>
                   <optgroup label="À vista">
                     <option value="pix">PIX</option>
@@ -142,10 +142,6 @@
               </div>
             </div>
             <div class="form-group mt-4">
-              <label for="cidade">Cidade (para o contrato)</label>
-              <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Ex: Palhoça, SC">
-            </div>
-            <div class="form-group mt-4">
               <label for="observacoes">Observações</label>
               <textarea id="observacoes" name="observacoes" class="form-control" rows="3"></textarea>
             </div>
@@ -154,18 +150,6 @@
               <input type="file" id="fotoScooter" name="fotoScooter" class="form-control" accept="image/*">
               <div id="previewFoto" class="mt-2 hidden">
                 <img id="imgPreview" src="" alt="Preview" class="max-h-40 rounded border border-gray-200">
-              </div>
-            </div>
-            <div class="form-group mt-4">
-              <label>Foto ou PDF do contrato assinado</label>
-              <input type="file" id="contratoAssinado" name="contratoAssinado" class="form-control" accept="image/jpeg,image/png,image/jpg,image/gif,application/pdf">
-              <div id="previewContrato" class="mt-2 hidden">
-                <div id="previewContratoImagem" class="hidden">
-                  <img id="imgContratoPreview" src="" alt="Contrato" class="max-h-40 rounded border border-gray-200">
-                </div>
-                <div id="previewContratoPdf" class="hidden text-sm text-gray-600">
-                  <i class="fas fa-file-pdf text-red-500"></i> PDF anexado
-                </div>
               </div>
             </div>
           </div>
@@ -204,9 +188,8 @@
           document.getElementById('rg').value = cli.rg || '';
           document.getElementById('telefone').value = cli.telefone || '';
           document.getElementById('endereco').value = cli.endereco || '';
-          document.getElementById('cidade').value = cli.cidade || '';
           document.getElementById('nome').readOnly = document.getElementById('cpf').readOnly = document.getElementById('rg').readOnly = true;
-          document.getElementById('telefone').readOnly = document.getElementById('endereco').readOnly = document.getElementById('cidade').readOnly = true;
+          document.getElementById('telefone').readOnly = document.getElementById('endereco').readOnly = true;
         }
       } else if (editId) {
         document.getElementById('tituloPagina').textContent = 'Editar Cliente';
@@ -218,7 +201,6 @@
           document.getElementById('rg').value = c.rg || '';
           document.getElementById('telefone').value = c.telefone || '';
           document.getElementById('endereco').value = c.endereco || '';
-          document.getElementById('cidade').value = c.cidade || '';
           var scooters = c.scooters && c.scooters.length ? c.scooters : [];
           var s0 = scooters[0] || {};
           document.getElementById('modelo').value = s0.modelo || '';
@@ -251,18 +233,6 @@
             document.getElementById('imgPreview').src = foto;
             document.getElementById('previewFoto').classList.remove('hidden');
             document.getElementById('formCliente').dataset.fotoScooter = foto;
-          }
-          if (s0.contrato_assinado && s0.contrato_assinado.base64) {
-            document.getElementById('formCliente').dataset.contratoAssinado = JSON.stringify(s0.contrato_assinado);
-            document.getElementById('previewContrato').classList.remove('hidden');
-            if (s0.contrato_assinado.tipo === 'imagem') {
-              document.getElementById('imgContratoPreview').src = s0.contrato_assinado.base64;
-              document.getElementById('previewContratoImagem').classList.remove('hidden');
-              document.getElementById('previewContratoPdf').classList.add('hidden');
-            } else {
-              document.getElementById('previewContratoImagem').classList.add('hidden');
-              document.getElementById('previewContratoPdf').classList.remove('hidden');
-            }
           }
           for (var i = 1; i < scooters.length; i++) adicionarBlocoScooter(scooters[i]);
         }
@@ -362,25 +332,6 @@
       };
       r.readAsDataURL(file);
     });
-    document.getElementById('contratoAssinado').addEventListener('change', function() {
-      const file = this.files[0];
-      if (!file) return;
-      const tipo = file.type.indexOf('pdf') >= 0 ? 'pdf' : 'imagem';
-      const r = new FileReader();
-      r.onload = function() {
-        document.getElementById('formCliente').dataset.contratoAssinado = JSON.stringify({ tipo: tipo, base64: r.result });
-        document.getElementById('previewContrato').classList.remove('hidden');
-        if (tipo === 'imagem') {
-          document.getElementById('imgContratoPreview').src = r.result;
-          document.getElementById('previewContratoImagem').classList.remove('hidden');
-          document.getElementById('previewContratoPdf').classList.add('hidden');
-        } else {
-          document.getElementById('previewContratoImagem').classList.add('hidden');
-          document.getElementById('previewContratoPdf').classList.remove('hidden');
-        }
-      };
-      r.readAsDataURL(file);
-    });
     document.getElementById('formCliente').addEventListener('submit', async function(e) {
       e.preventDefault();
       function lerScooterDoForm(prefix) {
@@ -409,16 +360,13 @@
         var valorRaw = el('valor').value.replace(/\./g, '').replace(',', '.');
         var entradaRaw = el('valorEntrada').value.replace(/\./g, '').replace(',', '.');
         var formaPagamento = el('formaPagamento').value;
-        var rawContrato = document.getElementById('formCliente').dataset.contratoAssinado;
-        var contrato = null;
-        if (rawContrato) try { contrato = JSON.parse(rawContrato); } catch (err) {}
         return {
           nome: el('nome').value.trim(),
           cpf: el('cpf').value.trim(),
           rg: el('rg').value.trim(),
           telefone: el('telefone').value.trim(),
           endereco: el('endereco').value.trim(),
-          cidade: el('cidade').value.trim(),
+          cidade: 'Palhoça',
           modelo: el('modelo').value.trim(),
           cor: el('cor').value.trim(),
           dataVenda: el('dataVenda').value,
@@ -434,7 +382,7 @@
           })(),
           observacoes: el('observacoes').value.trim(),
           foto_scooter: document.getElementById('formCliente').dataset.fotoScooter || null,
-          contrato_assinado: contrato
+          contrato_assinado: null
         };
       }
       if (clientId) {
