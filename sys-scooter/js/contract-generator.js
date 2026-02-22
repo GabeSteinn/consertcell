@@ -88,7 +88,6 @@ var ContractGenerator = (function() {
       cidade: cliente.cidade || 'Palhoça, SC',
       data_assinatura: formatarData(new Date().toISOString()),
       objeto_plural: n > 1
-  var RAW_HTML_KEYS_VENDA = ['bloco_acessorio', 'lista_itens'];
     };
   }
   var RAW_HTML_KEYS = ['bloco_acessorio', 'lista_itens'];

@@ -120,8 +120,10 @@
           }
           vendas.forEach(function(venda, vendaIdx) {
             document.querySelector('.btn-contrato-venda[data-venda-index="' + vendaIdx + '"]').onclick = function() {
-              if (typeof ContractGenerator !== 'undefined' && ContractGenerator.abrirEImprimirVenda) ContractGenerator.abrirEImprimirVenda(c, venda.scooters);
-              else ContractGenerator.abrirEImprimir({ ...c, ...venda.scooters[0] });
+              if (typeof ContractGenerator !== 'undefined') {
+                if (ContractGenerator.abrirEImprimirVenda && venda.scooters && venda.scooters.length > 1) ContractGenerator.abrirEImprimirVenda(c, venda.scooters);
+                else if (ContractGenerator.abrirEImprimir && venda.scooters && venda.scooters[0]) ContractGenerator.abrirEImprimir({ ...c, ...venda.scooters[0] });
+              }
             };
             document.querySelector('.btn-recibo-venda[data-venda-index="' + vendaIdx + '"]').onclick = function() {
               if (Documentos.reciboVenda) Documentos.reciboVenda(c, venda.scooters);
