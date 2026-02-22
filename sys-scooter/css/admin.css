@@ -408,7 +408,7 @@ body {
   }
 }
 
-/* Tabela - scroll horizontal em telas menores */
+/* Tabela - desktop: tabela normal; mobile/tablet: layout em cards */
 .table-wrap {
   background: white;
   border-radius: 0.5rem;
@@ -432,18 +432,84 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .table-admin th,
-  .table-admin td {
-    padding: 0.875rem 0.75rem;
-    font-size: 0.9375rem;
+  .table-wrap {
+    overflow-x: visible;
+  }
+  .table-admin {
+    min-width: 0;
+  }
+  .table-admin thead {
+    display: none;
+  }
+  .table-admin tbody tr {
+    display: block;
+    width: 100%;
+  }
+  .table-admin tbody tr:not(.client-row):not(.expand-row) td {
+    display: block;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border: none;
+  }
+  .table-admin .client-row,
+  .table-admin .expand-row {
+    display: block;
+    width: 100%;
+  }
+  .table-admin .client-row {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
   }
   .table-admin .client-row td {
-    min-height: var(--touch-min);
-    vertical-align: middle;
+    display: block;
+    padding: 0.35rem 0;
+    border: none;
+    min-height: 0;
+    vertical-align: top;
   }
-  .table-admin .expand-cell {
-    width: 48px;
-    padding-left: 0.5rem;
+  .table-admin .client-row td::before {
+    content: attr(data-label);
+    display: inline-block;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #64748b;
+    margin-right: 0.5rem;
+    min-width: 5rem;
+  }
+  .table-admin .client-row td.expand-cell {
+    display: none;
+  }
+  .table-admin .client-row td[data-label="Nome"]::before {
+    display: none;
+  }
+  .table-admin .client-row td[data-label="Nome"] {
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 0.25rem;
+  }
+  .table-admin .client-row td .actions {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #f1f5f9;
+  }
+  .table-admin .expand-row td {
+    display: block;
+    padding: 0;
+    border: none;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .table-admin .client-row td {
+    font-size: 0.9375rem;
   }
   .table-admin .actions {
     gap: 0.5rem;

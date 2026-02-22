@@ -118,12 +118,12 @@
         var rowId = 'row-' + (client.id || '').replace(/[^a-zA-Z0-9_-]/g, '');
         var expandId = 'expand-' + rowId;
         html += '<tr class="client-row cursor-pointer hover:bg-gray-50" data-client-id="' + escapeHtml(client.id) + '" data-expand-id="' + expandId + '" role="button" tabindex="0" aria-expanded="false" aria-controls="' + expandId + '" title="Clique para expandir ou recolher">';
-        html += '<td class="expand-cell w-10 py-3"><i class="fas fa-chevron-right expand-icon text-gray-400 transition-transform" style="font-size:.7rem" aria-hidden="true"></i></td>';
-        html += '<td class="font-medium">' + escapeHtml(client.nome || '-') + '</td>';
-        html += '<td>' + r.total + ' scooter' + (r.total !== 1 ? 's' : '') + '</td>';
-        html += '<td>' + vendasText + '</td>';
-        html += '<td>' + resumoGarantiasText(r) + '</td>';
-        html += '<td onclick="event.stopPropagation()"><div class="actions">' +
+        html += '<td class="expand-cell w-10 py-3" data-label=""><i class="fas fa-chevron-right expand-icon text-gray-400 transition-transform" style="font-size:.7rem" aria-hidden="true"></i></td>';
+        html += '<td class="font-medium" data-label="Nome">' + escapeHtml(client.nome || '-') + '</td>';
+        html += '<td data-label="Scooters">' + r.total + ' scooter' + (r.total !== 1 ? 's' : '') + '</td>';
+        html += '<td data-label="Venda(s)">' + vendasText + '</td>';
+        html += '<td data-label="Garantias">' + resumoGarantiasText(r) + '</td>';
+        html += '<td data-label="Ações" onclick="event.stopPropagation()"><div class="actions">' +
           '<a href="client-details.html?id=' + encodeURIComponent(client.id) + '" class="btn btn-primary btn-sm">Ver</a> ' +
           '<a href="new-client.html?id=' + encodeURIComponent(client.id) + '" class="btn btn-secondary btn-sm">Editar</a> ' +
           '<button type="button" class="btn btn-danger btn-sm btn-delete-client" data-id="' + escapeHtml(client.id) + '" data-nome="' + escapeHtml(client.nome || '') + '">Excluir</button>' +
