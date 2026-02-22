@@ -30,10 +30,7 @@ Não use abrir os arquivos direto no PC (file://) – o login e os dados depende
 
 ## Login
 
-- **Usuário:** neia  
-- **Senha:** yasmin18
-
-(As credenciais estão no PHP em `api/index.php`; você pode alterar lá se quiser mudar a senha.)
+As credenciais ficam em **`api/config.php`** (não versionado). Crie esse arquivo a partir de **`api/config.example.php`** e defina `user` e `password`. Nunca commite o `config.php` no Git.
 
 **Backup automático:** o script `api/backup.php` grava em `data/backups/` (crie a pasta e deixe gravável). Agende no cron do servidor, por exemplo: `0 3 * * * curl -s "https://seusite.com.br/sys-scooter/api/backup.php?token=SEU_TOKEN"`. O token está na variável `$BACKUP_SECRET` em `api/backup.php`.
 

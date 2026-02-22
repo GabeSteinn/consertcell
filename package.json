@@ -1,0 +1,9 @@
+{
+  "name": "consertcell",
+  "version": "1.0.0",
+  "description": "Cert.Cell + Sys-Scooter",
+  "private": true,
+  "dependencies": {
+    "@upstash/redis": "^1.34.0"
+  }
+}

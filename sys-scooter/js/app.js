@@ -65,7 +65,8 @@ const APP = {
   },
 
   async apiRequest(method, action, body, needAuth) {
-    const url = this.API_BASE + '/index.php?action=' + encodeURIComponent(action);
+    const base = this.API_BASE;
+    const url = (base === 'api' || base.endsWith('/api')) ? (base + '/index.php?action=' + encodeURIComponent(action)) : (base + '?action=' + encodeURIComponent(action));
     const opts = { method, headers: { 'Content-Type': 'application/json' } };
     if (body !== undefined) opts.body = JSON.stringify(body);
     const token = this.getAuthToken();
