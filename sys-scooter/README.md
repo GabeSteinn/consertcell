@@ -40,23 +40,27 @@ Ao clonar o repositório ou fazer deploy, crie **`api/config.php`** no servidor 
 - `js/config.example.js` – Exemplo para uso offline; copie para `config.js` (não versionado) e preencha.
 - Páginas: login, dashboard, clientes, novo/editar cliente, detalhes do cliente, relatórios, configuração
 
-## Enviar para o GitHub
+## Enviar para o GitHub (com segurança)
 
-No PowerShell (ou terminal), na pasta do projeto:
+**Antes de cada push**, confira que credenciais não vão junto:
 
 ```powershell
-cd "d:\scooter\consertcell\sys-scooter"
-
-git init
-git add .
-git commit -m "Sys-Scooter: sistema responsivo, dados no servidor quando online"
-
-git remote add origin https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
-git branch -M main
-git push -u origin main
+cd d:\scooter\consertcell
+git status
 ```
 
-Substitua `SEU_USUARIO/SEU_REPOSITORIO` pela URL do repositório que você criou no GitHub. Se o repositório já existir e tiver arquivos, use `git pull origin main --rebase` antes do primeiro `git push`.
+**Não** deve aparecer: `api/config.php`, `js/config.js`, nem arquivos em `data/*.json`. Se aparecer, não faça commit desses arquivos.
+
+Depois:
+
+```powershell
+git add .
+git status
+git commit -m "Sys-Scooter: atualizações"
+git push origin main
+```
+
+Se o repositório for só o sys-scooter em outra pasta, use `cd d:\scooter\consertcell\sys-scooter` e o mesmo fluxo. O `.gitignore` evita que `api/config.php`, `js/config.js` e `data/*.json` sejam commitados. Veja **SECURITY.md** para mais detalhes.
 
 ## Licença
 

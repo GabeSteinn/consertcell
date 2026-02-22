@@ -1,0 +1,20 @@
+# ===========================================
+# NUNCA commitar credenciais ou dados reais
+# ===========================================
+
+# Sys-Scooter: login/senha e dados (não versionar)
+sys-scooter/api/config.php
+sys-scooter/js/config.js
+sys-scooter/data/*.json
+!sys-scooter/data/.gitkeep
+
+# OS e IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log

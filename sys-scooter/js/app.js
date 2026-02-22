@@ -10,7 +10,9 @@ const APP = {
   CLIENTS_KEY: 'sys_scooter_clients',
   WHATSAPP_MSG_KEY: 'sys_scooter_whatsapp_msg',
   GARANTIA_DIAS: 90,
-  API_BASE: 'api',
+  get API_BASE() {
+    return (typeof window !== 'undefined' && window.SYS_SCOOTER_API_BASE) ? window.SYS_SCOOTER_API_BASE : 'api';
+  },
   get LOCAL_USER() {
     return (typeof window !== 'undefined' && window.SYS_SCOOTER_LOCAL_CREDENTIALS && window.SYS_SCOOTER_LOCAL_CREDENTIALS.user) || '';
   },
@@ -136,7 +138,10 @@ const APP = {
         }
         return { ok: true };
       }
-      return { ok: false, error: 'Servidor indisponível. Para uso offline, crie js/config.js a partir de js/config.example.js.' };
+      if (this.isFileProtocol()) {
+        return { ok: false, error: 'Servidor indisponível. Para uso offline, crie js/config.js a partir de js/config.example.js.' };
+      }
+      return { ok: false, error: 'Não foi possível conectar ao servidor. O sistema precisa da API (PHP) para login online. Hospede a pasta api/ em um servidor com PHP ou configure a URL da API em js/config.js (apiBase).' };
     }
   },
 
