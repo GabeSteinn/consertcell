@@ -40,6 +40,7 @@ body {
   display: flex;
   flex-direction: column;
   box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  overflow-y: auto;
 }
 
 .sidebar-brand {
@@ -94,6 +95,42 @@ body {
 
 .sidebar-overlay.show {
   opacity: 1;
+  display: block;
+  pointer-events: auto;
+}
+
+/* Botão hamburger no header (visível só em telas menores) */
+.header-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  margin-right: 0.5rem;
+  background: #e2e8f0;
+  border: none;
+  border-radius: var(--radius);
+  color: #475569;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: background var(--transition);
+}
+.header-menu-toggle:hover {
+  background: #cbd5e1;
+  color: #334155;
+}
+@media (max-width: 1024px) {
+  .header-menu-toggle {
+    display: flex;
+  }
+}
+@media (min-width: 1025px) {
+  .header-menu-toggle {
+    display: none !important;
+  }
 }
 
 /* Tablet e celular: sidebar como drawer para dar mais espaço ao conteúdo */
@@ -114,10 +151,19 @@ body {
     height: var(--touch-min);
     min-width: var(--touch-min);
     min-height: var(--touch-min);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  .sidebar .sidebar-brand {
+    padding-right: 3rem;
   }
   .main-wrap {
     margin-left: 0;
+    min-width: 0;
+    width: 100%;
   }
+  body { overflow-x: hidden; }
   .sidebar-overlay.show {
     display: block;
   }
