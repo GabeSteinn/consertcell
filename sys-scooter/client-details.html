@@ -97,10 +97,6 @@
               var fotoScooter = APP.getFotoScooter(c, s);
               if (fotoScooter) html += '<img src="' + fotoScooter.replace(/"/g, '&quot;') + '" alt="Scooter" class="mt-1 max-h-32 rounded border border-gray-200 object-contain">';
               else html += '<span class="text-gray-400 text-sm">Sem foto</span>';
-              html += '</div><div><span class="text-gray-500 text-sm">Contrato assinado:</span> ';
-              if (s.contrato_assinado && s.contrato_assinado.base64) {
-                html += '<button type="button" class="btn btn-primary btn-sm btn-ver-pdf mt-1" data-global-idx="' + globalIdx + '">Visualizar</button> <button type="button" class="btn btn-secondary btn-sm btn-download-contrato mt-1" data-global-idx="' + globalIdx + '">Download</button>';
-              } else html += '<span class="text-gray-400 text-sm">Nenhum</span>';
               html += '</div></div></div>';
             });
             html += '<div class="mt-3 pt-3 border-t border-gray-200"><span class="text-gray-500 text-sm block mb-1">Contrato assinado desta venda:</span>';
@@ -109,6 +105,7 @@
             if (temContratoVenda) {
               html += ' <button type="button" class="btn btn-primary btn-sm btn-ver-contrato-venda mt-1" data-venda-index="' + vendaIdx + '">Visualizar</button>';
               html += ' <button type="button" class="btn btn-secondary btn-sm btn-download-contrato-venda mt-1" data-venda-index="' + vendaIdx + '">Download</button>';
+              html += ' <button type="button" class="btn btn-danger btn-sm btn-excluir-contrato-venda mt-1" data-venda-index="' + vendaIdx + '"><i class="fas fa-trash"></i> Excluir</button>';
             }
             html += '</div>';
             html += '<div class="flex flex-wrap gap-2 pt-4 border-t border-gray-200 no-print">';
@@ -193,22 +190,22 @@
                 };
               }
             }
-          });
-          scooters.forEach(function(s, idx) {
-            var btnPdf = document.querySelector('.btn-ver-pdf[data-global-idx="' + idx + '"]');
-            if (btnPdf && s.contrato_assinado && s.contrato_assinado.base64) {
-              btnPdf.onclick = function() {
-                var dataUrl = s.contrato_assinado.base64;
-                try { var blob = base64DataUrlToBlob(dataUrl); var url = URL.createObjectURL(blob); window.open(url, '_blank'); setTimeout(function() { URL.revokeObjectURL(url); }, 60000); } catch (e) { window.open(dataUrl, '_blank'); }
-              };
-            }
-            var btnDl = document.querySelector('.btn-download-contrato[data-global-idx="' + idx + '"]');
-            if (btnDl && s.contrato_assinado && s.contrato_assinado.base64) {
-              btnDl.onclick = function() {
-                var dataUrl = s.contrato_assinado.base64;
-                var ext = s.contrato_assinado.tipo === 'pdf' ? 'pdf' : 'png';
-                var nomeArquivo = 'contrato-' + (c.nome || 'cliente').replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]/g, '') + '-' + (s.modelo || 'scooter').replace(/\s+/g, '-') + '.' + ext;
-                try { var blob = base64DataUrlToBlob(dataUrl); var url = URL.createObjectURL(blob); var a = document.createElement('a'); a.href = url; a.download = nomeArquivo; a.click(); URL.revokeObjectURL(url); } catch (e) { var a = document.createElement('a'); a.href = dataUrl; a.download = nomeArquivo; a.click(); }
+            var btnExcluirVenda = document.querySelector('.btn-excluir-contrato-venda[data-venda-index="' + vendaIdx + '"]');
+            if (btnExcluirVenda) {
+              btnExcluirVenda.onclick = async function() {
+                if (!confirm('Remover o contrato assinado desta venda?')) return;
+                var updatedScooters = scooters.map(function(s) {
+                  if (venda.scooters.indexOf(s) !== -1) {
+                    var copia = {};
+                    for (var k in s) if (Object.prototype.hasOwnProperty.call(s, k)) copia[k] = s[k];
+                    copia.contrato_assinado = null;
+                    return copia;
+                  }
+                  return s;
+                });
+                await APP.updateClient(id, { scooters: updatedScooters });
+                if (typeof toast === 'function') toast('Contrato assinado removido.');
+                window.location.reload();
               };
             }
           });
