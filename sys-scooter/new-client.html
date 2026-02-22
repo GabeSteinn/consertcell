@@ -471,7 +471,9 @@
           var clienteSalvo = await APP.addClient(data);
           toast('Cliente cadastrado. Abrindo contrato...');
           var flat = clienteSalvo.scooters && clienteSalvo.scooters[0] ? { ...clienteSalvo, ...clienteSalvo.scooters[0] } : clienteSalvo;
-          ContractGenerator.abrirEImprimir(flat);
+          if (typeof ContractGenerator !== 'undefined' && ContractGenerator.abrirEImprimir) {
+            ContractGenerator.abrirEImprimir(flat);
+          }
         } else {
           await APP.addClient({ nome: data0.nome, cpf: data0.cpf, rg: data0.rg, telefone: data0.telefone, endereco: data0.endereco, cidade: data0.cidade, scooters: scooters });
           toast('Cliente cadastrado com ' + scooters.length + ' scooters.');
